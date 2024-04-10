@@ -1,14 +1,13 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Landing from './views/Landing/Landing';
+import { Route, Routes } from 'react-router-dom';
+import Home from './views/Home/Home';
 
 function App() {
   return (
     <div className="text-3xl font-bold underline">
-      <Router>
+        {/* <NavBar/> */}
         <Routes>
-          <Route path='/' element={<Landing/>}/>
+          <Route path='/' element={<Home/>}/>
         </Routes>
-      </Router>
     </div>
   )
 }
