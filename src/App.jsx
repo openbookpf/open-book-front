@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
+import About from "./components/About/About"
+import Cards from "./components/Cards/Cards"
 
 function App() {
     return (
@@ -8,9 +10,11 @@ function App() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/libros" element={<Cards />} />
+                <Route path="/nosotros" element={<About />} />
             </Routes>
         </div>
     );
-}
+};
 
 export default App;
