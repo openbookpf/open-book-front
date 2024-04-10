@@ -1,9 +1,13 @@
+import { Route, Routes } from 'react-router-dom';
+import Landing from './views/Landing/Landing';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="text-3xl font-bold underline">
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+      </Routes>
+    </div>
   )
 }
 
