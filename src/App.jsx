@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./views/Landing/Landing";
+import { Route, Routes } from 'react-router-dom';
+import Home from './views/Home/Home';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
-    return (
-        <div className="text-3xl font-poppins text-cyan-0 mx-5">
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Landing />} />
-                </Routes>
-            </Router>
-        </div>
-    );
+  return (
+    <div className="text-3xl font-bold underline">
+        <NavBar/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+    </div>
+  )
 }
 
 export default App;
