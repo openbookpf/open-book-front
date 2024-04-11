@@ -71,7 +71,7 @@ module.exports = [
     author: "Mariana Enriquez",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/051d14ff-58cb-4538-8008-57500c041a8f/a7e12dc1-e7f7-4d35-89b3-0e73b7885354.jpg",
-    genre: "Terror",
+    genre: "Horror",
     book_description:
       "Un padre y un hijo atraviesan Argentina por carretera, desde Buenos Aires hacia las cataratas de Iguazú, en la frontera norte con Brasil. ",
     price: 20,
