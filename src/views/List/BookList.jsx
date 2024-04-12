@@ -78,7 +78,7 @@ const BookList = () => {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      className="stroke-white-0 m-2"
+                      className="stroke-slate-50 m-2"
                       class="icon icon-tabler icons-tabler-outline icon-tabler-heart"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

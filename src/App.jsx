@@ -6,7 +6,7 @@ import Detail from "./views/Detail/Detail";
 
 function App() {
   return (
-    <div className="App flex text-3xl font-poppins text-orange-0 mx-5">
+    <div className="App flex text-3xl font-poppins mx-5">
       <NavBar />
       <Routes>
         <Route path="/detail/:isbn" element={<Detail />} />
