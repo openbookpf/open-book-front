@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     ISBN: "9780345803474",
     book_title: "To Kill a Mockingbird",
