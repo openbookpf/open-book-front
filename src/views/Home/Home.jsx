@@ -3,9 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <>
-      <>nav</>
       <div>
-        <div class="">Logo</div>
         <div class="">cards</div>
         {/* <Cards/> */}
       </div>
