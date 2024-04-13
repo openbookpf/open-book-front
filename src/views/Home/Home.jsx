@@ -7,9 +7,6 @@ const Home = () => {
         <div className="font-bold text-black">
           <h1>Logo</h1>
         </div>
-        <div className="text-orange-0">
-          <p>cards</p>
-        </div>
         {/* <Cards/> */}
       </div>
       <footer>
