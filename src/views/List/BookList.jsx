@@ -3,11 +3,9 @@ import arrayLibros from "../../data/arrayLibros";
 const BookList = () => {
   let numLibros = arrayLibros.length;
   return (
-    <div className="mx-auto mt-5">
-      <h1 className="font-bold text-black">Todos los libros</h1>
-      <p className="font-light text-sm text-gray-500">
-        Tenemos {numLibros} libros disponibles
-      </p>
+    <div className="mx-auto mt-20">
+      <h1 className="font-bold text-black">All of our books</h1>
+      <p className="font-light text-lg text-gray-500">{numLibros} results</p>
 
       <div className="flex flex-row justify-center content-center">
         <div className="grid grid-cols-4 my-11 gap-6 mx-auto p-2 ">
@@ -28,7 +26,6 @@ const BookList = () => {
                   <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
                     <a
                       href={`http://localhost:5173/detail/${book.ISBN}`}
-                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       <p className="font-bold truncate hover:underline hover:cursor-pointer  delay-200 text-base w-full">
