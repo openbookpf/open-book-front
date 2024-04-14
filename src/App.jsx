@@ -8,13 +8,13 @@ import Cards from "./components/Cards/Cards";
 
 function App() {
   return (
-    <div className="App flex text-3xl font-poppins mx-5">
+    <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Cards />} />
+        {/* <Route path="/books" element={<Cards />} /> */}
         <Route path="/aboutus" element={<About />} />
-        <Route path="/libros" element={<BookList />} />
+        <Route path="/books" element={<BookList />} />
         <Route path="/detail/:isbn" element={<Detail />} />
       </Routes>
     </div>
