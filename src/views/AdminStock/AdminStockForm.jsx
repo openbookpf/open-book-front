@@ -9,22 +9,12 @@ const AdminStockForm = () => {
   const [isbnForSeach, setIsbnForSearch] = React.useState("");
   const [filteredBooks, setFilteredBooks] = React.useState([]);
 
-  const addStockAtrributeToData = () => {
-    setAllBooks((prev) => {
-      const newArray = prev.map((book) => {
-        return { ...book, stock: Math.floor(Math.random() * 100) };
-      });
-      setFilteredBooks(newArray);
-      return newArray;
-    });
-  };
-
   React.useEffect(() => {
     axios
       .get("https://open-book-back.onrender.com/book")
       .then(({ data }) => {
         setAllBooks(data);
-        addStockAtrributeToData();
+        setFilteredBooks(data);
       })
       .catch((error) => {
         console.error(error);
@@ -116,7 +106,7 @@ const AdminStockForm = () => {
                     <td className="flex align-center justify-center content-center">
                       <input
                         className="w-14"
-                        value={book.stock}
+                        value={book.quantity}
                         type="number"
                       />
 
@@ -135,6 +125,7 @@ const AdminStockForm = () => {
                         className="w-max"
                         name="book_status"
                         id="book_status"
+                        value={book.book_status ? "ACTIVE" : "INACTIVE"}
                       >
                         <option value="ACTIVE">ACTIVE</option>
                         <option value="INACTIVE">INACTIVE</option>
