@@ -1,0 +1,16 @@
+export default [
+  "Action",
+  "Adventure",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Fiction",
+  "Historical Fiction",
+  "Horror",
+  "Mystery",
+  "Romance",
+  "Science Fiction",
+  "Self-Help",
+  "Thriller",
+  "Western",
+];

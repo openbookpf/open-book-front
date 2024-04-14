@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
+import { IoMdAdd } from "react-icons/io";
+
 import logo from "../../assets/TrasparentLightMoodLogo.png";
 
 const NavBar = () => {
@@ -48,6 +50,15 @@ const NavBar = () => {
       </div>
 
       <div className="flex flex-row mr-8 gap-8">
+        <Link
+          to="/aboutus"
+          className="text-white-0 hover:bg-[#D48620] bg-orange-0 align-middle my-auto rounded-lg text-sm font-medium hover:scale-110 transition-transform delay-50"
+        >
+          <div className="flex flex-row gap-1 p-1 align-middle mx-auto my-auto">
+            <p className="my-auto px-2"> Add Book</p>
+            <IoMdAdd className="text-2xl " />
+          </div>
+        </Link>
         <Link to="/log-in" className="text-black">
           <AiOutlineUser className="text-3xl  hover:scale-110 transition-transform delay-50" />
         </Link>
