@@ -51,7 +51,7 @@ const NavBar = () => {
 
       <div className="flex flex-row mr-8 gap-8">
         <Link
-          to="/aboutus"
+          to="/create_book"
           className="text-white-0 hover:bg-[#D48620] bg-orange-0 align-middle my-auto rounded-lg text-sm font-medium hover:scale-110 transition-transform delay-50"
         >
           <div className="flex flex-row gap-1 p-1 align-middle mx-auto my-auto">

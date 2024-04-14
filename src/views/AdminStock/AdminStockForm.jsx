@@ -105,7 +105,7 @@ const AdminStockForm = () => {
 
                     <td className="flex align-center justify-center content-center">
                       <input
-                        className="w-14"
+                        className="w-14 px-1 font-bold"
                         value={book.quantity}
                         type="number"
                       />
@@ -120,9 +120,9 @@ const AdminStockForm = () => {
                       </button>
                     </td>
 
-                    <td className="px-auto">
+                    <td className="px-6">
                       <select
-                        className="w-max"
+                        className="w-max font-bold"
                         name="book_status"
                         id="book_status"
                         value={book.book_status ? "ACTIVE" : "INACTIVE"}
