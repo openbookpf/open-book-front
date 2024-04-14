@@ -50,11 +50,11 @@ const AdminStockForm = () => {
   };
 
   return filteredBooks && allBooks?.length ? (
-    <div className="container w-2/3 p">
+    <div className="container w-2/3 p mx-auto mt-20">
       <div>
         <div className="w-full flex justify-center items-center bg-orange-0 bg-opacity-25">
           <h5 className="w-fit px-11 text-black font-bold">
-            FORMULARIO DE ADMINISTRACIÓN DE STOCK
+            STOCK MANAGEMENT CONTROL PANEL
           </h5>
         </div>
         <div className="flex flex-row justify-start border-2">
@@ -62,7 +62,7 @@ const AdminStockForm = () => {
             className="w-1/8 text-lg text-black px-2 font-bold flex align-center justify-center items-center"
             htmlFor="ISBN"
           >
-            ISBN NUMBER
+            SEARCH BY ISBN NUMBER
           </label>
           <input
             className="w-1/4 border-2 border-blue-0 rounded-lg text-base px-2 text-blue-0 border-opacity-50"
@@ -74,7 +74,7 @@ const AdminStockForm = () => {
             autoComplete="off"
           />
           <span className="w-1/8 text-lg text-black px-2 font-bold flex align-center justify-center items-center">
-            CREAR REGISTRO
+            CREATE ENTRY
           </span>
           <button
             className="flex align-center justify-center items-center"

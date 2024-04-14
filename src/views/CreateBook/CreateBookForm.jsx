@@ -17,20 +17,28 @@ const CreateBookForm = () => {
     console.log(event.target.files[0]);
   };
 
+  function stripValues(str) {
+    return Number(str.replace(/\D/g, ""));
+  }
+
   const handleUpload = async (event) => {
     event.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("book_cover", selectedFile);
-      formData.append("ISBN", bookData.ISBN);
+      formData.append("book_cover_url", selectedFile);
+      formData.append("ISBN", stripValues(bookData.ISBN));
       formData.append("book_title", bookData.book_title);
       formData.append("author", bookData.author);
       formData.append("book_description", bookData.book_description);
       formData.append("genre", bookData.genre);
-      formData.append("price", bookData.price);
+      formData.append("price", Number(bookData.price));
+
+      console.log("THIS IS THE DATA", formData);
 
       // Send the image data to your backend
       const response = await axios.post(
+        // "https://open-book-back.onrender.com/book"
+
         "http://localhost:3001/book",
         formData,
         {
@@ -61,14 +69,14 @@ const CreateBookForm = () => {
   };
 
   return (
-    <div>
+    <div className="mx-auto mt-20">
       <form
         className="container border border-orange-0 border-opacity-50"
         action="submit"
       >
         <div className="w-full flex justify-center items-center bg-orange-0 bg-opacity-25">
           <h5 className="w-fit px-11 text-black font-bold">
-            FORMULARIO DE REGISTRO DE STOCK
+            STOCK CREATION FORM: Register your Book
           </h5>
         </div>
 
