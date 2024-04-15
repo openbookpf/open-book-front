@@ -34,12 +34,12 @@ const NavBar = () => {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             to="/books"
             className="text-black hover:underline hover:scale-110 transition-transform delay-50"
           >
             Books
-          </Link>
+          </Link> */}
           <Link
             to="/aboutus"
             className="text-black hover:underline hover:scale-110 transition-transform delay-50"

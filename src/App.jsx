@@ -13,10 +13,10 @@ function App() {
     <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         {/* <Route path="/books" element={<Cards />} /> */}
         <Route path="/aboutus" element={<About />} />
-        <Route path="/books" element={<BookList />} />
+        <Route path="/" element={<BookList />} />
         <Route path="/detail/:isbn" element={<Detail />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
