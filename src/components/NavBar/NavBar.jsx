@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import Searchbar from "../Searchbar/Searchbar";
+import { useLocation } from "react-router-dom";
 
 import logo from "../../assets/TrasparentLightMoodLogo.png";
 
 const NavBar = () => {
   const [trigger, setTrigger] = React.useState(false);
+
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
     <div>
@@ -52,14 +56,16 @@ const NavBar = () => {
             </Link>
           </div>
         </div>
-        <div>
-          <input
-            className="px-2 py-2 text-sm round rounded-lg"
-            type="text"
-            placeholder="🔍 Search a book"
-            onClick={() => setTrigger(true)}
-          />
-        </div>
+        {location.pathname !== "/" ? (
+          <div>
+            <input
+              className="px-2 py-2 text-sm round rounded-lg"
+              type="text"
+              placeholder="🔍 Search a book"
+              onClick={() => setTrigger(true)}
+            />
+          </div>
+        ) : null}
 
         <div className="flex flex-row mr-8 gap-8">
           <Link
