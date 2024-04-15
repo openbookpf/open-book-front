@@ -44,7 +44,7 @@ export default [
     price: 15.99,
   },
   {
-    ISBN: "784-025100508-8",
+    ISBN: "7840251005088",
     book_title: "Fuenteovejuna",
     author: "Lope de Vega",
     book_cover_url:
@@ -71,14 +71,14 @@ export default [
     author: "Mariana Enriquez",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/051d14ff-58cb-4538-8008-57500c041a8f/a7e12dc1-e7f7-4d35-89b3-0e73b7885354.jpg",
-    genre: "Terror",
+    genre: "Horror",
     book_description:
       "Un padre y un hijo atraviesan Argentina por carretera, desde Buenos Aires hacia las cataratas de Iguazú, en la frontera norte con Brasil. ",
     price: 20,
   },
 
   {
-    ISBN: "978-846634243-8",
+    ISBN: "9788466342438",
     book_title: "Fuera de Serie Outliers",
     author: "Malcolm Gladwell",
     book_cover_url:
@@ -89,12 +89,12 @@ export default [
     price: 10.0,
   },
   {
-    ISBN: "978-841839563-5",
+    ISBN: "9788418395635",
     book_title: "Robinson Crusoe Td",
     author: "Defoe, Daniel",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/3a42fcf346f04b514de4707bb1590a91.jpg",
-    genre: "Aventure",
+    genre: "Adventure",
     book_description:
       "Tras una travesía llena de aventuras y peligros, el marinero Robinson Crusoe naufraga en una isla desierta donde le esperan más de dos décadas de absoluta soledad.",
     price: 30.0,
@@ -187,17 +187,7 @@ export default [
       "The hero-narrator of The Catcher in the Rye is an ancient child of sixteen, a native New Yorker named Holden Caulfield. Through circumstances that tend to preclude adult, secondhand description, he leaves his prep school in Pennsylvania and goes underground in New York City for three days.",
     price: 11.99,
   },
-  {
-    ISBN: "9780743273565",
-    book_title: "The Kite Runner",
-    author: "Khaled Hosseini",
-    book_cover_url:
-      "https://images-na.ssl-images-amazon.com/images/I/81kJ1zj06pL.jpg",
-    genre: "Fiction",
-    book_description:
-      "The Kite Runner is a novel about friendship, betrayal, and the price of loyalty. It is about the bonds between fathers and sons, and the power of their lies to define our destiny. A sweeping story of family, love, and friendship told against the devastating backdrop of the history of Afghanistan over the last thirty years.",
-    price: 13.99,
-  },
+
   {
     ISBN: "9780679783268",
     book_title: "The Great Gatsby",
