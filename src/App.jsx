@@ -7,6 +7,7 @@ import About from "./components/About/About";
 // import Cards from "./components/Cards/Cards";
 import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
+import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/detail/:isbn" element={<Detail />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
+        <Route path="/searchbook" element={<ShowSearchByName />} />
       </Routes>
     </div>
   );

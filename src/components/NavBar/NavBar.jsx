@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
+import Searchbar from "../Searchbar/Searchbar";
 
 import logo from "../../assets/TrasparentLightMoodLogo.png";
 
@@ -47,6 +48,9 @@ const NavBar = () => {
             About Us
           </Link>
         </div>
+      </div>
+      <div>
+        <Searchbar />
       </div>
 
       <div className="flex flex-row mr-8 gap-8">
