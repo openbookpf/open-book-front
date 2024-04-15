@@ -4,15 +4,23 @@ import {
   GET_BOOKS,
   SORT_BY_PRICE,
   SORT_BY_TITLE,
+  SEARCH_BOOK_BY_NAME,
+  CHANGE_NAME,
 } from "./actions";
 
 const initialState = {
   books: [], // Suponiendo que tienes una lista inicial de libros
   filteredBooks: [],
+  searchbook: [],
+  searchname: "",
 };
 
 function booksReducer(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_NAME:
+      return { ...state, searchname: action.payload };
+    case SEARCH_BOOK_BY_NAME:
+      return { ...state, searchbook: action.payload };
     case FILTER_BOOKS_BY_GENRE:
       // return {
       //   ...state,

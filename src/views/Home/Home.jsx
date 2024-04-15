@@ -1,8 +1,29 @@
 import React from "react";
 import { Carousel } from "primereact/carousel";
 import Card from "../../components/Card/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { change_name, search_book_by_name } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ books }) => {
+  const newName = useSelector((state) => state.searchname);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function changehandler(event) {
+    if (event.target.name === "searchBar") {
+      dispatch(change_name(event.target.value));
+    }
+  }
+
+  function busqueda() {
+    dispatch(search_book_by_name(newName));
+    navigate("/searchbook");
+  }
+  React.useEffect(() => {
+    console.log(newName);
+  }, [newName]);
+
   const bookTemplate = (book) => {
     return <Card book={book} key={book.ISBN} />;
   };
@@ -30,6 +51,20 @@ const Home = ({ books }) => {
             Welcome to <strong>OpenBook</strong>, your definitive literary
             destination
           </h3>
+          <div className="w-full flex content-center items-center justify-center">
+            <input
+              className="z-20 w-1/2 px-2 py-2 rounded-lg text-lg"
+              type="text"
+              name="searchBar"
+              id=""
+              placeholder="Search for a Book..."
+              onChange={changehandler}
+              value={newName}
+            />
+            <button className="ml-[-45px] z-30" onClick={busqueda}>
+              🔍
+            </button>
+          </div>
         </div>
       </div>
 
