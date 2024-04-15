@@ -1,13 +1,12 @@
 import React from 'react'
+import Pagination from '../../components/Pagination/Pagination'
 
 const Home = () => {
   return (
     <>
       <>nav</>
       <div>
-        <div class="">Logo</div>
-        <div class="">cards</div>
-        {/* <Cards/> */}
+      <Pagination  />
       </div>
       <footer>
         <div>Envíos a todo el país</div>
