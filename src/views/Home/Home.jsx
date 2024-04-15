@@ -33,25 +33,23 @@ const Home = ({ books }) => {
         </div>
       </div>
 
-      <footer>
-        <div className="relative">
-          <div className="mt-20 mb-2 ml-12 font-bold text-2xl pb-5">
-            <p className="underline decoration-4 underline-offset-8 decoration-cyan-0">
-              Best sellers
-            </p>
-          </div>
-
-          <div>
-            <Carousel
-              value={books}
-              numVisible={5}
-              numScroll={3}
-              itemTemplate={bookTemplate}
-              autoplayInterval={3000}
-            />
-          </div>
+      <div className="relative">
+        <div className="mt-20 mb-2 ml-12 font-bold text-2xl pb-5">
+          <p className="underline decoration-4 underline-offset-8 decoration-cyan-0">
+            Best sellers
+          </p>
         </div>
-      </footer>
+
+        <div>
+          <Carousel
+            value={books}
+            numVisible={5}
+            numScroll={3}
+            itemTemplate={bookTemplate}
+            autoplayInterval={3000}
+          />
+        </div>
+      </div>
     </div>
   );
 };

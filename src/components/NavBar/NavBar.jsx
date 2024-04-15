@@ -8,7 +8,7 @@ import logo from "../../assets/TrasparentLightMoodLogo.png";
 const NavBar = () => {
   return (
     <nav
-      className="flex flex-row fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
+      className="flex flex-row fixed z-20 shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
       style={{
         alignItems: "center",
       }}
