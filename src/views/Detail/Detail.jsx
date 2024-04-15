@@ -1,4 +1,3 @@
-import React from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import { BsFacebook, BsWhatsapp, BsTwitterX } from "react-icons/bs";
 import axios from "axios";
@@ -8,7 +7,10 @@ import { useState, useEffect } from "react";
 function Detail() {
   const { isbn } = useParams();
   const [bookData, setBookData] = useState(null);
-  const apiUrl = `https://open-book-back.onrender.com/book/bookId/${isbn}`;
+  const apiUrl = `https://open-book-back.onrender.com/book/bookId/${isbn.replace(
+    /\D/g,
+    ""
+  )}`;
 
   useEffect(() => {
     async function getBookById() {
@@ -23,15 +25,8 @@ function Detail() {
     getBookById();
   }, [isbn]);
 
-  const {
-    ISBN,
-    book_cover_url,
-    book_title,
-    author,
-    price,
-    book_description,
-    genre,
-  } = bookData || {};
+  const { book_cover_url, book_title, author, price, book_description, genre } =
+    bookData || {};
 
   return (
     <div className="bg-[#fef3ed] rounded-3xl mx-20 mt-24 mb-10 shadow-md">

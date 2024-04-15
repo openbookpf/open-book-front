@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -9,6 +10,7 @@ export default {
     "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
   theme: {
     fontFamily: {
       poppins: ["Poppins"],

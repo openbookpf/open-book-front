@@ -5,6 +5,8 @@ import BookList from "./views/List/BookList";
 import Detail from "./views/Detail/Detail";
 import About from "./components/About/About";
 import arrayLibros from "./data/arrayLibros";
+import AdminStockForm from "./views/AdminStock/AdminStockForm";
+import CreateBookForm from "./views/CreateBook/CreateBookForm";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/aboutus" element={<About />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/detail/:isbn" element={<Detail />} />
+        <Route path="/admin_stock" element={<AdminStockForm />} />
+        <Route path="/create_book" element={<CreateBookForm />} />
       </Routes>
     </div>
   );
