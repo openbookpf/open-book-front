@@ -15,10 +15,7 @@ const Card = ({ book }) => {
           />
         </div>
         <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
-          <a
-            href={`http://localhost:5173/detail/${book.ISBN}`}
-            rel="noopener noreferrer"
-          >
+          <a href={`/detail/${book.ISBN}`} rel="noopener noreferrer">
             <p className="font-bold truncate hover:underline hover:cursor-pointer  delay-200 text-base w-full">
               {book.book_title}
             </p>

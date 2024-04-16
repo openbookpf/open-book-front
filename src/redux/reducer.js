@@ -6,6 +6,7 @@ import {
   SORT_BY_TITLE,
   SEARCH_BOOK_BY_NAME,
   CHANGE_NAME,
+  RESET_SEARCHED_BOOKS,
 } from "./actions";
 
 const initialState = {
@@ -69,6 +70,9 @@ function booksReducer(state = initialState, action) {
         return 0;
       });
       return { ...state, filteredBooks: sortedBooksByPrice };
+
+    case RESET_SEARCHED_BOOKS:
+      return { ...state, searchbook: action.payload };
 
     default:
       return state;

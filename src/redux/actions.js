@@ -67,6 +67,7 @@ export const SORT_BY_TITLE = "SORT_BY_TITLE";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
+export const RESET_SEARCHED_BOOKS = "RESET_SEARCHED_BOOKS";
 
 export const sortByTitle = (order) => ({
   type: SORT_BY_TITLE,
@@ -80,7 +81,7 @@ export const search_book_by_name = (name) => {
       .then((data) =>
         dispatch({
           type: SEARCH_BOOK_BY_NAME,
-          payload: data,
+          payload: [...data.filter((book) => book.book_status)],
         })
       );
   };
@@ -100,8 +101,19 @@ export function getBooksFilterGenre(genre) {
   };
 }
 export const getBooks = () => {
-  return {
-    type: GET_BOOKS,
-    payload: arrayLibros, // Asegúrate de importar arrayLibros
+  return async function (dispatch) {
+    await fetch(`https://open-book-back.onrender.com/book`)
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({
+          type: GET_BOOKS,
+          payload: [...data.filter((book) => book.book_status)],
+        })
+      );
   };
 };
+
+export const resetSearchedBooks = () => ({
+  type: RESET_SEARCHED_BOOKS,
+  payload: "",
+});
