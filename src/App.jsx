@@ -5,6 +5,7 @@ import BookList from "./views/List/BookList";
 import Detail from "./views/Detail/Detail";
 import About from "./components/About/About";
 import arrayLibros from "./data/arrayLibros";
+import arrayBestSellers from "./data/arrayBestSellers";
 import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
@@ -14,7 +15,7 @@ function App() {
     <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home books={arrayLibros} />} />
+        <Route path="/" element={<Home books={arrayBestSellers} />} />
         <Route path="/aboutus" element={<About />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/detail/:isbn" element={<Detail />} />
