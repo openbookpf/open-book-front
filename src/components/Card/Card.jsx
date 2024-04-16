@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = ({ book }) => {
   return (
@@ -15,11 +16,11 @@ const Card = ({ book }) => {
           />
         </div>
         <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
-          <a href={`/detail/${book.ISBN}`} rel="noopener noreferrer">
+          <Link to={`/detail/${book.ISBN}`} rel="noopener noreferrer">
             <p className="font-bold truncate hover:underline hover:cursor-pointer  delay-200 text-base w-full">
               {book.book_title}
             </p>
-          </a>
+          </Link>
           <p className="font-light text-xs">{book.author}</p>
           <p className="font-semibold text-lg">${book.price}</p>
         </div>
