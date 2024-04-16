@@ -77,7 +77,7 @@ export const validationsForm = (key, value, errorForm, setErrorForm) => {
         if ((value <= 0) | !value) {
             return setErrorForm({ ...errorForm, [key]: "This field is required" });
         }
-        if (Number.isInteger(Number(value))) {
+        if (!/^[0-9]+([.])([0-9]{2})?$/.test(value)) {
             return setErrorForm({ ...errorForm, [key]: "The price must include cents (10.00, 8.99, ...)" });
         }
         if (value > 9999) {
