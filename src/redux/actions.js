@@ -1,65 +1,6 @@
 import arrayLibros from "../data/arrayLibros";
 import { useNavigate } from "react-router-dom";
-// export const getAllBooks = () => {
-//     return async (dispatch) => {
-//         try {
-//             const result = await axios.get("https://open-book-back.onrender.com/book");
-//             return dispatch({
-//                 type: "GET_BOOKS",
-//                 payload: result.data,
-//             });
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     };
-// };
-
-// export const getBooksFilterPrice = (objPrice) => {
-//     return {
-//         type: "GET_BOOKS_FILTER_PRICE",
-//         payload: objPrice,
-//     };
-// };
-
-// export const getBooksFilterAuthor = (author) => {
-//     if (author === "All") {
-//         return {
-//             type: "GET_BOOKS_FILTER_AUTHOR",
-//             payload: author,
-//         };
-//     }
-//     return async (dispatch) => {
-//         try {
-//             const result = await axios.get(`https://open-book-back.onrender.com/book/filtrar-autor?author=${author}`);
-//             return dispatch({
-//                 type: "GET_BOOKS_FILTER_AUTHOR",
-//                 payload: result.data,
-//             });
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     };
-// };
-
-// export const getBooksFilterGenre = (genre) => {
-//     if (genre === "All") {
-//         return {
-//             type: "GET_BOOKS_FILTER_GENERO",
-//             payload: genre,
-//         };
-//     }
-//     return async (dispatch) => {
-//         try {
-//             const result = await axios.get(`https://open-book-back.onrender.com/book/filtrar-genre?genre=${genre}`);
-//             return dispatch({
-//                 type: "GET_BOOKS_FILTER_GENERO",
-//                 payload: result.data,
-//             });
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     };
-// };
+import axios from "axios";
 
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
@@ -101,15 +42,18 @@ export function getBooksFilterGenre(genre) {
   };
 }
 export const getBooks = () => {
-  return async function (dispatch) {
-    await fetch(`https://open-book-back.onrender.com/book`)
-      .then((res) => res.json())
-      .then((data) =>
-        dispatch({
-          type: GET_BOOKS,
-          payload: [...data.filter((book) => book.book_status)],
-        })
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/book"
       );
+      dispatch({
+        type: GET_BOOKS,
+        payload: [...response.data.filter((book) => book.book_status)],
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 };
 
