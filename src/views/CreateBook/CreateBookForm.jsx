@@ -27,8 +27,8 @@ const CreateBookForm = () => {
     });
 
     const handleFileChange = (event) => {
-        validationImg(selectedFile, errorForm, setErrorForm);
         setSelectedFile(event.target.files[0]);
+        validationImg(event.target.files[0], errorForm, setErrorForm);
         console.log(event.target.files[0]);
     };
 
@@ -115,8 +115,8 @@ const CreateBookForm = () => {
         } catch (error) {
             console.error("Error uploading image:", error);
             return Swal.fire({
-                title: `Error uploading image: ${error}`,
-                text: ":(",
+                title: "Error",
+                text: "Something went wrong when loading the book, check the data and try again",
                 icon: "error",
                 confirmButtonText: "Ok",
                 confirmButtonColor: "#D34720",
