@@ -33,6 +33,12 @@ const Searchbar = ({ setTrigger }) => {
     navigate("/searchbook");
   };
 
+  const handleEnterSearch = (event) => {
+    if (event.key === "Enter") {
+      busqueda();
+    }
+  };
+
   return (
     // <div className="z-30 container w-screen h-screen fixed bg-black bg-opacity-20 flex align-center justify-center ">
     <div className="z-30 w-screen h-screen fixed bg-black bg-opacity-30">
@@ -44,6 +50,7 @@ const Searchbar = ({ setTrigger }) => {
             value={newname}
             onChange={changehandler}
             placeholder=""
+            onKeyDown={handleEnterSearch}
           />
           <button onClick={() => busqueda()}>
             <FaSearch className="mr-3" />

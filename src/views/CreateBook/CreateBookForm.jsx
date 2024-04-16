@@ -7,16 +7,17 @@ import Swal from "sweetalert2";
 import arrayGenres from "../../data/arrayGenres";
 
 const CreateBookForm = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [createProgress, setCreateProgress] = useState(0);
-  const [bookData, setBookData] = useState({
+  const formInitialState = {
     ISBN: "",
     book_title: "",
     author: "",
     genre: "",
     book_description: "",
     price: 0,
-  });
+  };
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [createProgress, setCreateProgress] = useState(0);
+  const [bookData, setBookData] = useState(formInitialState);
 
   const [errorForm, setErrorForm] = useState({
     ISBN: "",
@@ -40,7 +41,7 @@ const CreateBookForm = () => {
 
   const handleUpload = async (event) => {
     event.preventDefault();
-    console.log(errorForm);
+    console.log(event);
 
     if (
       errorForm.ISBN ||
@@ -118,8 +119,9 @@ const CreateBookForm = () => {
 
       console.log("Image uploaded successfully:", response.data);
       // alert("LIBRO REGISTRADO");
-      document.getElementById("register_a_book").reset();
+      setBookData(formInitialState);
       setCreateProgress(0);
+      setSelectedFile(null);
       return Swal.fire({
         title: "Book registered correctly!",
         text: "",
