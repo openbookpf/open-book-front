@@ -8,7 +8,7 @@ import logo from "../../assets/TrasparentLightMoodLogo.png";
 const NavBar = () => {
   return (
     <nav
-      className="flex flex-row fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
+      className="flex flex-row z-30 fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
       style={{
         alignItems: "center",
       }}
@@ -34,12 +34,12 @@ const NavBar = () => {
           >
             Home
           </Link>
-          {/* <Link
+          <Link
             to="/books"
             className="text-black hover:underline hover:scale-110 transition-transform delay-50"
           >
             Books
-          </Link> */}
+          </Link>
           <Link
             to="/aboutus"
             className="text-black hover:underline hover:scale-110 transition-transform delay-50"
