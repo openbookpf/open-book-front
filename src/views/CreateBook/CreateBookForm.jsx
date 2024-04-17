@@ -162,17 +162,17 @@ const CreateBookForm = () => {
   return (
     <div className="mt-20 flex justify-center">
       <form
-        className="w-4/6 bg-[#fef3ed] shadow-md rounded-xl p-3"
+        className="w-4/6 py-5 text-base bg-[#fef3ed] shadow-md rounded-xl p-3"
         action="submit"
         id="register_a_book"
       >
         <div className="flex justify-center">
-          <h5 className="text-3xl text-center bg-cyan-0 w-4/6 py-1 rounded-xl">
-            Stock creation form: Register your Book
+          <h5 className="text-center bg-blue-0 text-white-0 font-semibold text-2xl w-4/6 py-3 mb-5 rounded-xl">
+            Register your Book
           </h5>
         </div>
 
-        <div className="flex flex-col items-center text-2xl">
+        <div className="flex flex-col items-center">
           {/* ISBN INPUT FIELD */}
           <div className="w-5/6 flex mt-3 duration-200">
             <label className="mr-3" htmlFor="ISBN">
@@ -186,8 +186,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.ISBN
-                  ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow"
+                  ? "rounded-xl border-2 border-orange-0 grow px-2"
+                  : "rounded-xl border-2 grow px-2"
               }
               // className="rounded-xl border-2 grow"
             />
@@ -215,8 +215,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.book_title
-                  ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow"
+                  ? "rounded-xl border-2 border-orange-0 grow px-2"
+                  : "rounded-xl border-2 grow px-2"
               }
             />
             <div
@@ -245,8 +245,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.author
-                  ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow"
+                  ? "rounded-xl border-2 border-orange-0 grow px-2"
+                  : "rounded-xl border-2 grow px-2"
               }
             />
             <div
@@ -262,7 +262,7 @@ const CreateBookForm = () => {
           </div>
 
           {/* GENRE FIELD */}
-          <div className="w-5/6 flex mt-3">
+          <div className="w-5/6 flex mt-3 font-poppins">
             <label className="mr-3" htmlFor="genre">
               Genre:
             </label>
@@ -274,8 +274,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.genre
-                  ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow"
+                  ? "rounded-xl border-2 border-orange-0 grow px-2"
+                  : "rounded-xl border-2 grow px-2"
               }
             >
               <option key={"select_genre"} value={"select a genre"}>
@@ -334,8 +334,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.book_description
-                  ? "rounded-xl border-2 border-orange-0"
-                  : "rounded-xl border-2"
+                  ? "rounded-xl border-2 border-orange-0 px-2"
+                  : "rounded-xl border-2 px-2"
               }
             />
           </div>
@@ -352,8 +352,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.price
-                  ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow"
+                  ? "rounded-xl border-2 border-orange-0 grow px-2"
+                  : "rounded-xl border-2 grow px-2"
               }
             />
             <div
@@ -369,7 +369,7 @@ const CreateBookForm = () => {
           </div>
           <div className="w-5/6 flex mt-3">
             <label className="mr-3" htmlFor="book_cover">
-              Image:{" "}
+              Book cover:{" "}
             </label>
             <input type="file" onChange={handleFileChange} />
             <img src={selectedFile} alt="" />
@@ -385,7 +385,7 @@ const CreateBookForm = () => {
             <Tooltip className="text-xs" id="Img-tooltip" />
           </div>
           <button
-            className="mt-5 text-3xl bg-orange-0 px-3 rounded-xl text-white-0 duration-200 hover:scale-105 hover:bg-[#D48620]"
+            className="mt-5 text-lg bg-orange-0 px-10 py-2 rounded-full text-white-0 duration-200 hover:scale-110 hover:bg-[#D48620]"
             onClick={handleUpload}
           >
             Add Book
