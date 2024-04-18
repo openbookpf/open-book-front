@@ -8,7 +8,37 @@ export const SORT_BY_TITLE = "SORT_BY_TITLE";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
 
+export const updateCartFromStorage = (cartItems) => ({
+  type: UPDATE_CART_FROM_STORAGE,
+  payload: cartItems,
+});
+
+export const addToCart = (product) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: product,
+    });
+
+    const { items } = getState();
+    localStorage.setItem("cart", JSON.stringify(items));
+  };
+};
+
+export const removeFromCart = (ISBN) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: ISBN,
+    });
+    const { items } = getState();
+    localStorage.setItem("cart", JSON.stringify(items));
+  };
+};
 export const sortByTitle = (order) => ({
   type: SORT_BY_TITLE,
   payload: order,
