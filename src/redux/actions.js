@@ -11,6 +11,9 @@ export const CHANGE_NAME = "CHANGE_NAME";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
+export const GET_GENRES_AND_AUTHORS = "GET_GENRES_AND_AUTHORS";
+export const GET_BOOKS_FILTERS = "GET_BOOKS_FILTERS";
+export const APPLIED_FILTERS = "APPLIED_FILTERS";
 
 export const updateCartFromStorage = (cartItems) => ({
   type: UPDATE_CART_FROM_STORAGE,
@@ -39,10 +42,6 @@ export const removeFromCart = (ISBN) => {
     localStorage.setItem("cart", JSON.stringify(items));
   };
 };
-export const sortByTitle = (order) => ({
-  type: SORT_BY_TITLE,
-  payload: order,
-});
 
 export const search_book_by_name = (name) => {
   return async function (dispatch) {
@@ -60,10 +59,16 @@ export const change_name = (name) => {
   return { type: CHANGE_NAME, payload: name };
 };
 
+export const sortByTitle = (order) => ({
+  type: SORT_BY_TITLE,
+  payload: order,
+});
+
 export const sortByPrice = (order) => ({
   type: SORT_BY_PRICE,
   payload: order,
 });
+
 export function getBooksFilterGenre(genre) {
   return {
     type: FILTER_BOOKS_BY_GENRE,
@@ -83,5 +88,45 @@ export const getBooks = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+};
+
+export const getGenresAndAuthors = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/book/filters"
+      );
+      dispatch({
+        type: GET_GENRES_AND_AUTHORS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const getBooksFilter = (objFilters) => {
+  return async (dispatch) => {
+    const { genre, author, min, max } = objFilters;
+    try {
+      const response = await axios.get(
+        `https://open-book-back.onrender.com/book/filtrar?author=${author}&genre=${genre}&min=${min}&max=${max}`
+      );
+      dispatch({
+        type: GET_BOOKS_FILTERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const appliedFilter = (objFilters) => {
+  return {
+    type: APPLIED_FILTERS,
+    payload: objFilters,
   };
 };

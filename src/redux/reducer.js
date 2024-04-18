@@ -5,6 +5,9 @@ import {
   SORT_BY_TITLE,
   SEARCH_BOOK_BY_NAME,
   CHANGE_NAME,
+  GET_GENRES_AND_AUTHORS,
+  GET_BOOKS_FILTERS,
+  APPLIED_FILTERS,
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_CART_FROM_STORAGE,
@@ -22,6 +25,14 @@ const initialState = {
   filteredBooks: [],
   searchbook: [],
   searchname: "",
+  genres: [],
+  authors: [],
+  appliedFilters: {
+    genre: "",
+    author: "",
+    min: "",
+    max: "",
+  },
   items: [],
   totalItems: 0,
   cartTotalPrice: 0,
@@ -31,22 +42,33 @@ function booksReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_NAME:
       return { ...state, searchname: action.payload };
+
     case SEARCH_BOOK_BY_NAME:
       return { ...state, searchbook: action.payload };
-    case FILTER_BOOKS_BY_GENRE:
-      const filtered = [...state.books].filter((book) => {
-        return book.genre.includes(action.payload);
-      });
-      return {
-        ...state,
-        filteredBooks: filtered,
-      };
+
+    // case FILTER_BOOKS_BY_GENRE:
+    //     // return {
+    //     //   ...state,
+    //     //   filteredBooks: state.books.filter(
+    //     //     (book) => book.genre === action.payload
+    //     //   ),
+    //     // };
+    //     const filtered = [...state.books].filter((book) => {
+    //         // Verificamos si book.genre es un array y contiene action.payload
+    //         return book.genre.includes(action.payload);
+    //     });
+    //     return {
+    //         ...state,
+    //         filteredBooks: filtered,
+    //     };
+
     case GET_BOOKS:
       return {
         ...state,
         books: action.payload,
         filteredBooks: action.payload,
       };
+
     case SORT_BY_TITLE:
       const sortedBooksByTitle = [...state.filteredBooks].sort((a, b) => {
         if (action.payload === "asc") {
@@ -61,6 +83,7 @@ function booksReducer(state = initialState, action) {
         return 0;
       });
       return { ...state, filteredBooks: sortedBooksByTitle };
+
     case SORT_BY_PRICE:
       const sortedBooksByPrice = [...state.filteredBooks].sort((a, b) => {
         if (action.payload === "min") {
@@ -71,6 +94,19 @@ function booksReducer(state = initialState, action) {
         return 0;
       });
       return { ...state, filteredBooks: sortedBooksByPrice };
+
+    case GET_GENRES_AND_AUTHORS:
+      return {
+        ...state,
+        genres: action.payload.genres,
+        authors: action.payload.authors,
+      };
+
+    case GET_BOOKS_FILTERS:
+      return { ...state, filteredBooks: action.payload };
+
+    case APPLIED_FILTERS:
+      return { ...state, appliedFilters: action.payload };
     case ADD_TO_CART:
       const existingItem = state.items.find(
         (item) => item.ISBN === action.payload.ISBN
