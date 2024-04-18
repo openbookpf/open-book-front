@@ -49,7 +49,7 @@ function Cart() {
                       onChange={(value) => handleChangeCartAmount(p, value)}
                     />
                     <div className="font-bold text-lg ml-auto">
-                      ${(p.quantity * p.price).toFixed(2)}
+                      ${Math.max(0, p.quantity * p.price).toFixed(2)}
                     </div>
                     <button
                       onClick={() => dispatch(removeFromCart(p.ISBN))}
@@ -71,9 +71,11 @@ function Cart() {
 
       <div className="bg-white p-4 fixed bottom-0 w-full border-t border-gray-300">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="font-bold text-lg">Total books: {cartCounter}</div>
           <div className="font-bold text-lg">
-            Total price: ${cartTotalPrice.toFixed(2)}
+            Total books: {Math.max(0, cartCounter)}
+          </div>
+          <div className="font-bold text-lg">
+            Total price: ${Math.max(0, cartTotalPrice).toFixed(2)}
           </div>
           <Link
             to="/checkout"
@@ -81,7 +83,6 @@ function Cart() {
               cartCounter === 0 ? "cursor-not-allowed opacity-50" : ""
             }`}
           >
-            <i className="bi bi-cart-check"></i>
             <span className="ml-1">Checkout</span>
           </Link>
         </div>
