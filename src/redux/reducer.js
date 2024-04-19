@@ -1,4 +1,3 @@
-// reducer.js
 import {
   FILTER_BOOKS_BY_GENRE,
   GET_BOOKS,
@@ -6,36 +5,62 @@ import {
   SORT_BY_TITLE,
   SEARCH_BOOK_BY_NAME,
   CHANGE_NAME,
+  GET_GENRES_AND_AUTHORS,
+  GET_BOOKS_FILTERS,
+  APPLIED_FILTERS,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  UPDATE_CART_FROM_STORAGE,
 } from "./actions";
 
+const calculateTotalPrice = (cartItems) => {
+  return cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+};
+
 const initialState = {
-  books: [], // Suponiendo que tienes una lista inicial de libros
+  books: [],
   filteredBooks: [],
   searchbook: [],
   searchname: "",
+  genres: [],
+  authors: [],
+  appliedFilters: {
+    genre: "",
+    author: "",
+    min: "",
+    max: "",
+  },
+  items: [],
+  totalItems: 0,
+  cartTotalPrice: 0,
 };
 
 function booksReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_NAME:
       return { ...state, searchname: action.payload };
+
     case SEARCH_BOOK_BY_NAME:
       return { ...state, searchbook: action.payload };
-    case FILTER_BOOKS_BY_GENRE:
-      // return {
-      //   ...state,
-      //   filteredBooks: state.books.filter(
-      //     (book) => book.genre === action.payload
-      //   ),
-      // };
-      const filtered = [...state.books].filter((book) => {
-        // Verificamos si book.genre es un array y contiene action.payload
-        return book.genre.includes(action.payload);
-      });
-      return {
-        ...state,
-        filteredBooks: filtered,
-      };
+
+    // case FILTER_BOOKS_BY_GENRE:
+    //     // return {
+    //     //   ...state,
+    //     //   filteredBooks: state.books.filter(
+    //     //     (book) => book.genre === action.payload
+    //     //   ),
+    //     // };
+    //     const filtered = [...state.books].filter((book) => {
+    //         // Verificamos si book.genre es un array y contiene action.payload
+    //         return book.genre.includes(action.payload);
+    //     });
+    //     return {
+    //         ...state,
+    //         filteredBooks: filtered,
+    //     };
 
     case GET_BOOKS:
       return {
@@ -70,6 +95,74 @@ function booksReducer(state = initialState, action) {
       });
       return { ...state, filteredBooks: sortedBooksByPrice };
 
+    case GET_GENRES_AND_AUTHORS:
+      return {
+        ...state,
+        genres: action.payload.genres,
+        authors: action.payload.authors,
+      };
+
+    case GET_BOOKS_FILTERS:
+      return { ...state, filteredBooks: action.payload };
+
+    case APPLIED_FILTERS:
+      return { ...state, appliedFilters: action.payload };
+    case ADD_TO_CART:
+      const existingItem = state.items.find(
+        (item) => item.ISBN === action.payload.ISBN
+      );
+      if (existingItem) {
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.ISBN === action.payload.ISBN
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+          totalItems: state.totalItems + 1,
+          cartTotalPrice: state.cartTotalPrice + action.payload.price,
+        };
+      } else {
+        return {
+          ...state,
+          items: [...state.items, { ...action.payload, quantity: 1 }],
+          totalItems: state.totalItems + 1,
+          cartTotalPrice: state.cartTotalPrice + action.payload.price,
+        };
+      }
+    case REMOVE_FROM_CART:
+      const itemToRemove = state.items.find(
+        (item) => item.ISBN === action.payload
+      );
+      if (itemToRemove) {
+        if (itemToRemove.quantity > 1) {
+          return {
+            ...state,
+            items: state.items.map((item) =>
+              item.ISBN === action.payload
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+            totalItems: state.totalItems - 1,
+            cartTotalPrice: state.cartTotalPrice - itemToRemove.price,
+          };
+        } else {
+          return {
+            ...state,
+            items: state.items.filter((item) => item.ISBN !== action.payload),
+            totalItems: state.totalItems - 1,
+            cartTotalPrice: state.cartTotalPrice - itemToRemove.price,
+          };
+        }
+      }
+      return state;
+    case UPDATE_CART_FROM_STORAGE:
+      return {
+        ...state,
+        items: action.payload,
+        totalItems: action.payload.length,
+        cartTotalPrice: calculateTotalPrice(action.payload),
+      };
     default:
       return state;
   }
