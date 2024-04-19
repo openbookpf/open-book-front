@@ -10,6 +10,7 @@ export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const REMOVE_ALL = "REMOVE_ALL";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
 export const GET_GENRES_AND_AUTHORS = "GET_GENRES_AND_AUTHORS";
 export const GET_BOOKS_FILTERS = "GET_BOOKS_FILTERS";
@@ -40,6 +41,18 @@ export const removeFromCart = (ISBN) => {
     });
     const { items } = getState();
     localStorage.setItem("cart", JSON.stringify(items));
+  };
+};
+
+export const removeAll = (ISBN) => {
+  return (dispatch, getState) => {
+    const { items } = getState();
+    const updatedItems = items.filter((item) => item.ISBN !== ISBN);
+    dispatch({
+      type: "REMOVE_ALL",
+      payload: updatedItems,
+    });
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
   };
 };
 
