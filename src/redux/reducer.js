@@ -12,13 +12,12 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_FROM_STORAGE,
   REMOVE_ALL,
+  GET_BOOKS_BY_GENRE,
+
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
-  return cartItems.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
-  );
+    return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
 };
 
 const calculateTotalItems = (cartItems) => {
@@ -26,93 +25,96 @@ const calculateTotalItems = (cartItems) => {
 };
 
 const initialState = {
-  books: [],
-  filteredBooks: [],
-  searchbook: [],
-  searchname: "",
-  genres: [],
-  authors: [],
-  appliedFilters: {
-    genre: "",
-    author: "",
-    min: "",
-    max: "",
-  },
-  items: [],
-  totalItems: 0,
-  cartTotalPrice: 0,
+    books: [],
+    filteredBooks: [],
+    filterGenreBooks: [],
+    searchbook: [],
+    searchname: "",
+    genres: [],
+    authors: [],
+    appliedFilters: {
+        genre: "",
+        author: "",
+        min: "",
+        max: "",
+    },
+    items: [],
+    totalItems: 0,
+    cartTotalPrice: 0,
 };
 
 function booksReducer(state = initialState, action) {
-  switch (action.type) {
-    case CHANGE_NAME:
-      return { ...state, searchname: action.payload };
 
-    case SEARCH_BOOK_BY_NAME:
-      return { ...state, searchbook: action.payload };
+    switch (action.type) {
+        case CHANGE_NAME:
+            return { ...state, searchname: action.payload };
 
-    // case FILTER_BOOKS_BY_GENRE:
-    //     // return {
-    //     //   ...state,
-    //     //   filteredBooks: state.books.filter(
-    //     //     (book) => book.genre === action.payload
-    //     //   ),
-    //     // };
-    //     const filtered = [...state.books].filter((book) => {
-    //         // Verificamos si book.genre es un array y contiene action.payload
-    //         return book.genre.includes(action.payload);
-    //     });
-    //     return {
-    //         ...state,
-    //         filteredBooks: filtered,
-    //     };
+        case SEARCH_BOOK_BY_NAME:
+            return { ...state, searchbook: action.payload };
 
-    case GET_BOOKS:
-      return {
-        ...state,
-        books: action.payload,
-        filteredBooks: action.payload,
-      };
+        // case FILTER_BOOKS_BY_GENRE:
+        //     // return {
+        //     //   ...state,
+        //     //   filteredBooks: state.books.filter(
+        //     //     (book) => book.genre === action.payload
+        //     //   ),
+        //     // };
+        //     const filtered = [...state.books].filter((book) => {
+        //         // Verificamos si book.genre es un array y contiene action.payload
+        //         return book.genre.includes(action.payload);
+        //     });
+        //     return {
+        //         ...state,
+        //         filteredBooks: filtered,
+        //     };
 
-    case SORT_BY_TITLE:
-      const sortedBooksByTitle = [...state.filteredBooks].sort((a, b) => {
-        if (action.payload === "asc") {
-          if (a.book_title && b.book_title) {
-            return a.book_title.localeCompare(b.book_title);
-          }
-        } else if (action.payload === "desc") {
-          if (a.book_title && b.book_title) {
-            return b.book_title.localeCompare(a.book_title);
-          }
-        }
-        return 0;
-      });
-      return { ...state, filteredBooks: sortedBooksByTitle };
+        case GET_BOOKS:
+            return {
+                ...state,
+                books: action.payload,
+                filteredBooks: action.payload,
+            };
 
-    case SORT_BY_PRICE:
-      const sortedBooksByPrice = [...state.filteredBooks].sort((a, b) => {
-        if (action.payload === "min") {
-          return a.price - b.price;
-        } else if (action.payload === "max") {
-          return b.price - a.price;
-        }
-        return 0;
-      });
-      return { ...state, filteredBooks: sortedBooksByPrice };
+        case SORT_BY_TITLE:
+            const sortedBooksByTitle = [...state.filteredBooks].sort((a, b) => {
+                if (action.payload === "asc") {
+                    if (a.book_title && b.book_title) {
+                        return a.book_title.localeCompare(b.book_title);
+                    }
+                } else if (action.payload === "desc") {
+                    if (a.book_title && b.book_title) {
+                        return b.book_title.localeCompare(a.book_title);
+                    }
+                }
+                return 0;
+            });
+            return { ...state, filteredBooks: sortedBooksByTitle };
 
-    case GET_GENRES_AND_AUTHORS:
-      return {
-        ...state,
-        genres: action.payload.genres,
-        authors: action.payload.authors,
-      };
+        case SORT_BY_PRICE:
+            const sortedBooksByPrice = [...state.filteredBooks].sort((a, b) => {
+                if (action.payload === "min") {
+                    return a.price - b.price;
+                } else if (action.payload === "max") {
+                    return b.price - a.price;
+                }
+                return 0;
+            });
+            return { ...state, filteredBooks: sortedBooksByPrice };
 
-    case GET_BOOKS_FILTERS:
-      return { ...state, filteredBooks: action.payload };
+        case GET_GENRES_AND_AUTHORS:
+            return {
+                ...state,
+                genres: action.payload.genres,
+                authors: action.payload.authors,
+            };
 
-    case APPLIED_FILTERS:
-      return { ...state, appliedFilters: action.payload };
-    case ADD_TO_CART:
+        case GET_BOOKS_FILTERS:
+            return { ...state, filteredBooks: action.payload };
+
+        case APPLIED_FILTERS:
+            return { ...state, appliedFilters: action.payload };
+
+        case ADD_TO_CART:
       const existingItem = state.items.find(
         (item) => item.ISBN === action.payload.ISBN
       );
@@ -175,9 +177,13 @@ function booksReducer(state = initialState, action) {
         totalItems: calculateTotalItems(action.payload),
         cartTotalPrice: calculateTotalPrice(action.payload),
       };
-    default:
-      return state;
-  }
+
+        case GET_BOOKS_BY_GENRE:
+            return { ...state, filterGenreBooks: action.payload };
+        default:
+            return state;
+    }
+
 }
 
 export default booksReducer;
