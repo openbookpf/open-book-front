@@ -32,7 +32,6 @@ const CreateBookForm = () => {
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     validationImg(event.target.files[0], errorForm, setErrorForm);
-    console.log(event.target.files[0]);
   };
 
   function stripValues(str) {
@@ -52,9 +51,25 @@ const CreateBookForm = () => {
       errorForm.price ||
       errorForm.img
     ) {
+      const wrongFields = [];
+      for (let key in errorForm) {
+        if (errorForm[key]) {
+          wrongFields.push(key);
+        }
+      }
+
+      const wrongMessage =
+        wrongFields.length === 1
+          ? `Verify that the data in the ${wrongFields.join(
+              ", "
+            )} field is correct`
+          : `Verify that the data in the ${wrongFields.join(
+              ", "
+            )} fields are correct`;
+
       return Swal.fire({
         title: "Wrong data!",
-        text: "Verify that the data entered is correct",
+        text: wrongMessage,
         icon: "error",
         confirmButtonText: "Ok",
         confirmButtonColor: "#D34720",
@@ -71,8 +86,18 @@ const CreateBookForm = () => {
       !bookData.price &&
       !selectedFile
     ) {
+      const remainingFields = [];
+      for (let key in bookData) {
+        if (!bookData[key]) {
+          remainingFields.push(key);
+        }
+      }
+      if (!selectedFile) remainingFields.push("image");
+
       return Swal.fire({
-        title: "Complete the fields to add a book!",
+        title: `Complete the fields ${remainingFields.join(
+          ", "
+        )} to add a book!`,
         text: "",
         icon: "warning",
         confirmButtonText: "Ok",

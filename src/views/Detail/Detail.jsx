@@ -3,6 +3,8 @@ import { BsFacebook, BsWhatsapp, BsTwitterX } from "react-icons/bs";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions";
 
 function Detail() {
   const { isbn } = useParams();
@@ -11,6 +13,7 @@ function Detail() {
     /\D/g,
     ""
   )}`;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getBookById() {
@@ -25,8 +28,19 @@ function Detail() {
     getBookById();
   }, [isbn]);
 
+  const handleAddToCart = () => {
+    if (bookData) {
+      const productToAdd = { ...bookData };
+      dispatch(addToCart(productToAdd));
+    }
+  };
+
+  if (!bookData) {
+    return null;
+  }
+
   const { book_cover_url, book_title, author, price, book_description, genre } =
-    bookData || {};
+    bookData;
 
   return (
     <div className="bg-[#fef3ed] rounded-3xl mx-20 mt-24 mb-10 shadow-md">
@@ -49,7 +63,10 @@ function Detail() {
               <p className="text-gray-700 font-bold mt-2">{author}</p>
               <p className="text-gray-700 mt-2">${price}</p>
               <div className="mt-4 flex space-x-4">
-                <button className="bg-orange-0  hover:bg-orange-700 hover:scale-105 font-medium transition-transform delay-100 ease-linear text-white-0 text-lg py-1 px-16 focus:outline-none focus:shadow-outline rounded-full">
+                <button
+                  onClick={handleAddToCart}
+                  className="bg-orange-0  hover:bg-orange-700 hover:scale-105 font-medium transition-transform delay-100 ease-linear text-white-0 text-lg py-1 px-16 focus:outline-none focus:shadow-outline rounded-full"
+                >
                   Add to cart
                 </button>
                 <button className="bg-cyan-0 hover:bg-cyan-700 text-2xl text-white-0 py-1 px-4 focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
