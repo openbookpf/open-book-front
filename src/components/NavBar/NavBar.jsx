@@ -1,16 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
-import { useLocation } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import logo from "../../assets/TrasparentLightMoodLogo.png";
 
 const NavBar = () => {
     const [trigger, setTrigger] = React.useState(false);
-
+    const cartCounter = useSelector((state) => state.totalItems || 0);
     const location = useLocation();
     console.log(location.pathname);
 
@@ -55,12 +54,6 @@ const NavBar = () => {
                             onClick={() => setTrigger(true)}
                             className="mr-3 text-xl cursor-pointer duration-200 hover:scale-105"
                         />
-                        {/* <input
-                            className="px-2 py-2 text-sm round rounded-xl"
-                            type="text"
-                            placeholder="Search a book"
-                            onClick={() => setTrigger(true)}
-                        /> */}
                     </div>
                 ) : null}
 
@@ -74,11 +67,18 @@ const NavBar = () => {
                             <IoMdAdd className="text-2xl " />
                         </div>
                     </Link>
+
                     <Link to="/log-in" className="text-black">
                         <AiOutlineUser className="text-3xl  hover:scale-110 transition-transform delay-50" />
                     </Link>
-                    <Link to="/buy" className="text-black">
+
+                    <Link to="/cart" className="text-black relative">
                         <AiOutlineShoppingCart className="text-3xl  hover:scale-110 transition-transform delay-50" />
+                        {cartCounter > 0 && (
+                            <span className="bg-red-500 text-xs rounded-full px-2 py-1 -mt-3 -mr-3 absolute">
+                                {cartCounter}
+                            </span>
+                        )}
                     </Link>
                 </div>
             </nav>
