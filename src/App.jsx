@@ -9,6 +9,7 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
+import Profile from "./components/Profile/Profile"
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
@@ -32,6 +33,7 @@ function App() {
     dispatch(getBooks());
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
+
 
   return (
     <div className="App flex flex-col text-3xl font-poppins">
