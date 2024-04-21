@@ -29,25 +29,25 @@ const About = () => {
         </div>
         </div>
 
-<div className="flex justify-around">
-<div className="ml-80 mt-[-210px]">
-          <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
-            <img src="https://ca.slack-edge.com/TPRS7H4PN-U05RJ885CAW-b94cbd7f7df5-512" alt="Daiana Carabetta" className="rounded-full w-24 h-24 mx-auto mb-4" />
-            <h4 className="text-lg font-bold">Daiana Carabetta</h4>
-            <div className="flex justify-center mt-2">
-              <a href="https://www.linkedin.com/in/daiana-carabetta/" target="_blank" rel="noopener noreferrer" className="mr-2">
+          <div className="flex justify-around">
+         <div className="ml-80 mt-[-210px]">
+        <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
+        <img src="https://ca.slack-edge.com/TPRS7H4PN-U05RJ885CAW-b94cbd7f7df5-512" alt="Daiana Carabetta" className="rounded-full w-24 h-24 mx-auto mb-4" />
+       <h4 className="text-lg font-bold">Daiana Carabetta</h4>
+       <div className="flex justify-center mt-2">
+         <a href="https://www.linkedin.com/in/daiana-carabetta/" target="_blank" rel="noopener noreferrer" className="mr-2">
                 <FaLinkedin className="text-blue-600 text-2xl" />
               </a>
               <a href="https://github.com/DaianaCarabetta" target="_blank" rel="noopener noreferrer">
-                <FaGithub className="text-gray-800 text-2xl" />
+               <FaGithub className="text-gray-800 text-2xl" />
               </a>
             </div>
             </div>
           </div>
         </div>
     
-<div className="flex justify-around">
-<div className="mr-80 mt-[50px]">
+            <div className="flex justify-around">
+            <div className="mr-80 mt-[50px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://ca.slack-edge.com/TPRS7H4PN-U05MNTL5059-14924621e702-512" alt="Joaquin Klein" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Joaquin Klein</h4>
