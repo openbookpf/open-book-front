@@ -11,6 +11,11 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_CART_FROM_STORAGE,
+  REMOVE_ALL,
+  GET_BOOKS_BY_GENRE,
+  ADD_TO_FAVORITES,
+  REMOVE_FROM_FAVORITES,
+  LOAD_FAVORITES_FROM_STORAGE,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -20,9 +25,14 @@ const calculateTotalPrice = (cartItems) => {
   );
 };
 
+const calculateTotalItems = (cartItems) => {
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
+};
+
 const initialState = {
   books: [],
   filteredBooks: [],
+  filterGenreBooks: [],
   searchbook: [],
   searchname: "",
   genres: [],
@@ -34,6 +44,7 @@ const initialState = {
     max: "",
   },
   items: [],
+  favorites: [],
   totalItems: 0,
   cartTotalPrice: 0,
 };
@@ -107,6 +118,7 @@ function booksReducer(state = initialState, action) {
 
     case APPLIED_FILTERS:
       return { ...state, appliedFilters: action.payload };
+
     case ADD_TO_CART:
       const existingItem = state.items.find(
         (item) => item.ISBN === action.payload.ISBN
@@ -156,13 +168,54 @@ function booksReducer(state = initialState, action) {
         }
       }
       return state;
+    case REMOVE_ALL:
+      return {
+        ...state,
+        items: action.payload,
+        totalItems: calculateTotalItems(action.payload),
+        cartTotalPrice: calculateTotalPrice(action.payload),
+      };
     case UPDATE_CART_FROM_STORAGE:
       return {
         ...state,
         items: action.payload,
-        totalItems: action.payload.length,
+        totalItems: calculateTotalItems(action.payload),
         cartTotalPrice: calculateTotalPrice(action.payload),
       };
+
+    case GET_BOOKS_BY_GENRE:
+      return { ...state, filterGenreBooks: action.payload };
+
+    case ADD_TO_FAVORITES:
+      const existingFavorite = state.favorites.find(
+        (item) => item.ISBN === action.payload.ISBN
+      );
+      if (!existingFavorite) {
+        const updatedFavorites = [...state.favorites, action.payload];
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return {
+          ...state,
+          favorites: updatedFavorites,
+        };
+      }
+      return state;
+
+    case REMOVE_FROM_FAVORITES:
+      const updatedFavorites = state.favorites.filter(
+        (item) => item.ISBN !== action.payload
+      );
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      return {
+        ...state,
+        favorites: updatedFavorites,
+      };
+
+    case LOAD_FAVORITES_FROM_STORAGE:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+
     default:
       return state;
   }

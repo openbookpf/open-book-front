@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import {
+  addToCart,
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 
-const Card = ({ book }) => {
+const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
+  const [isFav, setIsFav] = useState(false);
+
+  useEffect(() => {
+    if (favorites && favorites.length > 0) {
+      setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
+    }
+  }, [favorites, book.ISBN]);
 
   const handleAddToCart = () => {
     const productToAdd = {
@@ -18,8 +29,22 @@ const Card = ({ book }) => {
     dispatch(addToCart(productToAdd));
   };
 
+  const handleFavoriteButtonClick = () => {
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFromFavorites(book.ISBN));
+    } else {
+      setIsFav(true);
+      dispatch(addToFavorites(book));
+    }
+  };
+
+  /* const handleRemoveFromFavorites = () => {
+    handleRemoveFromFavorites(book.ISBN);
+  }; */
+
   return (
-    <div className="flex flex-col shadow-md gap-2 max-w-52 mb-2 pb-3 rounded-xl bg-[#fef3ed]">
+    <div className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10">
       <div className="flex flex-col gap-10">
         <div className="max-h-40 my-2 mx-auto">
           <img
@@ -29,17 +54,17 @@ const Card = ({ book }) => {
           />
         </div>
         <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
-          <a href={`/detail/${book.ISBN}`} rel="noopener noreferrer">
+          <Link to={`/detail/${book.ISBN}`} rel="noopener noreferrer">
             <p className="font-bold truncate hover:underline hover:cursor-pointer delay-200 text-base w-full">
               {book.book_title}
             </p>
-          </a>
+          </Link>
           <p className="font-light text-xs">{book.author}</p>
           <p className="font-semibold text-lg">${book.price}</p>
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
-        <Link to="/ckeckout">
+        <Link to="/checkout">
           <button className="bg-orange-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100">
             <span className="text-white-0 align-middle py-1 px-4 text-sm">
               Comprar
@@ -49,7 +74,6 @@ const Card = ({ book }) => {
 
         <button
           onClick={handleAddToCart}
-          id="cart"
           className="bg-blue-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
         >
           <svg
@@ -72,24 +96,48 @@ const Card = ({ book }) => {
             <path d="M19 16v6" />
           </svg>
         </button>
-
-        <button className="bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="stroke-slate-50 m-2"
+        {showFavoriteButton && (
+          <button
+            onClick={handleFavoriteButtonClick}
+            className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
+              isFav ? "text-red-500" : ""
+            }`}
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-          </svg>
-        </button>
+            {isFav ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="stroke-red-800 m-2"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="stroke-slate-50 m-2"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

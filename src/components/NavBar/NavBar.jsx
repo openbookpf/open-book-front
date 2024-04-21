@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
+import { MdFavoriteBorder } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
@@ -78,6 +79,12 @@ const NavBar = () => {
 
           <Link to="/log-in" className="text-black">
             <AiOutlineUser className="text-3xl  hover:scale-110 transition-transform delay-50" />
+          </Link>
+
+          <Link to="/Favourites">
+            <button className="text-3xl text-black  focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
+              <MdFavoriteBorder />
+            </button>
           </Link>
 
           <Link to="/cart" className="text-black relative">
