@@ -88,11 +88,11 @@ const UserProfile = () => {
           <input type="tel" name="phoneNumber" value={user.phoneNumber} onChange={handleUserChange} className="bg-white-0"/>
         </div>
 
-        <div className="bg-blue-0 p-2 rounded-md mb-2">
+        <div className="bg-blue-0 hover:bg-blue-950 p-2 rounded-md mb-2">
         <button onClick={handleEditProfileClick} className="text-white-0">Edit Profile</button>
       </div>
 
-      <div className="bg-cyan-0 p-2 rounded-md">
+      <div className="bg-cyan-0 hover:bg-cyan-900 p-2 rounded-md">
         <button onClick={handleAdvancedSettingsClick} className="text-white-0">
           {showAdvancedSettings ? 'Hide Advanced Configuration' : 'Advanced Configuration'}
         </button>
@@ -106,7 +106,7 @@ const UserProfile = () => {
   <div className="bg-white p-8 rounded-lg shadow-md">
     <h2 className="text-lg font-bold">My Library 📚</h2>
     <p className="text-sm text-gray-600 mb-2">Books you bought</p>
-    <button className="bg-orange-500 text-white-0 px-1 rounded-md">See All</button>
+    <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">See All</button>
   </div>
 </div>
 
@@ -114,7 +114,7 @@ const UserProfile = () => {
   <div className="bg-white p-10 rounded-lg shadow-md">
     <h2 className="text-lg font-bold">Wish list ✨</h2>
     <p className="text-sm text-gray-600 mb-2">Favorites books</p>
-    <button className="bg-orange-500 text-white-0 px-1  rounded-md">See All</button>
+    <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">See All</button>
   </div>
 </div>
 
