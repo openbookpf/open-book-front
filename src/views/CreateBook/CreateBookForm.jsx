@@ -4,6 +4,7 @@ import { validationsForm, validationImg } from "./validationsFormCreate";
 import { MdError } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
+import arrayGenres from "../../data/arrayGenres";
 
 const CreateBookForm = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -29,7 +30,6 @@ const CreateBookForm = () => {
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
         validationImg(event.target.files[0], errorForm, setErrorForm);
-        console.log(event.target.files[0]);
     };
 
     function stripValues(str) {
@@ -48,9 +48,21 @@ const CreateBookForm = () => {
             errorForm.price ||
             errorForm.img
         ) {
+            const wrongFields = [];
+            for (let key in errorForm) {
+                if (errorForm[key]) {
+                    wrongFields.push(key);
+                }
+            }
+
+            const wrongMessage =
+                wrongFields.length === 1
+                    ? `Verify that the data in the ${wrongFields.join(", ")} field is correct`
+                    : `Verify that the data in the ${wrongFields.join(", ")} fields are correct`;
+
             return Swal.fire({
                 title: "Wrong data!",
-                text: "Verify that the data entered is correct",
+                text: wrongMessage,
                 icon: "error",
                 confirmButtonText: "Ok",
                 confirmButtonColor: "#D34720",
@@ -67,8 +79,16 @@ const CreateBookForm = () => {
             !bookData.price &&
             !selectedFile
         ) {
+            const remainingFields = [];
+            for (let key in bookData) {
+                if (!bookData[key]) {
+                    remainingFields.push(key);
+                }
+            }
+            if (!selectedFile) remainingFields.push("image");
+
             return Swal.fire({
-                title: "Complete the fields to add a book!",
+                title: `Complete the fields ${remainingFields.join(", ")} to add a book!`,
                 text: "",
                 icon: "warning",
                 confirmButtonText: "Ok",
@@ -142,14 +162,14 @@ const CreateBookForm = () => {
 
     return (
         <div className="mt-20 flex justify-center">
-            <form className="w-4/6 bg-[#fef3ed] shadow-md rounded-xl p-3" action="submit">
+            <form className="w-4/6 py-5 text-base bg-[#fef3ed] shadow-md rounded-xl p-3" action="submit">
                 <div className="flex justify-center">
-                    <h5 className="text-3xl text-center bg-cyan-0 w-4/6 py-1 rounded-xl">
-                        Stock creation form: Register your Book
+                    <h5 className="text-center bg-blue-0 text-white-0 font-semibold text-2xl w-4/6 py-3 mb-5 rounded-xl">
+                        Register your book
                     </h5>
                 </div>
 
-                <div className="flex flex-col items-center text-2xl">
+                <div className="flex flex-col items-center">
                     {/* ISBN INPUT FIELD */}
                     <div className="w-5/6 flex mt-3 duration-200">
                         <label className="mr-3" htmlFor="ISBN">
@@ -178,7 +198,7 @@ const CreateBookForm = () => {
                     {/* BOOK TITLE INPUT FIELD */}
                     <div className="w-5/6 flex mt-3">
                         <label className=" mr-3" htmlFor="book_title">
-                            Book Title:
+                            Book title:
                         </label>
                         <input
                             name="book_title"
@@ -204,7 +224,7 @@ const CreateBookForm = () => {
                     {/* AUTHOR'S NAME FIELD */}
                     <div className="w-5/6 flex mt-3">
                         <label className="mr-3" htmlFor="author">
-                            {"Author's Name:"}
+                            {"Author's name:"}
                         </label>
                         <input
                             name="author"
@@ -229,22 +249,26 @@ const CreateBookForm = () => {
                     </div>
 
                     {/* GENRE FIELD */}
-                    <div className="w-5/6 flex mt-3">
+                    <div className="w-5/6 flex mt-3 font-poppins">
                         <label className="mr-3" htmlFor="genre">
                             Genre:
                         </label>
-                        <input
+                        <select
                             name="genre"
-                            type="text"
-                            autoComplete="off"
                             value={bookData.genre}
                             onChange={handleDataChange}
                             className={
                                 errorForm.genre
                                     ? "rounded-xl border-2 border-orange-0 grow"
-                                    : "rounded-xl border-2 grow"
-                            }
-                        />
+                                    : "rounded-xl border-2 grow pl-5"
+                            } //className="rounded-xl border-2 grow"
+                        >
+                            {arrayGenres.map((genre, index) => (
+                                <option className="text-black " key={index} value={genre}>
+                                    {genre}
+                                </option>
+                            ))}
+                        </select>
                         <div
                             data-tooltip-id="Genre-tooltip"
                             data-tooltip-content={errorForm.genre}
@@ -256,11 +280,8 @@ const CreateBookForm = () => {
                     </div>
                     {/* BOOK'S DESCRIPTION FIELD */}
                     <div className="flex flex-col w-5/6 mt-3">
-                        <div
-                            className="flex
-                        "
-                        >
-                            <label htmlFor="book_description">Book Description:</label>
+                        <div className="flex">
+                            <label htmlFor="book_description">Book description:</label>
                             <div
                                 data-tooltip-id="Description-tooltip"
                                 data-tooltip-content={errorForm.book_description}
@@ -279,15 +300,15 @@ const CreateBookForm = () => {
                             onChange={handleDataChange}
                             className={
                                 errorForm.book_description
-                                    ? "rounded-xl border-2 border-orange-0"
-                                    : "rounded-xl border-2"
+                                    ? "rounded-xl border-2 pl-2 border-orange-0"
+                                    : "rounded-xl border-2 pl-2"
                             }
                         />
                     </div>
                     {/* PRICE FIELD */}
                     <div className="w-5/6 flex mt-3">
                         <label className="mr-3" htmlFor="price">
-                            Price:
+                            Price (USD):
                         </label>
                         <input
                             name="price"
@@ -297,8 +318,8 @@ const CreateBookForm = () => {
                             onChange={handleDataChange}
                             className={
                                 errorForm.price
-                                    ? "rounded-xl border-2 border-orange-0 grow"
-                                    : "rounded-xl border-2 grow"
+                                    ? "rounded-xl border-2 border-orange-0 pl-2 grow"
+                                    : "rounded-xl border-2 grow pl-2"
                             }
                         />
                         <div
@@ -312,7 +333,7 @@ const CreateBookForm = () => {
                     </div>
                     <div className="w-5/6 flex mt-3">
                         <label className="mr-3" htmlFor="book_cover">
-                            Image:{" "}
+                            Book cover:{" "}
                         </label>
                         <input type="file" onChange={handleFileChange} />
                         <img src={selectedFile} alt="" />
@@ -326,10 +347,10 @@ const CreateBookForm = () => {
                         <Tooltip className="text-xs" id="Img-tooltip" />
                     </div>
                     <button
-                        className="mt-5 text-3xl bg-orange-0 px-3 rounded-xl text-white-0 duration-200 hover:scale-105 hover:bg-[#D48620]"
+                        className="mt-5 text-lg bg-orange-0 px-10 py-2 rounded-full text-white-0 duration-200 hover:scale-110 hover:bg-[#D48620]"
                         onClick={handleUpload}
                     >
-                        Add Book
+                        Add book
                     </button>
                 </div>
             </form>
