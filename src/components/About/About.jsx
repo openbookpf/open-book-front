@@ -3,8 +3,8 @@ import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const About = () => {
     return (
-      <div className="flex items-center justify-center h-screen bg-white">
-        <div className="w-3/4 h-full bg-blue-0">
+      <div className="min-h-screen bg-white-0 flex justify-center items-center">
+        <div className="w-3/4  bg-blue-0">
         <div className="text-white-0 rounded-lg p-4 mx-4 md:mx-auto mb-8 max-w-lg text-center mt-28"> 
   <h2 className="text-xl font-bold text-white-0">Meet the team behind <span className="text-orange-0">OpenBook</span></h2>
   <h3 className="text-lg font-semibold text-white-0">We had a goal:</h3>
@@ -30,7 +30,7 @@ const About = () => {
         </div>
 
 <div className="flex justify-around">
-<div className="ml-80 mt-35">
+<div className="ml-80 mt-[-210px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://ca.slack-edge.com/TPRS7H4PN-U05RJ885CAW-b94cbd7f7df5-512" alt="Daiana Carabetta" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Daiana Carabetta</h4>
@@ -47,7 +47,7 @@ const About = () => {
         </div>
     
 <div className="flex justify-around">
-<div className="ml-54">
+<div className="mr-80 mt-[50px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://ca.slack-edge.com/TPRS7H4PN-U05MNTL5059-14924621e702-512" alt="Joaquin Klein" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Joaquin Klein</h4>
@@ -64,7 +64,7 @@ const About = () => {
         </div>
 
 <div className="flex justify-around">
-<div className="ml-40">
+<div className="ml-80 mt-[-204px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://media.licdn.com/dms/image/D4D03AQErWoN3a7k5ew/profile-displayphoto-shrink_800_800/0/1683126362231?e=1718841600&v=beta&t=Es2SAuLqlQIzIzlGYLIb6-eu27kX-3ClPUTsu3OiFrU" alt="Daira Espinoza" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Daira Espinoza</h4>
@@ -81,7 +81,7 @@ const About = () => {
         </div>
 
 <div className="flex justify-around">
-<div className="ml-40">
+<div className="mr-80 mt-[40px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://media.licdn.com/dms/image/D4D03AQHpFoyYCMnSTQ/profile-displayphoto-shrink_800_800/0/1693586007462?e=1718841600&v=beta&t=aKbWd25SqYyidknjglXG0QIfbX4Kjj5Cb4GqYxozBww" alt="Michael Medina" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Michael Medina</h4>
@@ -98,7 +98,7 @@ const About = () => {
         </div>
     
         <div className="flex justify-around">
-<div className="ml-40">
+<div className="ml-80 mt-[-205px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://avatars.githubusercontent.com/u/129334567?v=4" alt="Derlis Fernandez" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Derlis Fernandez</h4>
@@ -115,7 +115,7 @@ const About = () => {
         </div>
 
         <div className="flex justify-around">
-<div className="ml-40">
+<div className="ml-50 mt-[30px]">
           <div className="bg-white-0 rounded-lg p-4 mx-4 max-w-sm h-full">
             <img src="https://avatars.githubusercontent.com/u/128420462?v=4" alt="Daniel Martinez" className="rounded-full w-24 h-24 mx-auto mb-4" />
             <h4 className="text-lg font-bold">Daniel Martinez</h4>
@@ -130,8 +130,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
-
 
       </div>
       </div>
