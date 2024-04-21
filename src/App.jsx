@@ -11,7 +11,6 @@ import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
 import Profile from "./components/Profile/Profile"
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
-/* import Checkout from "./components/Checkout/Checkout"; */
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -20,6 +19,7 @@ import {
   updateCartFromStorage,
   loadFavoritesFromStorageOnStart,
 } from "./redux/actions";
+import Profile from "./views/UserProfile/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function App() {
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         {/* <Route exact path="/checkout" element={<Checkout />} /> */}
         <Route path="/favourites" element={<Favourites />} />
-        <Route exact path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
