@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions";
 import { IoTrashOutline } from "react-icons/io5";
 import { addToCart } from "../../redux/actions";
+import { removeAll } from "../../redux/actions";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.items);
@@ -20,10 +21,14 @@ function Cart() {
     dispatch(removeFromCart(isbn));
   };
 
+  const handleRemoveAll = (isbn) => {
+    dispatch(removeAll(isbn));
+  };
+
   return (
     <div className="flex flex-row font-poppins my-8 md:container md:mx-auto   min-h-screen min-w-screen bg-gray-100">
       <div className="flex-col basis-3/4 container py-10 px-15">
-        {cartProducts.length > 0 ? (
+        {cartProducts && cartProducts.length > 0 ? (
           <div className="flex flex-col space-y-4">
             {cartProducts.map((p) => (
               <div
@@ -56,7 +61,7 @@ function Cart() {
                     ${Math.max(0, p.quantity * p.price).toFixed(2)}
                   </div>
                   <button
-                    onClick={() => dispatch(removeFromCart(p.ISBN))}
+                    onClick={() => handleRemoveAll(p.ISBN)}
                     className="bg-[#fef3ed] hover:bg-gray-200 py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-400 ml-2"
                   >
                     <IoTrashOutline />
