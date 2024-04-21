@@ -9,6 +9,7 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
+import Profile from "./components/Profile/Profile"
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 /* import Checkout from "./components/Checkout/Checkout"; */
 import Favourites from "./views/Favourites/Favourites";
@@ -33,6 +34,7 @@ function App() {
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
 
+
   return (
     <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />
@@ -48,6 +50,7 @@ function App() {
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         {/* <Route exact path="/checkout" element={<Checkout />} /> */}
         <Route path="/favourites" element={<Favourites />} />
+        <Route exact path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
