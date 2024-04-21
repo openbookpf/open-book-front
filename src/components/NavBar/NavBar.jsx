@@ -7,11 +7,16 @@ import { FaSearch } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 import { useSelector } from "react-redux";
 import logo from "../../assets/TrasparentLightMoodLogo.png";
+import LogoutButton from "../Buttons/LogoutButton";
+import LoginButton from "../Buttons/LoginButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = () => {
   const [trigger, setTrigger] = React.useState(false);
   const cartCounter = useSelector((state) => state.totalItems || 0);
   const location = useLocation();
+  const { isAuthenticated } = useAuth0(); // Obtiene el estado de autenticación del usuario
+
   console.log(location.pathname);
 
   return (
@@ -55,6 +60,12 @@ const NavBar = () => {
             >
               About Us
             </Link>
+            <Link
+              to="/profile"
+              className="text-black hover:underline hover:scale-15 transition-transform delay-50"
+            >
+              Profile
+            </Link>
           </div>
         </div>
         {location.pathname !== "/" ? (
@@ -76,11 +87,11 @@ const NavBar = () => {
               <IoMdAdd className="text-2xl " />
             </div>
           </Link>
-
-          <Link to="/log-in" className="text-black">
-            <AiOutlineUser className="text-3xl  hover:scale-110 transition-transform delay-50" />
-          </Link>
-
+          <div className="flex flex-row mr-8 gap-8">
+            {/* Resto del código */}
+            {isAuthenticated ? <LogoutButton /> : <LoginButton />}{" "}
+            {/* Muestra el botón de inicio de sesión o cierre de sesión según el estado de autenticación del usuario */}
+          </div>
           <Link to="/Favourites">
             <button className="text-3xl text-black  focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
               <MdFavoriteBorder />
