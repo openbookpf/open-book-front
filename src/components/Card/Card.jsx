@@ -19,6 +19,10 @@ const Card = ({ book }) => {
     dispatch(addToCart(productToAdd));
   };
 
+  const handleBuyButton = () => {
+    handleAddToCart();
+  };
+
   return (
     <div
       className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
@@ -43,10 +47,13 @@ const Card = ({ book }) => {
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
-        <Link to="/ckeckout">
-          <button className="bg-orange-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100">
+        <Link to="/checkout">
+          <button
+            onClick={handleBuyButton}
+            className="bg-orange-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
+          >
             <span className="text-white-0 align-middle py-1 px-4 text-sm">
-              Comprar
+              BUY NOW
             </span>
           </button>
         </Link>

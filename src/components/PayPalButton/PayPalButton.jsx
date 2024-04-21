@@ -2,15 +2,23 @@
 
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const PayPalButton = ({ totalValue, invoice }) => {
+const PayPalButton = () => {
   const cartProducts = useSelector((state) => state.items);
+  const totalValue = useSelector((state) => state.cartTotalPrice);
+
   console.log(cartProducts);
   const body = {
     totalValue: 22.0,
     cart: [...cartProducts],
   };
-  const createOrder = (data, actions) => {
+
+  useEffect(() => {
+    console.log("Total Price Changed", totalValue);
+  }, [totalValue]);
+
+  const createOrder = (cartProducts, totalValue, actions) => {
     // Order is created on the server and the order id is returned
     return fetch("http://localhost:3001/orders/", {
       method: "POST",
@@ -21,7 +29,7 @@ const PayPalButton = ({ totalValue, invoice }) => {
       // like product skus and quantities
       body: JSON.stringify({
         cart: cartProducts,
-        totalValue: totalValue,
+        totalValue: totalValue ? totalValue.toFixed(2) : "0",
       }),
     })
       .then((response) => response.json())
@@ -53,22 +61,32 @@ const PayPalButton = ({ totalValue, invoice }) => {
   };
 
   return (
-    <div className="flex items-center justify-center content-center">
-      <span className="pr-2 font-bold text-lg">Buy Now</span>
-      <PayPalScriptProvider
-        options={{
-          clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
-          currency: "USD",
-          intent: "capture",
-          disableFunding: "card",
-        }}
-      >
-        <PayPalButtons
-          createOrder={(data, actions) => createOrder(data, actions)}
-          onApprove={(data, actions) => onApprove(data, actions)}
-        />
-      </PayPalScriptProvider>
-    </div>
+    cartProducts &&
+    totalValue && (
+      <div className="flex flex-col items-center justify-center content-center w-full">
+        <span className="pr-2 font-bold text-lg mb-4">Buy Now</span>
+        <div className="w-80">
+          <PayPalScriptProvider
+            options={{
+              clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+              currency: "USD",
+              intent: "capture",
+              disableFunding: "card",
+            }}
+          >
+            <PayPalButtons
+              style={{ shape: "pill" }}
+              disabled={totalValue ? false : true}
+              createOrder={(data, actions) =>
+                createOrder(cartProducts, totalValue, actions)
+              }
+              onApprove={(data, actions) => onApprove(data, actions)}
+              onCancel={console.log("Payment has been canceled")}
+            />
+          </PayPalScriptProvider>
+        </div>
+      </div>
+    )
   );
 };
 

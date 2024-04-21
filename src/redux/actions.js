@@ -12,10 +12,12 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const RESET_SEARCHED_BOOKS = "RESET_SEARCHED_BOOKS";
 
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const REMOVE_ALL = "REMOVE_ALL";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
 export const GET_GENRES_AND_AUTHORS = "GET_GENRES_AND_AUTHORS";
 export const GET_BOOKS_FILTERS = "GET_BOOKS_FILTERS";
 export const APPLIED_FILTERS = "APPLIED_FILTERS";
+export const GET_BOOKS_BY_GENRE = "GET_BOOKS_BY_GENRE";
 
 export const updateCartFromStorage = (cartItems) => ({
   type: UPDATE_CART_FROM_STORAGE,
@@ -42,6 +44,18 @@ export const removeFromCart = (ISBN) => {
     });
     const { items } = getState();
     localStorage.setItem("cart", JSON.stringify(items));
+  };
+};
+
+export const removeAll = (ISBN) => {
+  return (dispatch, getState) => {
+    const { items } = getState();
+    const updatedItems = items.filter((item) => item.ISBN !== ISBN);
+    dispatch({
+      type: "REMOVE_ALL",
+      payload: updatedItems,
+    });
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
   };
 };
 
@@ -137,3 +151,19 @@ export const resetSearchedBooks = () => ({
   type: RESET_SEARCHED_BOOKS,
   payload: "",
 });
+
+export const getBooksByGenre = (genre) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `https://open-book-back.onrender.com/book/filtrar?author&genre=${genre}&min&max`
+      );
+      dispatch({
+        type: GET_BOOKS_BY_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

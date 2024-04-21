@@ -12,6 +12,8 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_FROM_STORAGE,
   RESET_SEARCHED_BOOKS,
+  REMOVE_ALL,
+  GET_BOOKS_BY_GENRE,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -21,9 +23,14 @@ const calculateTotalPrice = (cartItems) => {
   );
 };
 
+const calculateTotalItems = (cartItems) => {
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
+};
+
 const initialState = {
   books: [],
   filteredBooks: [],
+  filterGenreBooks: [],
   searchbook: [],
   searchname: "",
   genres: [],
@@ -108,6 +115,7 @@ function booksReducer(state = initialState, action) {
 
     case APPLIED_FILTERS:
       return { ...state, appliedFilters: action.payload };
+
     case ADD_TO_CART:
       const existingItem = state.items.find(
         (item) => item.ISBN === action.payload.ISBN
@@ -157,16 +165,25 @@ function booksReducer(state = initialState, action) {
         }
       }
       return state;
+    case REMOVE_ALL:
+      return {
+        ...state,
+        items: action.payload,
+        totalItems: calculateTotalItems(action.payload),
+        cartTotalPrice: calculateTotalPrice(action.payload),
+      };
     case UPDATE_CART_FROM_STORAGE:
       return {
         ...state,
         items: action.payload,
-        totalItems: action.payload.length,
+        totalItems: calculateTotalItems(action.payload),
         cartTotalPrice: calculateTotalPrice(action.payload),
       };
     case RESET_SEARCHED_BOOKS:
       return { ...state, searchbook: action.payload };
 
+    case GET_BOOKS_BY_GENRE:
+      return { ...state, filterGenreBooks: action.payload };
     default:
       return state;
   }

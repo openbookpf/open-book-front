@@ -9,7 +9,8 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
-/* import Checkout from "./components/Checkout/Checkout"; */
+import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
+import Checkout from "./views/Checkout/Checkout";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getBooks, updateCartFromStorage } from "./redux/actions";
@@ -38,7 +39,8 @@ function App() {
         <Route path="/create_book" element={<CreateBookForm />} />
         <Route path="/searchbook" element={<ShowSearchByName />} />
         <Route exact path="/cart" element={<Cart />} />
-        {/* <Route exact path="/checkout" element={<Checkout />} /> */}
+        <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
+        <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
   );
