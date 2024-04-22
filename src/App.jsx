@@ -21,6 +21,8 @@ import {
 } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
 
+import Chat from "./views/Chat/Chat";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ function App() {
     dispatch(getBooks());
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
+
 
 
   return (
@@ -49,6 +52,8 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         {/* <Route exact path="/checkout" element={<Checkout />} /> */}
+                <Route path="/chat" element={<Chat />} />
+
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>

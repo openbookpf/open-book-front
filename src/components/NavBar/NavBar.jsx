@@ -17,7 +17,7 @@ const NavBar = () => {
   const location = useLocation();
   const { isAuthenticated } = useAuth0(); // Obtiene el estado de autenticación del usuario
 
-  console.log(location.pathname);
+
 
   return (
     <div>
@@ -60,6 +60,14 @@ const NavBar = () => {
             >
               About Us
             </Link>
+  {location.pathname !== "/chat" ? (
+                            <Link
+                                to="/chat"
+                                className="text-white-0 bg-cyan-0 px-2 rounded-lg hover:scale-105 duration-200"
+                            >
+                                OpenBook community
+                            </Link>
+                        ) : null}
             <Link
               to="/profile"
               className="text-black hover:underline hover:scale-15 transition-transform delay-50"
