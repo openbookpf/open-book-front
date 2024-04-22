@@ -2,10 +2,13 @@ import React from "react";
 import PayPalButton from "../../components/PayPalButton/PayPalButton";
 import { useSelector } from "react-redux";
 import openBookLogo from "../../assets/TrasparentLightMoodLogo.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Checkout = () => {
+  const { user } = useAuth0();
   const cartItems = useSelector((state) => state.items);
   const cartTotalPrice = useSelector((state) => state.cartTotalPrice);
+  const currentDate = new Date();
   return (
     cartItems?.length && (
       <div className="font-poppins md:container md:mx-auto w-full   min-h-screen min-w-screen bg-gray-100 mt-20 flex flex-col">
@@ -26,16 +29,16 @@ const Checkout = () => {
                 <span>#5033</span>
               </p>
               <p className="flex justify-between">
-                <span className="text-gray-400">Order Type:</span>
-                <span>Dine-in</span>
+                <span className="text-gray-400">Date:</span>
+                <span>{currentDate.toLocaleDateString()}</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-gray-400">Host:</span>
-                <span>Jane Doe</span>
+                <span>OBW-Library</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-gray-400">Customer:</span>
-                <span>John Doe</span>
+                <span>{user.given_name}</span>
               </p>
             </div>
             <div className="flex flex-col gap-3 pb-6 pt-2 text-xs">
