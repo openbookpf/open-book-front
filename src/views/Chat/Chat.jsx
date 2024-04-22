@@ -49,7 +49,7 @@ function Chat() {
         if (/^\s+$/.test(newMessage)) return;
 
         socket.emit("send_message", {
-            user: socket.id, //! CAMBIAR CON EL NOMBRE DE USUARIO LOGUEADO
+            user: socket.id, //! CAMBIAR CON EL NOMBRE DE USUARIO LOGUEADO!
             message: newMessage,
         });
 
