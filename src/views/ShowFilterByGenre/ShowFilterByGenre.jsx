@@ -33,7 +33,7 @@ const ShowFilterByGenre = () => {
     // text-lg hover:text-orange-0
     return (
         <div className="mt-20 flex flex-row w-sreen">
-            <div className="ml-10 w-1/6 mt-10">
+            <div className="ml-10 w-60 mt-10">
                 <p className="text-xl">Authors</p>
                 <div className="ml-10">
                     {authors.map((auth) => (

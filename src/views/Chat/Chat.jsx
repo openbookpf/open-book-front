@@ -1,23 +1,34 @@
 import { io } from "socket.io-client";
 import { useState, useEffect, useRef } from "react";
 import { IoSend } from "react-icons/io5";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const socket = io("https://open-book-chat.onrender.com");
 
 function Chat() {
     const [isConnected, setIsConnected] = useState(false);
     const [newMessage, setNewMessage] = useState("");
-    const [messages, setMessages] = useState([]);
-
+    const [messages, setMessages] = useState(() => {
+        //? Cargar mensajes del localStorage o iniciar con un arreglo vacío
+        const savedMessages = localStorage.getItem("chatMessages");
+        return savedMessages ? JSON.parse(savedMessages) : [];
+    });
     const messagesEndRef = useRef(null);
 
-    const name = socket.id;
+    //! -user conected
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    //! --------------
 
     useEffect(() => {
         socket.on("connect", () => setIsConnected(true));
 
         socket.on("send_message", (data) => {
-            setMessages((messages) => [...messages, data]);
+            setMessages((messages) => {
+                const updatedMessages = [...messages, data];
+                //? Guardar los mensajes actualizados en localStorage.
+                localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+                return updatedMessages;
+            });
         });
 
         socket.on("newConnected", (data) => {
@@ -31,25 +42,26 @@ function Chat() {
     }, []);
 
     useEffect(() => {
-        if (isConnected) {
+        if (user && isConnected) {
             socket.emit("newConnected", {
-                message: `${socket.id} has connected`,
+                message: `${user.name} has connected`,
             });
         }
     }, [isConnected]);
 
-    //* para mover el scroll al ultimo
+    //! para mover el scroll al ultimo
     useEffect(() => {
-        messagesEndRef.current.scrollIntoView();
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView();
+        }
     }, [messages]);
-
     const sendMessage = () => {
         if (!newMessage) return;
 
         if (/^\s+$/.test(newMessage)) return;
 
         socket.emit("send_message", {
-            user: socket.id, //! CAMBIAR CON EL NOMBRE DE USUARIO LOGUEADO!
+            user: user.name,
             message: newMessage,
         });
 
@@ -67,7 +79,7 @@ function Chat() {
         }
     };
 
-    return (
+    return isAuthenticated ? (
         <div className="flex flex-col items-center h-screen">
             <h1 className=" mt-20 mb-3 text-2xl bg-cyan-0 text-white-0 px-4 py-1 rounded-xl h-10">
                 OpenBook community
@@ -75,7 +87,7 @@ function Chat() {
             <div className="grow bg-[#fef3ed] w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
                 <div className="grow p-4 h-1/6 overflow-auto">
                     {messages.map((msg, index = 0) =>
-                        name === msg.user ? (
+                        user.name === msg.user ? (
                             <div className="flex justify-end" key={index++}>
                                 <p className="w-3/6 bg-cyan-0 bg-opacity-55 p-2 rounded-xl mt-4 text-pretty text-ellipsis overflow-hidden">
                                     {msg.message}
@@ -114,6 +126,19 @@ function Chat() {
                     >
                         <IoSend />
                     </button>
+                </div>
+            </div>
+        </div>
+    ) : (
+        <div className="flex flex-col items-center h-screen">
+            <h1 className=" mt-20 mb-3 text-2xl bg-cyan-0 text-white-0 px-4 py-1 rounded-xl h-10">
+                OpenBook community
+            </h1>
+            <div className="grow bg-[#fef3ed] w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
+                <div className=" flex justify-center mt-6">
+                    <p>
+                        Sign in to interact with the <strong>OpenBook</strong> community
+                    </p>
                 </div>
             </div>
         </div>
