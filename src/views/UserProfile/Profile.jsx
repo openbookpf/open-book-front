@@ -8,14 +8,20 @@ const Profile = () => {
     return <div>Loading ...</div>;
   }
 
-  return (
-    isAuthenticated && (
+  if (!isAuthenticated) {
+    return (
       <div className="text-center flex flex-col mt-20">
-        <img className="w-20" src={user.picture} alt={user.name} />
-        <h2 className="text-3xl">{user.name}</h2>
-        <p>{user.email}</p>
+        <p>Por favor inicia sesión</p>
       </div>
-    )
+    );
+  }
+
+  return (
+    <div className="text-center flex flex-col mt-20">
+      <h2 className="text-3xl">{user.name}</h2>
+      <p>{user.email}</p>
+      <img className="w-20" src={user.picture} alt={user.name} />
+    </div>
   );
 };
 
