@@ -15,6 +15,8 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getBooks, updateCartFromStorage } from "./redux/actions";
 
+import Chat from "./views/Chat/Chat";
+
 function App() {
     const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ function App() {
                 <Route path="/searchbook" element={<ShowSearchByName />} />
                 <Route exact path="/cart" element={<Cart />} />
                 <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
+                <Route path="/chat" element={<Chat />} />
                 {/* <Route exact path="/checkout" element={<Checkout />} /> */}
             </Routes>
         </div>

@@ -28,24 +28,23 @@ const NavBar = () => {
                         </Link>
                     </div>
                     <div className="flex flex-row gap-5 my-auto">
-                        <Link
-                            to="/"
-                            className="text-black hover:underline hover:scale-110 transition-transform delay-50"
-                        >
+                        <Link to="/" className="text-black hover:underline hover:scale-105 duration-200">
                             Home
                         </Link>
-                        <Link
-                            to="/books"
-                            className="text-black hover:underline hover:scale-110 transition-transform delay-50"
-                        >
+                        <Link to="/books" className="text-black hover:underline hover:scale-105 duration-200">
                             Books
                         </Link>
-                        <Link
-                            to="/aboutus"
-                            className="text-black hover:underline hover:scale-15 transition-transform delay-50"
-                        >
+                        <Link to="/aboutus" className="text-black hover:underline hover:scale-105 duration-200">
                             About Us
                         </Link>
+                        {location.pathname !== "/chat" ? (
+                            <Link
+                                to="/chat"
+                                className="text-white-0 bg-cyan-0 px-2 rounded-lg hover:scale-105 duration-200"
+                            >
+                                OpenBook community
+                            </Link>
+                        ) : null}
                     </div>
                 </div>
                 {location.pathname !== "/" ? (
