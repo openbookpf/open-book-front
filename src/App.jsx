@@ -11,9 +11,14 @@ import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Checkout from "./views/Checkout/Checkout";
+import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getBooks, updateCartFromStorage } from "./redux/actions";
+import {
+  getBooks,
+  updateCartFromStorage,
+  loadFavoritesFromStorageOnStart,
+} from "./redux/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +30,7 @@ function App() {
       dispatch(updateCartFromStorage(parsedCartItems));
     }
     dispatch(getBooks());
+    dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
 
   return (
@@ -41,6 +47,7 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route path="/favourites" element={<Favourites />} />
       </Routes>
     </div>
   );

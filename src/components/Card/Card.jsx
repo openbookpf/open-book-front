@@ -1,11 +1,23 @@
 /* eslint-disable react/prop-types */
 
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import {
+  addToCart,
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 
-const Card = ({ book }) => {
+const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
+  const [isFav, setIsFav] = useState(false);
+
+  useEffect(() => {
+    if (favorites && favorites.length > 0) {
+      setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
+    }
+  }, [favorites, book.ISBN]);
 
   const handleAddToCart = () => {
     const productToAdd = {
@@ -19,9 +31,23 @@ const Card = ({ book }) => {
     dispatch(addToCart(productToAdd));
   };
 
+  const handleFavoriteButtonClick = () => {
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFromFavorites(book.ISBN));
+    } else {
+      setIsFav(true);
+      dispatch(addToFavorites(book));
+    }
+  };
+
   const handleBuyButton = () => {
     handleAddToCart();
   };
+
+  /* const handleRemoveFromFavorites = () => {
+    handleRemoveFromFavorites(book.ISBN);
+  }; */
 
   return (
     <div
@@ -60,7 +86,6 @@ const Card = ({ book }) => {
 
         <button
           onClick={handleAddToCart}
-          id="cart"
           className="bg-blue-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
         >
           <svg
@@ -83,24 +108,48 @@ const Card = ({ book }) => {
             <path d="M19 16v6" />
           </svg>
         </button>
-
-        <button className="bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="stroke-slate-50 m-2"
+        {showFavoriteButton && (
+          <button
+            onClick={handleFavoriteButtonClick}
+            className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
+              isFav ? "text-red-500" : ""
+            }`}
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-          </svg>
-        </button>
+            {isFav ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="stroke-red-800 m-2"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="stroke-slate-50 m-2"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
