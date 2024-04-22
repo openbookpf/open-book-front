@@ -17,6 +17,12 @@ export const GET_BOOKS_BY_GENRE = "GET_BOOKS_BY_GENRE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
+export const SAVEUSER = "SAVEUSER";
+
+export const saveuser = (newobject) => ({
+  type: SAVEUSER,
+  payload: newobject,
+});
 
 export const addToFavorites = (product) => ({
   type: "ADD_TO_FAVORITES",

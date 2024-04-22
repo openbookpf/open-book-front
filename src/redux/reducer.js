@@ -16,6 +16,7 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
+  SAVEUSER,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -47,6 +48,7 @@ const initialState = {
   favorites: [],
   totalItems: 0,
   cartTotalPrice: 0,
+  userAuth0: {},
 };
 
 function booksReducer(state = initialState, action) {
@@ -56,6 +58,9 @@ function booksReducer(state = initialState, action) {
 
     case SEARCH_BOOK_BY_NAME:
       return { ...state, searchbook: action.payload };
+
+    case SAVEUSER:
+      return { ...state, userAuth0: action.payload };
 
     // case FILTER_BOOKS_BY_GENRE:
     //     // return {

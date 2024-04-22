@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
-import { BiSolidMap } from 'react-icons/bi';
+import React, { useEffect, useState } from "react";
+import { BiSolidMap } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserProfile = () => {
-  const [user, setUser] = useState({
-    firstName: 'Juan Gomez',
-    address: 'Calle falsa 123',
-    email: 'juangomez@gmail.com',
-    phoneNumber: '123-456-7890'
-  });
-
+  // const newuser = useSelector((state) => state.userAuth0);
+  const { user } = useAuth0();
   const [image, setImage] = useState(null);
-
 
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
   const handleUserChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleEditProfileClick = () => {
-    console.log('Editar perfil');
+    console.log("Editar perfil");
   };
 
   const handleAdvancedSettingsClick = () => {
@@ -37,10 +33,13 @@ const UserProfile = () => {
   return (
     <div className="bg-gray-500 min-h-screen flex justify-center items-center ">
       <div className="bg-white-0 p-4 rounded-lg shadow-md mr-80">
-    
         <div className="relative w-32 h-32 overflow-hidden rounded-full bg-gray-300 ">
-          {image ? (
-            <img src={image} alt="User" className="object-cover w-full h-full" />
+          {user.picture ? (
+            <img
+              src={user.picture}
+              alt="User"
+              className="object-cover w-full h-full"
+            />
           ) : (
             <div className="flex justify-center items-center w-full h-full">
               <label htmlFor="imageUpload" className="cursor-pointer">
@@ -69,56 +68,85 @@ const UserProfile = () => {
         </div>
 
         <div className="font-bold">
-          <label > </label>
-          <input type="text" name="firstName" value={user.firstName} onChange={handleUserChange} className="bg-white-0"/>
+          <label> </label>
+          <input
+            type="text"
+            name="firstName"
+            value={user.name}
+            onChange={handleUserChange}
+            className="bg-white-0"
+          />
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <BiSolidMap className="h-5 w-5 text-gray-500 mr-2" />
-          <input type="text" name="address" value={user.address} onChange={handleUserChange} className="bg-white-0"/>
-        </div>
+          <input
+            type="text"
+            name="address"
+            value={user.address}
+            onChange={handleUserChange}
+            className="bg-white-0"
+          />
+        </div> */}
 
         <div>
-          <label></label>
-          <input type="email" name="email" value={user.email} onChange={handleUserChange} className="bg-white-0" />
+          <input
+            type="email"
+            name="email"
+            value={user.email}
+            onChange={handleUserChange}
+            className="bg-white-0"
+          />
         </div>
 
-        <div>
+        {/* <div>
           <label></label>
-          <input type="tel" name="phoneNumber" value={user.phoneNumber} onChange={handleUserChange} className="bg-white-0"/>
-        </div>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={user.phoneNumber}
+            onChange={handleUserChange}
+            className="bg-white-0"
+          />
+        </div> */}
 
         <div className="bg-blue-0 hover:bg-blue-950 p-2 rounded-md mb-2">
-        <button onClick={handleEditProfileClick} className="text-white-0">Edit Profile</button>
-      </div>
+          <button onClick={handleEditProfileClick} className="text-white-0">
+            Edit Profile
+          </button>
+        </div>
 
-      <div className="bg-cyan-0 hover:bg-cyan-900 p-2 rounded-md">
-        <button onClick={handleAdvancedSettingsClick} className="text-white-0">
-          {showAdvancedSettings ? 'Hide Advanced Configuration' : 'Advanced Configuration'}
-        </button>
-      </div>
-        {showAdvancedSettings && (
-          <div className="advanced-settings">
+        <div className="bg-cyan-0 hover:bg-cyan-900 p-2 rounded-md">
+          <button
+            onClick={handleAdvancedSettingsClick}
+            className="text-white-0"
+          >
+            {showAdvancedSettings
+              ? "Hide Advanced Configuration"
+              : "Advanced Configuration"}
+          </button>
+        </div>
+        {showAdvancedSettings && <div className="advanced-settings"></div>}
+
+        <div className="flex justify-end items-start absolute top-0 right-10 mr-20 mt-32 bg-white-0">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-lg font-bold">My Library 📚</h2>
+            <p className="text-sm text-gray-600 mb-2">Books you bought</p>
+            <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">
+              See All
+            </button>
           </div>
-        )}
+        </div>
 
-<div className="flex justify-end items-start absolute top-0 right-10 mr-20 mt-32 bg-white-0">
-  <div className="bg-white p-8 rounded-lg shadow-md">
-    <h2 className="text-lg font-bold">My Library 📚</h2>
-    <p className="text-sm text-gray-600 mb-2">Books you bought</p>
-    <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">See All</button>
-  </div>
-</div>
-
-<div className="flex justify-end items-start absolute top-0 right-10 mr-20 mt-80 bg-white-0">
-  <div className="bg-white p-10 rounded-lg shadow-md">
-    <h2 className="text-lg font-bold">Wish list ✨</h2>
-    <p className="text-sm text-gray-600 mb-2">Favorites books</p>
-    <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">See All</button>
-  </div>
-</div>
-
-
+        <div className="flex justify-end items-start absolute top-0 right-10 mr-20 mt-80 bg-white-0">
+          <div className="bg-white p-10 rounded-lg shadow-md">
+            <h2 className="text-lg font-bold">Wish list ✨</h2>
+            <p className="text-sm text-gray-600 mb-2">Favorites books</p>
+            <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">
+              See All
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

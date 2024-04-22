@@ -9,7 +9,7 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
-import Profile from "./components/Profile/Profile"
+import UserProfile from "./components/Profile/Profile";
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
@@ -19,7 +19,7 @@ import {
   updateCartFromStorage,
   loadFavoritesFromStorageOnStart,
 } from "./redux/actions";
-import Profile from "./views/UserProfile/Profile";
+import ProfileAuth0 from "./views/UserProfile/ProfileAuths0";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +33,6 @@ function App() {
     dispatch(getBooks());
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
-
 
   return (
     <div className="App flex flex-col text-3xl font-poppins">
@@ -50,7 +49,8 @@ function App() {
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         {/* <Route exact path="/checkout" element={<Checkout />} /> */}
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profileauth0" element={<ProfileAuth0 />} />
       </Routes>
     </div>
   );
