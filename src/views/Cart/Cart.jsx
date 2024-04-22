@@ -26,7 +26,7 @@ function Cart() {
   };
 
   return (
-    <div className="flex flex-row font-poppins my-8 md:container md:mx-auto   min-h-screen min-w-screen bg-gray-100">
+    <div className="flex flex-row font-poppins my-10 md:container md:mx-auto   min-h-screen min-w-screen">
       <div className="flex-col basis-3/4 container py-10 px-15">
         {cartProducts && cartProducts.length > 0 ? (
           <div className="flex flex-col space-y-4">
@@ -53,7 +53,7 @@ function Cart() {
                     counter={p.quantity}
                     onAdd={() => handleAddToCart(p)}
                     onSubtract={() => handleSubtractFromCart(p.ISBN)}
-                    // onChange={(value) => handleChangeCartAmount(p, value)}
+                    onChange={(value) => handleChangeCartAmount(p, value)}
                   />
                 </div>
                 <div className="basis-1/4 items-center mt-2 flex flex-row">
