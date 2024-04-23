@@ -6,12 +6,14 @@ import { removeFromCart } from "../../redux/actions";
 import { IoTrashOutline } from "react-icons/io5";
 import { addToCart } from "../../redux/actions";
 import { removeAll } from "../../redux/actions";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.items);
   const cartCounter = useSelector((state) => state.totalItems);
   const cartTotalPrice = useSelector((state) => state.cartTotalPrice);
   const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth0();
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -90,8 +92,13 @@ function Cart() {
         </div>
         {cartCounter > 0 ? (
           <Link
-            to="/checkout"
-            className={`bg-cyan-0 hover:bg-green-700 text-white py-2 px-4 rounded-lg`}
+            to={isAuthenticated ? "/checkout" : "#"}
+            title={`${isAuthenticated ? "" : "log in to buy books"}`}
+            className={`${
+              isAuthenticated
+                ? "bg-cyan-0 hover:bg-green-700"
+                : "bg-blue-0 bg-opacity-25"
+            } text-white py-2 px-4 rounded-lg`}
           >
             <span className="ml-1">Checkout</span>
           </Link>

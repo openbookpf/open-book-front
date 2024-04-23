@@ -138,19 +138,6 @@ export const getBooks = () => {
       const response = await axios.get(
         "https://open-book-back.onrender.com/book"
       );
-      dispatch({
-        type: GET_BOOKS,
-        payload: [...response.data.filter((book) => book.book_status)],
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(
-        "https://open-book-back.onrender.com/book"
-      );
 
       const lastFilt = localStorage.getItem("booksFilters");
       const data = lastFilt ? JSON.parse(lastFilt) : response.data;

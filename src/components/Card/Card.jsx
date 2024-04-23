@@ -8,10 +8,12 @@ import {
   removeFromFavorites,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (favorites && favorites.length > 0) {
@@ -73,10 +75,14 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
-        <Link to="/checkout">
+        <Link to={isAuthenticated ? "/checkout" : "#"}>
           <button
             onClick={handleBuyButton}
-            className="bg-orange-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
+            className={`${
+              isAuthenticated ? "bg-orange-0" : "bg-blue-0 bg-opacity-25"
+            } h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100`}
+            disabled={isAuthenticated ? false : true}
+            title={`${isAuthenticated ? "" : "log in to buy books"}`}
           >
             <span className="text-white-0 align-middle py-1 px-4 text-sm">
               BUY NOW
