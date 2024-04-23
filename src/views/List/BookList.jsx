@@ -21,11 +21,13 @@ const BookList = () => {
   const books = useSelector((state) => state.filteredBooks);
   const appliedFilters = useSelector((state) => state.appliedFilters);
   const favorites = useSelector((state) => state.favorites);
+
   const appliedFiltersMod = {
     ...appliedFilters,
     min: Number(appliedFilters.min),
     max: Number(appliedFilters.max),
   };
+
   let filters = Object.values(appliedFilters);
 
   const dispatch = useDispatch();

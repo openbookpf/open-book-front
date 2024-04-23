@@ -27,6 +27,14 @@ const CreateBookForm = () => {
         img: "",
     });
 
+    //? descripciones de cada campo:
+
+    const ISBMDescription = "The ISBN is a unique identifier for books.";
+    const authorName = "Author's full name (cannot contain numbers).";
+    const priceBook = "Book price (specify cents).";
+    const imgBook = "Book cover (only .jpg and .png files accepted)";
+    //? ----------------------------
+
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
         validationImg(event.target.files[0], errorForm, setErrorForm);
@@ -38,6 +46,33 @@ const CreateBookForm = () => {
 
     const handleUpload = async (event) => {
         event.preventDefault();
+
+        if (
+            !bookData.ISBN ||
+            !bookData.book_title ||
+            !bookData.author ||
+            !bookData.genre ||
+            !bookData.book_description ||
+            !bookData.price ||
+            !selectedFile
+        ) {
+            const remainingFields = [];
+            for (let key in bookData) {
+                if (!bookData[key]) {
+                    remainingFields.push(key);
+                }
+            }
+            if (!selectedFile) remainingFields.push("image");
+
+            return Swal.fire({
+                title: `Complete the fields ${remainingFields.join(", ")} to add a book!`,
+                text: "",
+                icon: "warning",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#D34720",
+                background: "#fef3ed",
+            });
+        }
 
         if (
             errorForm.ISBN ||
@@ -64,33 +99,6 @@ const CreateBookForm = () => {
                 title: "Wrong data!",
                 text: wrongMessage,
                 icon: "error",
-                confirmButtonText: "Ok",
-                confirmButtonColor: "#D34720",
-                background: "#fef3ed",
-            });
-        }
-
-        if (
-            !bookData.ISBN &&
-            !bookData.book_title &&
-            !bookData.author &&
-            !bookData.genre &&
-            !bookData.book_description &&
-            !bookData.price &&
-            !selectedFile
-        ) {
-            const remainingFields = [];
-            for (let key in bookData) {
-                if (!bookData[key]) {
-                    remainingFields.push(key);
-                }
-            }
-            if (!selectedFile) remainingFields.push("image");
-
-            return Swal.fire({
-                title: `Complete the fields ${remainingFields.join(", ")} to add a book!`,
-                text: "",
-                icon: "warning",
                 confirmButtonText: "Ok",
                 confirmButtonColor: "#D34720",
                 background: "#fef3ed",
@@ -172,9 +180,15 @@ const CreateBookForm = () => {
                 <div className="flex flex-col items-center">
                     {/* ISBN INPUT FIELD */}
                     <div className="w-5/6 flex mt-3 duration-200">
-                        <label className="mr-3" htmlFor="ISBN">
+                        <label
+                            className="mr-3"
+                            htmlFor="ISBN"
+                            data-tooltip-id="ISBM-description"
+                            data-tooltip-content={ISBMDescription}
+                        >
                             ISBN Number:
                         </label>
+                        <Tooltip className="text-xs" id="ISBM-description" />
                         <input
                             name="ISBN"
                             type="text"
@@ -223,9 +237,15 @@ const CreateBookForm = () => {
                     </div>
                     {/* AUTHOR'S NAME FIELD */}
                     <div className="w-5/6 flex mt-3">
-                        <label className="mr-3" htmlFor="author">
+                        <label
+                            className="mr-3"
+                            htmlFor="author"
+                            data-tooltip-id="author-description"
+                            data-tooltip-content={authorName}
+                        >
                             {"Author's name:"}
                         </label>
+                        <Tooltip className="text-xs" id="author-description" />
                         <input
                             name="author"
                             type="text"
@@ -307,9 +327,15 @@ const CreateBookForm = () => {
                     </div>
                     {/* PRICE FIELD */}
                     <div className="w-5/6 flex mt-3">
-                        <label className="mr-3" htmlFor="price">
+                        <label
+                            className="mr-3"
+                            htmlFor="price"
+                            data-tooltip-id="price-description"
+                            data-tooltip-content={priceBook}
+                        >
                             Price (USD):
                         </label>
+                        <Tooltip className="text-xs" id="price-description" />
                         <input
                             name="price"
                             type="number"
@@ -332,9 +358,15 @@ const CreateBookForm = () => {
                         <Tooltip className="text-xs" id="Price-tooltip" />
                     </div>
                     <div className="w-5/6 flex mt-3">
-                        <label className="mr-3" htmlFor="book_cover">
-                            Book cover:{" "}
+                        <label
+                            className="mr-3"
+                            htmlFor="book_cover"
+                            data-tooltip-id="Img-description"
+                            data-tooltip-content={imgBook}
+                        >
+                            Book cover:
                         </label>
+                        <Tooltip className="text-xs" id="Img-description" />
                         <input type="file" onChange={handleFileChange} />
                         <img src={selectedFile} alt="" />
                         <div

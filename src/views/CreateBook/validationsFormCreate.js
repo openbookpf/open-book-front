@@ -90,10 +90,10 @@ export const validationsForm = (key, value, errorForm, setErrorForm) => {
 //?-validacion de imagen--------------------------------------------------------------------------------------
 export const validationImg = (selectedFile, errorForm, setErrorForm) => {
     if (!selectedFile) {
-        setErrorForm({ ...errorForm, img: "This field is required" });
+        return setErrorForm({ ...errorForm, img: "This field is required" });
     }
     if (!/image\/(jpeg|png)/.test(selectedFile.type)) {
-        setErrorForm({ ...errorForm, img: "The file must be an image (.jpg or .png)" });
+        return setErrorForm({ ...errorForm, img: "The file must be an image (.jpg or .png)" });
     }
     return setErrorForm({ ...errorForm, img: "" });
 };

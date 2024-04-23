@@ -26,7 +26,7 @@ const Home = ({ books }) => {
   }, [newName]);
 
   const bookTemplate = (book) => {
-    return <Card book={book} key={book.ISBN} />;
+    return <Card book={book} showFavoriteButton={true} key={book.ISBN} />;
   };
   return (
     <div className="relative ">
@@ -77,14 +77,16 @@ const Home = ({ books }) => {
             </p>
           </div>
 
-          <div>
-            <Carousel
-              value={books}
-              numVisible={5}
-              numScroll={3}
-              itemTemplate={bookTemplate}
-              autoplayInterval={3000}
-            />
+          <div className="mx-auto">
+            <div className="px-3">
+              <Carousel
+                value={books}
+                numVisible={5}
+                numScroll={3}
+                itemTemplate={bookTemplate}
+                autoplayInterval={3000}
+              />
+            </div>
           </div>
         </div>
       </footer>

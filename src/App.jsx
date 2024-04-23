@@ -9,7 +9,6 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
-/* import Profile from "./components/Profile/Profile"; */
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
@@ -20,6 +19,8 @@ import {
   loadFavoritesFromStorageOnStart,
 } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
+
+import Chat from "./views/Chat/Chat";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,8 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         {/* <Route exact path="/checkout" element={<Checkout />} /> */}
+        <Route path="/chat" element={<Chat />} />
+
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
