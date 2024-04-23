@@ -3,8 +3,10 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const PayPalButton = () => {
+  const { user } = useAuth0();
   const cartProducts = useSelector((state) => state.items);
   const totalValue = useSelector((state) => state.cartTotalPrice);
 
@@ -20,7 +22,7 @@ const PayPalButton = () => {
 
   const createOrder = (cartProducts, totalValue, actions) => {
     // Order is created on the server and the order id is returned
-    return fetch("http://localhost:3001/orders/", {
+    return fetch("https://open-book-back.onrender.com/orders/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,15 +51,21 @@ const PayPalButton = () => {
   const onApprove = (data, actions) => {
     console.log(data);
     // Order is captured on the server and the response is returned to the browser
-    return fetch(`http://localhost:3001/orders/${data.orderID}/capture`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        orderID: data.orderID,
-      }),
-    }).then((response) => response.json());
+    return fetch(
+      `https://open-book-back.onrender.com/orders/${data.orderID}/capture`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderID: data.orderID,
+          name: user.name,
+          emailAddress: user.email,
+          totalValue: totalValue,
+        }),
+      }
+    ).then((response) => response.json());
   };
 
   return (
