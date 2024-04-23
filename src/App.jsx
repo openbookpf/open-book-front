@@ -9,12 +9,12 @@ import AdminStockForm from "./views/AdminStock/AdminStockForm";
 import CreateBookForm from "./views/CreateBook/CreateBookForm";
 import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
-// // import Profile from "./components/Profile/Profile"
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Checkout from "./views/Checkout/Checkout";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+
 import {
   getBooks,
   updateCartFromStorage,

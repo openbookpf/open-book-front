@@ -29,6 +29,14 @@ const CreateBookForm = () => {
     img: "",
   });
 
+  //? descripciones de cada campo:
+
+  const ISBMDescription = "The ISBN is a unique identifier for books.";
+  const authorName = "Author's full name (cannot contain numbers).";
+  const priceBook = "Book price (specify cents).";
+  const imgBook = "Book cover (only .jpg and .png files accepted)";
+  //? ----------------------------
+
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     validationImg(event.target.files[0], errorForm, setErrorForm);
@@ -40,7 +48,35 @@ const CreateBookForm = () => {
 
   const handleUpload = async (event) => {
     event.preventDefault();
-    console.log(event);
+
+    if (
+      !bookData.ISBN ||
+      !bookData.book_title ||
+      !bookData.author ||
+      !bookData.genre ||
+      !bookData.book_description ||
+      !bookData.price ||
+      !selectedFile
+    ) {
+      const remainingFields = [];
+      for (let key in bookData) {
+        if (!bookData[key]) {
+          remainingFields.push(key);
+        }
+      }
+      if (!selectedFile) remainingFields.push("image");
+
+      return Swal.fire({
+        title: `Complete the fields ${remainingFields.join(
+          ", "
+        )} to add a book!`,
+        text: "",
+        icon: "warning",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#D34720",
+        background: "#fef3ed",
+      });
+    }
 
     if (
       errorForm.ISBN ||
@@ -71,35 +107,6 @@ const CreateBookForm = () => {
         title: "Wrong data!",
         text: wrongMessage,
         icon: "error",
-        confirmButtonText: "Ok",
-        confirmButtonColor: "#D34720",
-        background: "#fef3ed",
-      });
-    }
-
-    if (
-      !bookData.ISBN &&
-      !bookData.book_title &&
-      !bookData.author &&
-      !bookData.genre &&
-      !bookData.book_description &&
-      !bookData.price &&
-      !selectedFile
-    ) {
-      const remainingFields = [];
-      for (let key in bookData) {
-        if (!bookData[key]) {
-          remainingFields.push(key);
-        }
-      }
-      if (!selectedFile) remainingFields.push("image");
-
-      return Swal.fire({
-        title: `Complete the fields ${remainingFields.join(
-          ", "
-        )} to add a book!`,
-        text: "",
-        icon: "warning",
         confirmButtonText: "Ok",
         confirmButtonColor: "#D34720",
         background: "#fef3ed",
@@ -200,9 +207,15 @@ const CreateBookForm = () => {
         <div className="flex flex-col items-center">
           {/* ISBN INPUT FIELD */}
           <div className="w-5/6 flex mt-3 duration-200">
-            <label className="mr-3" htmlFor="ISBN">
+            <label
+              className="mr-3"
+              htmlFor="ISBN"
+              data-tooltip-id="ISBM-description"
+              data-tooltip-content={ISBMDescription}
+            >
               ISBN Number:
             </label>
+            <Tooltip className="text-xs" id="ISBM-description" />
             <input
               name="ISBN"
               type="text"
@@ -211,8 +224,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.ISBN
-                  ? "rounded-xl border-2 border-orange-0 grow px-2"
-                  : "rounded-xl border-2 grow px-2"
+                  ? "rounded-xl border-2 border-orange-0 grow"
+                  : "rounded-xl border-2 grow"
               }
               // className="rounded-xl border-2 grow"
             />
@@ -230,7 +243,7 @@ const CreateBookForm = () => {
           {/* BOOK TITLE INPUT FIELD */}
           <div className="w-5/6 flex mt-3">
             <label className=" mr-3" htmlFor="book_title">
-              Book Title:
+              Book title:
             </label>
             <input
               name="book_title"
@@ -240,8 +253,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.book_title
-                  ? "rounded-xl border-2 border-orange-0 grow px-2"
-                  : "rounded-xl border-2 grow px-2"
+                  ? "rounded-xl border-2 border-orange-0 grow"
+                  : "rounded-xl border-2 grow"
               }
             />
             <div
@@ -259,9 +272,15 @@ const CreateBookForm = () => {
           </div>
           {/* AUTHOR'S NAME FIELD */}
           <div className="w-5/6 flex mt-3">
-            <label className="mr-3" htmlFor="author">
-              {"Author's Name:"}
+            <label
+              className="mr-3"
+              htmlFor="author"
+              data-tooltip-id="author-description"
+              data-tooltip-content={authorName}
+            >
+              {"Author's name:"}
             </label>
+            <Tooltip className="text-xs" id="author-description" />
             <input
               name="author"
               type="text"
@@ -270,8 +289,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.author
-                  ? "rounded-xl border-2 border-orange-0 grow px-2"
-                  : "rounded-xl border-2 grow px-2"
+                  ? "rounded-xl border-2 border-orange-0 grow"
+                  : "rounded-xl border-2 grow"
               }
             />
             <div
@@ -291,34 +310,22 @@ const CreateBookForm = () => {
             <label className="mr-3" htmlFor="genre">
               Genre:
             </label>
-
             <select
               name="genre"
-              id="genre"
               value={bookData.genre}
               onChange={handleDataChange}
               className={
                 errorForm.genre
-                  ? "rounded-xl border-2 border-orange-0 grow px-2"
-                  : "rounded-xl border-2 grow px-2"
-              }
+                  ? "rounded-xl border-2 border-orange-0 grow"
+                  : "rounded-xl border-2 grow pl-5"
+              } //className="rounded-xl border-2 grow"
             >
-              <option key={"select_genre"} value={"select a genre"}>
-                {"select a genre"}
-              </option>
-              ;
-              {arrayGenres.map((g, index) => {
-                return (
-                  <option key={index + 1} value={g}>
-                    {g}
-                  </option>
-                );
-              })}
-              <option key={"other"} value={"other"}>
-                {"other"}
-              </option>
+              {arrayGenres.map((genre, index) => (
+                <option className="text-black " key={index} value={genre}>
+                  {genre}
+                </option>
+              ))}
             </select>
-
             <div
               data-tooltip-id="Genre-tooltip"
               data-tooltip-content={errorForm.genre}
@@ -332,11 +339,8 @@ const CreateBookForm = () => {
           </div>
           {/* BOOK'S DESCRIPTION FIELD */}
           <div className="flex flex-col w-5/6 mt-3">
-            <div
-              className="flex
-                        "
-            >
-              <label htmlFor="book_description">Book Description:</label>
+            <div className="flex">
+              <label htmlFor="book_description">Book description:</label>
               <div
                 data-tooltip-id="Description-tooltip"
                 data-tooltip-content={errorForm.book_description}
@@ -359,16 +363,22 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.book_description
-                  ? "rounded-xl border-2 border-orange-0 px-2"
-                  : "rounded-xl border-2 px-2"
+                  ? "rounded-xl border-2 pl-2 border-orange-0"
+                  : "rounded-xl border-2 pl-2"
               }
             />
           </div>
           {/* PRICE FIELD */}
           <div className="w-5/6 flex mt-3">
-            <label className="mr-3" htmlFor="price">
-              Price:
+            <label
+              className="mr-3"
+              htmlFor="price"
+              data-tooltip-id="price-description"
+              data-tooltip-content={priceBook}
+            >
+              Price (USD):
             </label>
+            <Tooltip className="text-xs" id="price-description" />
             <input
               name="price"
               type="number"
@@ -377,8 +387,8 @@ const CreateBookForm = () => {
               onChange={handleDataChange}
               className={
                 errorForm.price
-                  ? "rounded-xl border-2 border-orange-0 grow px-2"
-                  : "rounded-xl border-2 grow px-2"
+                  ? "rounded-xl border-2 border-orange-0 pl-2 grow"
+                  : "rounded-xl border-2 grow pl-2"
               }
             />
             <div
@@ -393,9 +403,15 @@ const CreateBookForm = () => {
             <Tooltip className="text-xs" id="Price-tooltip" />
           </div>
           <div className="w-5/6 flex mt-3">
-            <label className="mr-3" htmlFor="book_cover">
-              Book cover:{" "}
+            <label
+              className="mr-3"
+              htmlFor="book_cover"
+              data-tooltip-id="Img-description"
+              data-tooltip-content={imgBook}
+            >
+              Book cover:
             </label>
+            <Tooltip className="text-xs" id="Img-description" />
             <input type="file" onChange={handleFileChange} />
             <img src={selectedFile} alt="" />
             <div
@@ -413,18 +429,8 @@ const CreateBookForm = () => {
             className="mt-5 text-lg bg-orange-0 px-10 py-2 rounded-full text-white-0 duration-200 hover:scale-110 hover:bg-[#D48620]"
             onClick={handleUpload}
           >
-            Add Book
+            Add book
           </button>
-          {/* <label htmlFor="progress_creating_book">Display</label> */}
-          {createProgress ? (
-            <div className="w-full bg-neutral-200 dark:bg-neutral-600">
-              <progress
-                className="bg-primary p-0.5 text-center text-xs font-medium leading-none text-primary-100"
-                htmlFor="id"
-                value={createProgress}
-              />
-            </div>
-          ) : null}
         </div>
       </form>
     </div>

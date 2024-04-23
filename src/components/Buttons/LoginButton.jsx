@@ -7,7 +7,7 @@ const LoginButton = () => {
 
   return (
     <button
-      className="text-md  hover:scale-110 transition-transform delay-50"
+      className="text-sm rounded-xl bg-blue-0 text-white-0 px-4 hover:scale-105 transition-transform delay-50"
       onClick={() => loginWithRedirect()}
     >
       Login{" "}

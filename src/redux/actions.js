@@ -63,8 +63,6 @@ export const loadFavoritesFromStorageOnStart = () => {
 export const updateCartFromStorage = (cartItems) => ({
   type: UPDATE_CART_FROM_STORAGE,
   payload: cartItems,
-  type: UPDATE_CART_FROM_STORAGE,
-  payload: cartItems,
 });
 
 export const addToCart = (product) => {
@@ -73,29 +71,13 @@ export const addToCart = (product) => {
       type: "ADD_TO_CART",
       payload: product,
     });
-    return (dispatch, getState) => {
-      dispatch({
-        type: "ADD_TO_CART",
-        payload: product,
-      });
 
-      const { items } = getState();
-      localStorage.setItem("cart", JSON.stringify(items));
-    };
     const { items } = getState();
     localStorage.setItem("cart", JSON.stringify(items));
   };
 };
 
 export const removeFromCart = (ISBN) => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: "REMOVE_FROM_CART",
-      payload: ISBN,
-    });
-    const { items } = getState();
-    localStorage.setItem("cart", JSON.stringify(items));
-  };
   return (dispatch, getState) => {
     dispatch({
       type: "REMOVE_FROM_CART",
@@ -132,12 +114,9 @@ export const search_book_by_name = (name) => {
 };
 export const change_name = (name) => {
   return { type: CHANGE_NAME, payload: name };
-  return { type: CHANGE_NAME, payload: name };
 };
 
 export const sortByTitle = (order) => ({
-  type: SORT_BY_TITLE,
-  payload: order,
   type: SORT_BY_TITLE,
   payload: order,
 });
@@ -145,15 +124,9 @@ export const sortByTitle = (order) => ({
 export const sortByPrice = (order) => ({
   type: SORT_BY_PRICE,
   payload: order,
-  type: SORT_BY_PRICE,
-  payload: order,
 });
 
 export function getBooksFilterGenre(genre) {
-  return {
-    type: FILTER_BOOKS_BY_GENRE,
-    payload: genre,
-  };
   return {
     type: FILTER_BOOKS_BY_GENRE,
     payload: genre,
@@ -168,6 +141,23 @@ export const getBooks = () => {
       dispatch({
         type: GET_BOOKS,
         payload: [...response.data.filter((book) => book.book_status)],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/book"
+      );
+
+      const lastFilt = localStorage.getItem("booksFilters");
+      const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+
+      dispatch({
+        type: GET_BOOKS,
+        payload: data,
       });
     } catch (error) {
       console.error(error);
@@ -198,6 +188,9 @@ export const getBooksFilter = (objFilters) => {
       const response = await axios.get(
         `https://open-book-back.onrender.com/book/filtrar?author=${author}&genre=${genre}&min=${min}&max=${max}`
       );
+
+      localStorage.setItem("booksFilters", JSON.stringify(response.data));
+
       dispatch({
         type: GET_BOOKS_FILTERS,
         payload: response.data,
