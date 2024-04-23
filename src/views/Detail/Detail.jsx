@@ -55,7 +55,7 @@ function Detail() {
   }, [bookData]);
 
   const bookTemplate = (book) => {
-    return <Card book={book} key={book.ISBN} />;
+    return <Card book={book} showFavoriteButton={true} key={book.ISBN} />;
   };
 
   const handleAddToCart = () => {
