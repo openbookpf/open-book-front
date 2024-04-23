@@ -78,6 +78,7 @@ const NavBar = () => {
         ) : null}
 
         <div className="flex flex-row mr-6 gap-6">
+          {/* Se agrega una validación para el administrador */}
           {isAuthenticated && user?.email === adminEmail && (
             <Link
               to="/create_book"
