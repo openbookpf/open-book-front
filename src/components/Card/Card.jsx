@@ -71,7 +71,9 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
             </p>
           </Link>
           <p className="font-light text-xs">{book.author}</p>
-          <p className="font-semibold text-lg">${book.price}</p>
+          <p className="font-semibold text-lg">
+            ${`${book.price.toFixed(2)} (USD)`}
+          </p>
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
