@@ -77,7 +77,7 @@ const PayPalButton = () => {
 
     const onApprove = (data, actions) => {
         console.log(data);
-        // Alert success
+        // Alert success --------------------------
         Swal.fire({
             title: "The payment was made correctly!",
             text: "Thank you for trusting OpenBook!",
