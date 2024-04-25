@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -6,10 +8,12 @@ import {
   removeFromFavorites,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (favorites && favorites.length > 0) {
@@ -39,12 +43,19 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
     }
   };
 
+  const handleBuyButton = () => {
+    handleAddToCart();
+  };
+
   /* const handleRemoveFromFavorites = () => {
     handleRemoveFromFavorites(book.ISBN);
   }; */
 
   return (
-    <div className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10">
+    <div
+      className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
+      key={book.ISBN}
+    >
       <div className="flex flex-col gap-10">
         <div className="max-h-40 my-2 mx-auto">
           <img
@@ -55,19 +66,28 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
         </div>
         <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
           <Link to={`/detail/${book.ISBN}`} rel="noopener noreferrer">
-            <p className="font-bold truncate hover:underline hover:cursor-pointer delay-200 text-base w-full">
+            <p className="font-bold truncate hover:underline hover:cursor-pointer  delay-200 text-base w-full">
               {book.book_title}
             </p>
           </Link>
           <p className="font-light text-xs">{book.author}</p>
-          <p className="font-semibold text-lg">${book.price}</p>
+          <p className="font-semibold text-lg">
+            ${`${book.price.toFixed(2)} (USD)`}
+          </p>
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
-        <Link to="/checkout">
-          <button className="bg-orange-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100">
+        <Link to={isAuthenticated ? "/checkout" : "#"}>
+          <button
+            onClick={handleBuyButton}
+            className={`${
+              isAuthenticated ? "bg-orange-0" : "bg-blue-0 bg-opacity-25"
+            } h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100`}
+            disabled={isAuthenticated ? false : true}
+            title={`${isAuthenticated ? "" : "log in to buy books"}`}
+          >
             <span className="text-white-0 align-middle py-1 px-4 text-sm">
-              Comprar
+              BUY NOW
             </span>
           </button>
         </Link>
