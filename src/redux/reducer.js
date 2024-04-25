@@ -11,6 +11,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_CART_FROM_STORAGE,
+  RESET_SEARCHED_BOOKS,
   REMOVE_ALL,
   GET_BOOKS_BY_GENRE,
   ADD_TO_FAVORITES,
@@ -19,6 +20,10 @@ import {
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
+  return cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
   return cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
     0
@@ -182,6 +187,8 @@ function booksReducer(state = initialState, action) {
         totalItems: calculateTotalItems(action.payload),
         cartTotalPrice: calculateTotalPrice(action.payload),
       };
+    case RESET_SEARCHED_BOOKS:
+      return { ...state, searchbook: action.payload };
 
     case GET_BOOKS_BY_GENRE:
       return { ...state, filterGenreBooks: action.payload };

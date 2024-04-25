@@ -21,6 +21,13 @@ const Home = ({ books }) => {
     dispatch(search_book_by_name(newName));
     navigate("/searchbook");
   }
+
+  const handleEnterSearch = (event) => {
+    if (event.key === "Enter") {
+      busqueda();
+    }
+  };
+
   React.useEffect(() => {
     console.log(newName);
   }, [newName]);
@@ -35,7 +42,6 @@ const Home = ({ books }) => {
           className="absolute brightness-50 saturate-150 contrast-100 bg-cover bg-center flex justify-center items-center  mt-16"
           style={{
             backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
-
             opacity: 0.9,
             width: "100%",
             height: "100vh",
@@ -54,15 +60,16 @@ const Home = ({ books }) => {
           </h3>
           <div className="w-full flex content-center items-center justify-center">
             <input
-              className="z-20 w-1/2 px-2 py-2 rounded-lg text-lg"
+              className="z-10 w-1/2 px-2 py-2 rounded-lg text-lg"
               type="text"
               name="searchBar"
               id=""
               placeholder="Search for a Book..."
               onChange={changehandler}
               value={newName}
+              onKeyDown={handleEnterSearch}
             />
-            <button className="ml-[-45px] z-30" onClick={busqueda}>
+            <button className="ml-[-45px] z-10" onClick={busqueda}>
               <FaSearch />
             </button>
           </div>
