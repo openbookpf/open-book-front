@@ -13,49 +13,44 @@ import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getBooks,
-  updateCartFromStorage,
-  loadFavoritesFromStorageOnStart,
-} from "./redux/actions";
+import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
 
 import Chat from "./views/Chat/Chat";
 
 function App() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    const cartItems = localStorage.getItem("cart");
-    if (cartItems) {
-      const parsedCartItems = JSON.parse(cartItems);
-      dispatch(updateCartFromStorage(parsedCartItems));
-    }
-    dispatch(getBooks());
-    dispatch(loadFavoritesFromStorageOnStart());
-  }, [dispatch]);
+    useEffect(() => {
+        const cartItems = localStorage.getItem("cart");
+        if (cartItems) {
+            const parsedCartItems = JSON.parse(cartItems);
+            dispatch(updateCartFromStorage(parsedCartItems));
+        }
+        dispatch(getBooks());
+        dispatch(loadFavoritesFromStorageOnStart());
+    }, [dispatch]);
 
-  return (
-    <div className="App flex flex-col text-3xl font-poppins">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home books={arrayBestSellers} />} />
-        <Route path="/aboutus" element={<About />} />
-        <Route path="/books" element={<BookList />} />
-        <Route path="/detail/:isbn" element={<Detail />} />
-        <Route path="/admin_stock" element={<AdminStockForm />} />
-        <Route path="/create_book" element={<CreateBookForm />} />
-        <Route path="/searchbook" element={<ShowSearchByName />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
-        {/* <Route exact path="/checkout" element={<Checkout />} /> */}
-        <Route path="/chat" element={<Chat />} />
-
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </div>
-  );
+    return (
+        <div className="App flex flex-col text-3xl font-poppins">
+            <NavBar />
+            <Routes>
+                <Route path="/" element={<Home books={arrayBestSellers} />} />
+                <Route path="/aboutus" element={<About />} />
+                <Route path="/books" element={<BookList />} />
+                <Route path="/detail/:isbn" element={<Detail />} />
+                <Route path="/admin_stock" element={<AdminStockForm />} />
+                <Route path="/create_book" element={<CreateBookForm />} />
+                <Route path="/searchbook" element={<ShowSearchByName />} />
+                <Route exact path="/cart" element={<Cart />} />
+                <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
+                {/* <Route exact path="/checkout" element={<Checkout />} /> */}
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="/profile" element={<Profile />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
