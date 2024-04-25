@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSolidMap } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserProfile = () => {
-  const [user, setUser] = useState({
-    firstName: "Juan Gomez",
-    address: "Calle falsa 123",
-    email: "juangomez@gmail.com",
-    phoneNumber: "123-456-7890",
-  });
-
+  // const newuser = useSelector((state) => state.userAuth0);
+  const { user } = useAuth0();
   const [image, setImage] = useState(null);
 
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
@@ -37,9 +34,9 @@ const UserProfile = () => {
     <div className="bg-gray-500 min-h-screen flex justify-center items-center ">
       <div className="bg-white-0 p-4 rounded-lg shadow-md mr-80">
         <div className="relative w-32 h-32 overflow-hidden rounded-full bg-gray-300 ">
-          {image ? (
+          {user.picture ? (
             <img
-              src={image}
+              src={user.picture}
               alt="User"
               className="object-cover w-full h-full"
             />
@@ -75,13 +72,13 @@ const UserProfile = () => {
           <input
             type="text"
             name="firstName"
-            value={user.firstName}
+            value={user.name}
             onChange={handleUserChange}
             className="bg-white-0"
           />
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <BiSolidMap className="h-5 w-5 text-gray-500 mr-2" />
           <input
             type="text"
@@ -90,10 +87,9 @@ const UserProfile = () => {
             onChange={handleUserChange}
             className="bg-white-0"
           />
-        </div>
+        </div> */}
 
         <div>
-          <label></label>
           <input
             type="email"
             name="email"
@@ -103,7 +99,7 @@ const UserProfile = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label></label>
           <input
             type="tel"
@@ -112,7 +108,7 @@ const UserProfile = () => {
             onChange={handleUserChange}
             className="bg-white-0"
           />
-        </div>
+        </div> */}
 
         <div className="bg-blue-0 hover:bg-blue-950 p-2 rounded-md mb-2">
           <button onClick={handleEditProfileClick} className="text-white-0">

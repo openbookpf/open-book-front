@@ -13,12 +13,14 @@ import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import UserProfile from "./components/Profile/Profile";
 import {
   getBooks,
   updateCartFromStorage,
   loadFavoritesFromStorageOnStart,
 } from "./redux/actions";
-import Profile from "./views/UserProfile/Profile";
+
+import ProfileAuth0 from "./views/UserProfile/ProfileAuths0";
 
 import Chat from "./views/Chat/Chat";
 
@@ -52,7 +54,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
 
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profileauth0" element={<ProfileAuth0 />} />
       </Routes>
     </div>
   );
