@@ -51,6 +51,30 @@ const PayPalButton = () => {
     // };
 
     const navigate = useNavigate();
+
+    const cancelPayment = () => {
+        console.log("Payment has been canceled");
+
+        Swal.fire({
+            title: "Payment has been canceled",
+            text: "",
+            icon: "warning",
+            showDenyButton: true,
+            confirmButtonText: "Go to books",
+            denyButtonText: "Go to home",
+            confirmButtonColor: "#81B29A",
+            denyButtonColor: "#81B29A",
+            background: "#fef3ed",
+            allowOutsideClick: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate("/books");
+            } else {
+                navigate("/");
+            }
+        });
+    };
+
     const onApprove = (data, actions) => {
         console.log(data);
         // Alert success
@@ -106,7 +130,7 @@ const PayPalButton = () => {
                             disabled={totalValue ? false : true}
                             createOrder={(data, actions) => createOrder(cartProducts, totalValue, actions)}
                             onApprove={(data, actions) => onApprove(data, actions)}
-                            onCancel={console.log("Payment has been canceled")}
+                            onCancel={cancelPayment}
                         />
                     </PayPalScriptProvider>
                 </div>
