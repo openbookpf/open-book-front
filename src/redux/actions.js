@@ -7,6 +7,8 @@ export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const RESET_SEARCHED_BOOKS = "RESET_SEARCHED_BOOKS";
+
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ALL = "REMOVE_ALL";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
@@ -105,7 +107,9 @@ export const search_book_by_name = (name) => {
       .then((data) =>
         dispatch({
           type: SEARCH_BOOK_BY_NAME,
-          payload: data,
+
+          payload: [...data.filter((book) => book.book_status)],
+
         })
       );
   };
@@ -192,6 +196,11 @@ export const appliedFilter = (objFilters) => {
     payload: objFilters,
   };
 };
+
+export const resetSearchedBooks = () => ({
+  type: RESET_SEARCHED_BOOKS,
+  payload: "",
+});
 
 export const getBooksByGenre = (genre) => {
   return async (dispatch) => {
