@@ -11,9 +11,10 @@ import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Favourites from "./views/Favourites/Favourites";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import UserProfile from "./components/Profile/Profile";
+import EditProfile from "./views/EditProfile/EditProfile";
 import {
   getBooks,
   updateCartFromStorage,
@@ -26,6 +27,8 @@ import Chat from "./views/Chat/Chat";
 
 function App() {
   const dispatch = useDispatch();
+
+  const [newuser, setNewuser] = useState("");
 
   useEffect(() => {
     const cartItems = localStorage.getItem("cart");
@@ -54,8 +57,12 @@ function App() {
         <Route path="/chat" element={<Chat />} />
 
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/profile"
+          element={<UserProfile setNewuser={setNewuser} />}
+        />
         <Route path="/profileauth0" element={<ProfileAuth0 />} />
+        <Route path="/edituser" element={<EditProfile newuser={newuser} />} />
       </Routes>
     </div>
   );

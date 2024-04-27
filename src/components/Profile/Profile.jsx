@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { BiSolidMap } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   // const newuser = useSelector((state) => state.userAuth0);
   const { user } = useAuth0();
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
@@ -19,6 +21,8 @@ const UserProfile = () => {
 
   const handleEditProfileClick = () => {
     console.log("Editar perfil");
+    navigate("/edituser");
+    props.setNewuser(user.name);
   };
 
   const handleAdvancedSettingsClick = () => {
