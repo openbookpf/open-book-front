@@ -21,6 +21,7 @@ import {
 import Profile from "./views/UserProfile/Profile";
 
 import Chat from "./views/Chat/Chat";
+import AdminProfile from "./views/adminProfile/AdminProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
 
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<AdminProfile />} />
       </Routes>
     </div>
   );
