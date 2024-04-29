@@ -107,7 +107,9 @@ export const search_book_by_name = (name) => {
       .then((data) =>
         dispatch({
           type: SEARCH_BOOK_BY_NAME,
+
           payload: [...data.filter((book) => book.book_status)],
+
         })
       );
   };

@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import Profile from "./views/UserProfile/Profile";
 import DarkMode from './views/DarkMode/DarkMode';
 import Chat from "./views/Chat/Chat";
+import AdminProfile from "./views/adminProfile/AdminProfile";
 import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 
 function App() {
@@ -49,10 +50,12 @@ function App() {
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<AdminProfile />} />
             </Routes>
             <DarkMode /> 
         </div>
     );
+
 }
 
 export default App;
