@@ -33,11 +33,11 @@ function DarkMode() {
   return (
     <div>
       <button
-        className="fixed bottom-20 top-2 right-20 rounded-full bg-white-0 dark:bg-gray-500 flex items-center justify-center p-1"
+        className="fixed bottom-20 top-1 right-20 rounded-full bg-white-0 dark:bg-gray-500 flex items-center justify-center p-1"
         onClick={toggleDarkMode}
       >
         {darkMode ? (
-          <RiSunLine className="h-6 w-6 text-yellow-300 dark:text-white-0" />
+          <RiSunLine className="h-6 w-6 text-orange-0 dark:text-white-0" />
         ) : (
           <RiMoonLine className="h-6 w-6 text-gray-600 dark:text-gray-100" />
         )}
