@@ -49,7 +49,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
 
     return (
         <div
-            className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
+            className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] dark:bg-gray-600 mx-10"
             key={book.ISBN}
         >
             <div className="flex flex-col gap-10">
@@ -60,7 +60,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
                         alt={book.book_title}
                     />
                 </div>
-                <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
+                <div className="flex flex-col text-black dark:text-white-0 mx-auto mt-12 pt-2 px-5 w-full">
                     <Link to={`/detail/${book.ISBN}`} rel="noopener noreferrer">
                         <p className="font-bold truncate hover:underline hover:cursor-pointer  delay-200 text-base w-full">
                             {book.book_title}
@@ -80,7 +80,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
                         disabled={isAuthenticated ? false : true}
                         title={`${isAuthenticated ? "" : "log in to buy books"}`}
                     >
-                        <span className="text-white-0 align-middle py-1 px-4 text-sm">BUY NOW</span>
+                        <span className="text-white-0 align-middle py-1 px-4 text-sm dark:bg-orange-0 rounded-md">BUY NOW</span>
                     </button>
                 </Link>
 

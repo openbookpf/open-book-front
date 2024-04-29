@@ -14,12 +14,11 @@ import Checkout from "./views/Checkout/Checkout";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
-import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
-
+import DarkMode from './views/DarkMode/DarkMode';
 import Chat from "./views/Chat/Chat";
 import AdminProfile from "./views/adminProfile/AdminProfile";
+import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 
 function App() {
     const dispatch = useDispatch();
@@ -35,7 +34,7 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div className="App flex flex-col text-3xl font-poppins">
+        <div className="App flex flex-col text-3xl font-poppins dark:bg-gray-800">
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home books={arrayBestSellers} />} />
@@ -49,13 +48,13 @@ function App() {
                 <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
                 <Route exact path="/checkout" element={<Checkout />} />
                 <Route path="/chat" element={<Chat />} />
-
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminProfile />} />
-      </Routes>
-    </div>
-  );
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<AdminProfile />} />
+            </Routes>
+            <DarkMode /> 
+        </div>
+    );
 
 }
 

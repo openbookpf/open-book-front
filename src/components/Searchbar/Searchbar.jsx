@@ -42,7 +42,7 @@ const Searchbar = ({ setTrigger }) => {
   return (
     // <div className="z-30 container w-screen h-screen fixed bg-black bg-opacity-20 flex align-center justify-center ">
     <div className="z-30 w-screen h-screen fixed bg-black bg-opacity-30">
-      <div className="container w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] bg-opacity-95 mx-auto mt-20 shadow-2xl">
+      <div className="container w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] dark:bg-gray-600 bg-opacity-95 mx-auto mt-20 shadow-2xl">
         <div className="flex  items-center justify-center content-center px-4 py-2 mx-0 mt-2">
           <input
             className="px-2 py-2 w-1/2 rounded-xl mr-4 text-sm border-2"
@@ -93,7 +93,7 @@ const Searchbar = ({ setTrigger }) => {
             </button>
           ) : (
             <div className="h-[250px] flex flex-col items-center content-center justify-center text-black">
-              <p className="text-lg">Try Searching a Book for a Book </p>
+              <p className="text-lg dark:text-gray-100">Try Searching a Book for a Book </p>
             </div>
           )}
         </div>
