@@ -26,9 +26,7 @@ const NavBar = () => {
   return (
     <div>
       <nav
-
         className="z-30 flex flex-row fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
-
         style={{
           alignItems: "center",
         }}
@@ -43,26 +41,26 @@ const NavBar = () => {
                 src={logo}
                 alt="Logo"
                 style={{ width: "175px" }}
-                className="bg-[#fef3ed] dark:bg-slate-600"
+                className="bg-[#fef3ed] "
               />
             </Link>
           </div>
           <div className="flex flex-row font-medium gap-5 my-auto">
             <Link
               to="/"
-              className="text-black dark:text-white-0 hover:underline hover:scale-110 py-1 transition-transform delay-50"
+              className="text-black  hover:underline hover:scale-110 py-1 transition-transform delay-50"
             >
               Home
             </Link>
             <Link
               to="/books"
-              className="text-black dark:text-white-0 hover:underline hover:scale-110 py-1 transition-transform delay-50"
+              className="text-black hover:underline hover:scale-110 py-1 transition-transform delay-50"
             >
               Books
             </Link>
             <Link
               to="/aboutus"
-              className="py-1 text-black dark:text-white-0 hover:underline hover:scale-15 transition-transform delay-50"
+              className="py-1 text-black  hover:underline hover:scale-15 transition-transform delay-50"
             >
               About Us
             </Link>
@@ -76,7 +74,6 @@ const NavBar = () => {
               </Link>
             ) : null}
           </div>
-
         </div>
         {location.pathname !== "/" ? (
           <div className="flex items-center grow justify-end mr-10">
@@ -112,14 +109,12 @@ const NavBar = () => {
             </Link>
           )}
           {isAuthenticated ? (
-
             <div className="end-2 my-auto align-middle">
               <SelectButton
                 setSelectMenuOpen={setSelectMenuOpen}
                 selectMenuOpen={selectMenuOpen}
                 user={user}
               />{" "}
-
             </div>
           ) : (
             <div className="flex flex-row mr-8 gap-5">
@@ -134,11 +129,11 @@ const NavBar = () => {
           {/* Muestra el botón de inicio de sesión o cierre de sesión según el estado de autenticación del usuario */}
 
           <Link to="/Favourites">
-            <button className="text-3xl align-middle text-black dark:text-white-0 focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
+            <button className="text-3xl align-middle text-black focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
               <MdFavoriteBorder />
             </button>
           </Link>
-          <Link to="/cart" className="text-black relative dark:text-white-0">
+          <Link to="/cart" className="text-black relative ">
             <AiOutlineShoppingCart className="text-3xl align-middle hover:scale-110 transition-transform delay-50" />
             {cartCounter > 0 && (
               <span className="bg-red-500 text-xs rounded-full px-2 py-1 -mt-3 -mr-3 absolute">
@@ -146,7 +141,6 @@ const NavBar = () => {
               </span>
             )}
           </Link>
-
         </div>
       </nav>
       {trigger ? <Searchbar setTrigger={setTrigger} /> : null}

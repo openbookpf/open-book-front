@@ -73,11 +73,11 @@ const Filter = () => {
   };
 
   return (
-    <div className="h-min min-h-screen dark:bg-gray-600">
-      <h2 className="text-xl font-bold mx-5 mt-5 dark:text-gray-100">Filters</h2>
+    <div className="h-min min-h-screen">
+      <h2 className="text-xl font-bold mx-5 mt-5 ">Filters</h2>
       <div className="ml-10">
-        <p className="text-lg mt-3 dark:text-gray-100">Genres</p>
-        <div className="text-sm ml-10 w-40 flex flex-col items-start dark:text-gray-100">
+        <p className="text-lg mt-3">Genres</p>
+        <div className="text-sm ml-10 w-40 flex flex-col items-start">
           {!showMoresGenres
             ? genres.slice(0, 15).map((gen) => (
                 <button onClick={handleFilter} value={"genre"} key={gen}>
@@ -105,8 +105,8 @@ const Filter = () => {
             </button>
           )}
         </div>
-        <p className="text-lg mt-3 dark:text-gray-100">Authors</p>
-        <div className="text-sm ml-10 w-40 flex flex-col items-start dark:text-gray-100">
+        <p className="text-lg mt-3">Authors</p>
+        <div className="text-sm ml-10 w-40 flex flex-col items-start">
           {!showMoresAuthors
             ? authors.slice(0, 15).map((auth) => (
                 <button onClick={handleFilter} value={"author"} key={auth}>

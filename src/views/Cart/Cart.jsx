@@ -35,7 +35,7 @@ function Cart() {
             {cartProducts.map((p) => (
               <div
                 key={p.ISBN}
-                className="md:container md:mx-auto bg-[#fef3ed] dark:bg-gray-600 flex items-center p-4 shadow-lg rounded-lg"
+                className="md:container md:mx-auto bg-[#fef3ed] flex items-center p-4 shadow-lg rounded-lg"
               >
                 <img
                   className="basis-1/8 w-16 h-24 object-cover rounded"
@@ -44,9 +44,9 @@ function Cart() {
                 />
 
                 <div className="ml-4 basis-1/2">
-                  <p className="text-gray-600 dark:text-gray-100 text-lg">{p.author}</p>
+                  <p className="text-gray-600  text-lg">{p.author}</p>
                   <Link to="">
-                    <p className="text-gray-800 dark:text-gray-100 font-bold ">{p.book_title}</p>
+                    <p className="text-gray-800  font-bold ">{p.book_title}</p>
                   </Link>
                 </div>
 
@@ -64,7 +64,7 @@ function Cart() {
                   </div>
                   <button
                     onClick={() => handleRemoveAll(p.ISBN)}
-                    className="bg-[#fef3ed] dark:text-gray-900 hover:bg-gray-200 py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-400 ml-2"
+                    className="bg-[#fef3ed]  hover:bg-gray-200 py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-400 ml-2"
                   >
                     <IoTrashOutline />
                   </button>
@@ -83,7 +83,7 @@ function Cart() {
         )}
       </div>
 
-      <div className="flex flex-col mt-10 h-64 space-y-4 basis-1/5 bg-[#fef3ed] dark:bg-gray-300 container py-14 px-15 md:container md:mx-11 items-center shadow-lg rounded-lg">
+      <div className="flex flex-col mt-10 h-64 space-y-4 basis-1/5 bg-[#fef3ed]  container py-14 px-15 md:container md:mx-11 items-center shadow-lg rounded-lg">
         <div className="font-bold text-lg">
           Total books: {Math.max(0, cartCounter)}
         </div>

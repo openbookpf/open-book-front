@@ -11,33 +11,33 @@ const Checkout = () => {
   const currentDate = new Date();
   return (
     cartItems?.length && (
-      <div className="font-poppins md:container md:mx-auto w-full min-h-screen min-w-screen bg-gray-100 dark:bg-gray-900 mt-20 flex flex-col">
+      <div className="font-poppins md:container md:mx-auto w-full min-h-screen min-w-screen bg-gray-100  mt-20 flex flex-col">
         <div className="flex h-full w-full items-center justify-center bg-orange-20 mt-10 mb-10">
-          <div className="w-80 rounded bg-gray-50 dark:bg-gray-600 px-6 pt-8 shadow-lg">
+          <div className="w-80 rounded bg-gray-50  px-6 pt-8 shadow-lg">
             <img
               src={openBookLogo}
               alt="chippz"
               className="mx-auto w-1/2 py-4"
             />
             <div className="flex flex-col justify-center items-center gap-2">
-              <h4 className="font-semibold dark:text-gray-100">OpenBook</h4>
-              <p className="text-xs dark:text-gray-100 ">Henry BootCamp</p>
+              <h4 className="font-semibold ">OpenBook</h4>
+              <p className="text-xs ">Henry BootCamp</p>
             </div>
-            <div className="flex flex-col gap-3 border-b py-6 text-xs dark:text-gray-100">
+            <div className="flex flex-col gap-3 border-b py-6 text-xs ">
               <p className="flex justify-between">
-                <span className="text-gray-400 dark:text-gray-100">Receipt No.:</span>
+                <span className="text-gray-400 ">Receipt No.:</span>
                 <span>#5033</span>
               </p>
               <p className="flex justify-between">
-                <span className="text-gray-400 dark:text-gray-100">Date:</span>
+                <span className="text-gray-400 ">Date:</span>
                 <span>{currentDate.toLocaleDateString()}</span>
               </p>
               <p className="flex justify-between">
-                <span className="text-gray-400 dark:text-gray-100">Host:</span>
+                <span className="text-gray-400 ">Host:</span>
                 <span>OBW-Library</span>
               </p>
               <p className="flex justify-between">
-                <span className="text-gray-400 dark:text-gray-100">Customer:</span>
+                <span className="text-gray-400 ">Customer:</span>
                 <span>{user.given_name}</span>
               </p>
             </div>
@@ -45,20 +45,20 @@ const Checkout = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="flex">
-                    <th className="w-full py-2 dark:text-gray-100">PRODUCT</th>
-                    <th className="min-w-[44px] py-2 dark:text-gray-100">QTY</th>
-                    <th className="min-w-[44px] py-2 dark:text-gray-100">TOTAL</th>
+                    <th className="w-full py-2 ">PRODUCT</th>
+                    <th className="min-w-[44px] py-2 ">QTY</th>
+                    <th className="min-w-[44px] py-2 ">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
                   <div className="w-full">
                     {cartItems.map((item, index) => (
-                      <tr key={index + 1} className="flex dark:text-gray-100">
+                      <tr key={index + 1} className="flex ">
                         <td className="flex-1 py-1">{`Hard copy book: ${item.book_title}`}</td>
-                        <td className="min-w-[44px] flex justify-center items-center content-center dark:text-gray-100">
+                        <td className="min-w-[44px] flex justify-center items-center content-center ">
                           {item.quantity}
                         </td>
-                        <td className="min-w-[44px] justify-center items-center content-center dark:text-gray-100">{`$${(
+                        <td className="min-w-[44px] justify-center items-center content-center ">{`$${(
                           item.price * item.quantity
                         ).toFixed(2)}`}</td>
                       </tr>
@@ -67,18 +67,18 @@ const Checkout = () => {
                   <hr />
 
                   <tr className="flex py-1">
-                    <td colSpan={2} className="flex-1 font-bold dark:text-gray-100">
+                    <td colSpan={2} className="flex-1 font-bold ">
                       TOTAL PRICE
                     </td>
 
-                    <td className="min-w-[44px] font-bold dark:text-gray-100">{`$${cartTotalPrice.toFixed(
+                    <td className="min-w-[44px] font-bold ">{`$${cartTotalPrice.toFixed(
                       2
                     )}`}</td>
                   </tr>
                 </tbody>
               </table>
-              <div className=" border-b border border-dashed dark:text-gray-100"></div>
-              <div className="py-4 justify-center items-center flex flex-col gap-2 dark:text-gray-100">
+              <div className=" border-b border border-dashed "></div>
+              <div className="py-4 justify-center items-center flex flex-col gap-2 ">
                 <p className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
