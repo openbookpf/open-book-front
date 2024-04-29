@@ -14,12 +14,10 @@ import Checkout from "./views/Checkout/Checkout";
 import Favourites from "./views/Favourites/Favourites";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
-import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
 import DarkMode from './views/DarkMode/DarkMode';
-
 import Chat from "./views/Chat/Chat";
+import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 
 function App() {
     const dispatch = useDispatch();
@@ -49,7 +47,6 @@ function App() {
                 <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
                 <Route exact path="/checkout" element={<Checkout />} />
                 <Route path="/chat" element={<Chat />} />
-
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
