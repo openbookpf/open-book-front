@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 
 import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
 import Profile from "./views/UserProfile/Profile";
+import DarkMode from './views/DarkMode/DarkMode';
 
 import Chat from "./views/Chat/Chat";
 
@@ -34,7 +35,7 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div className="App flex flex-col text-3xl font-poppins">
+        <div className="App flex flex-col text-3xl font-poppins dark:bg-gray-800">
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home books={arrayBestSellers} />} />
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
+            <DarkMode /> 
         </div>
     );
 }
