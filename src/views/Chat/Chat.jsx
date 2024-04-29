@@ -126,7 +126,8 @@ function Chat() {
             <h1 className=" mt-20 mb-3 text-2xl bg-cyan-0 text-white-0 px-4 py-1 rounded-xl h-10">
                 OpenBook community
             </h1>
-            <div className="grow bg-[#fef3ed] w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
+            <div className="grow bg-[#fef3ed] dark:bg-gray-600 w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
+
                 <div className="flex ml-4 mb-2">
                     <FaUser
                         onClick={handleShowUsers}

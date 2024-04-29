@@ -30,6 +30,7 @@ export default {
           0: "#3D405B",
         },
       },
+      darkMode: 'class',
     },
   },
   plugins: [],
