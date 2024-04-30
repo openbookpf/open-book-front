@@ -77,9 +77,9 @@ const Home = ({ books }) => {
       </div>
 
       <footer>
-        <div className="relative">
-          <div className="mt-20 mb-2 ml-12 font-bold text-2xl pb-5">
-            <p className="underline decoration-4 underline-offset-8 decoration-cyan-0">
+        <div className="relative ">
+          <div className="mt-20 mb-2 ml-12 font-bold text-2xl pb-5 ">
+            <p className="underline decoration-4 underline-offset-8  decoration-cyan-0">
               Best sellers
             </p>
           </div>
