@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 
 const EditProfile = (props) => {
   const [userobject, setUserobject] = useState({});
+  const [usuario, setUsuario] = useState({
+    user_name: "",
+    email_address: "",
+    picture: "",
+  });
   useEffect(() => {
     fetch(`http://localhost:3001/user/${props.newuser}`)
       .then((res) => res.json())
