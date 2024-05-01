@@ -16,6 +16,9 @@ const Select = ({ selectMenuOpen }) => {
       {selectMenuOpen && (
         <div className="z-50 text-lg">
           <div className="bg-[#fef3ed] p-5 flex flex-col gap-2 rounded-xl mt-16 mx-auto w-60 h-auto shadow-md">
+            <Link to="/profile" className="transition-transform delay-50">
+              Profile
+            </Link>
             {user.email === adminEmail ? (
               <>
                 <Link
@@ -36,9 +39,6 @@ const Select = ({ selectMenuOpen }) => {
               </>
             ) : (
               <>
-                <Link to="/profile" className="transition-transform delay-50">
-                  Profile
-                </Link>
                 <Link to="/Favourites">
                   <button className="flex flex-row gap-2 align-middle my-auto">
                     <div className="my-auto">

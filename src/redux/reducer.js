@@ -17,6 +17,7 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
+  GET_USERS,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -35,6 +36,7 @@ const calculateTotalItems = (cartItems) => {
 };
 
 const initialState = {
+  users: [],
   books: [],
   filteredBooks: [],
   filterGenreBooks: [],
@@ -62,22 +64,11 @@ function booksReducer(state = initialState, action) {
     case SEARCH_BOOK_BY_NAME:
       return { ...state, searchbook: action.payload };
 
-    // case FILTER_BOOKS_BY_GENRE:
-    //     // return {
-    //     //   ...state,
-    //     //   filteredBooks: state.books.filter(
-    //     //     (book) => book.genre === action.payload
-    //     //   ),
-    //     // };
-    //     const filtered = [...state.books].filter((book) => {
-    //         // Verificamos si book.genre es un array y contiene action.payload
-    //         return book.genre.includes(action.payload);
-    //     });
-    //     return {
-    //         ...state,
-    //         filteredBooks: filtered,
-    //     };
-
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
     case GET_BOOKS:
       return {
         ...state,
