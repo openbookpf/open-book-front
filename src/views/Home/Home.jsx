@@ -39,16 +39,16 @@ const Home = ({ books }) => {
     <div className="relative ">
       <div>
         <div
-          className="absolute brightness-50 saturate-150 contrast-100 bg-cover bg-center flex justify-center items-center  mt-16"
+          className="absolute brightness-50 saturate-150 contrast-100 bg-cover bg-center flex justify-center items-center  mt-0"
           style={{
             backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
             opacity: 0.9,
             width: "100%",
-            height: "100vh",
+            height: "90vh",
           }}
         ></div>
 
-        <div className="grid grid-cols-1 gap-4 place-content-center h-svh">
+        <div className="grid grid-cols-1 gap-6 place-content-center align-middle h-svh">
           <h3
             className="relative text-[#fef3ed] text-center font-medium "
             style={{
@@ -76,27 +76,26 @@ const Home = ({ books }) => {
         </div>
       </div>
 
-      <footer>
-        <div className="relative">
-          <div className="mt-20 mb-2 ml-12 font-bold text-2xl pb-5">
-            <p className="underline decoration-4 underline-offset-8 decoration-cyan-0">
-              Best sellers
-            </p>
-          </div>
+      <div className="relative -mt-10 ">
+        <div className="-mt-2 mb-2 ml-12 font-bold text-2xl pb-5 ">
+          <p className="underline decoration-4 underline-offset-8  decoration-cyan-0">
+            Best sellers
+          </p>
+        </div>
 
-          <div className="mx-auto">
-            <div className="px-3">
-              <Carousel
-                value={books}
-                numVisible={5}
-                numScroll={3}
-                itemTemplate={bookTemplate}
-                autoplayInterval={3000}
-              />
-            </div>
+        <div className="mx-auto">
+          <div className="px-3">
+            <Carousel
+              value={books}
+              numVisible={5}
+              numScroll={3}
+              itemTemplate={bookTemplate}
+              autoplayInterval={3000}
+            />
           </div>
         </div>
-      </footer>
+      </div>
+      <footer></footer>
     </div>
   );
 };

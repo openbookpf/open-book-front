@@ -46,6 +46,9 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
     handleAddToCart();
   };
 
+
+  
+
   return (
     <div
       className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
@@ -81,7 +84,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
             disabled={isAuthenticated ? false : true}
             title={`${isAuthenticated ? "" : "log in to buy books"}`}
           >
-            <span className="text-white-0 align-middle py-1 px-4 text-sm">
+            <span className="text-white-0 align-middle py-1 px-4 text-sm  rounded-md">
               BUY NOW
             </span>
           </button>
