@@ -2,6 +2,7 @@ export default [
   {
     ISBN: "9789875666474",
     book_title: "Ficciones",
+    language: "Spanish",
     author: "Jorge Luis Borges",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/9f4383e7-acc8-40fa-a831-443091292413/46fc0098-071a-4a9e-8d19-dc5e7eb9e602.jpg",
@@ -13,6 +14,7 @@ export default [
   {
     ISBN: "9788433998859",
     book_title: "Nuestra Parte de Noche",
+    language: "Spanish",
     author: "Mariana Enriquez",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/051d14ff-58cb-4538-8008-57500c041a8f/a7e12dc1-e7f7-4d35-89b3-0e73b7885354.jpg",
@@ -25,6 +27,7 @@ export default [
   {
     ISBN: "9788418395635",
     book_title: "Robinson Crusoe Td",
+    language: "Spanish",
     author: "Defoe, Daniel",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/3a42fcf346f04b514de4707bb1590a91.jpg",
@@ -36,6 +39,7 @@ export default [
   {
     ISBN: "9780545139700",
     book_title: "Harry Potter and the Deathly Hallows (Book 7)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/c6bbdfe21440918be26f9b7f15a135c4.jpg",
@@ -47,6 +51,7 @@ export default [
   {
     ISBN: "9780439064873",
     book_title: "Harry Potter And The Chamber Of Secrets (Book 2)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/b873fa86ec27ba3556e692be1a7cb9de.jpg",
@@ -58,6 +63,7 @@ export default [
   {
     ISBN: "9780590353427",
     book_title: "Harry Potter And The Sorcerer´s Stone (Book 1)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/68ee3669135dccf2358b8bcb72c803b8.jpg",
@@ -69,6 +75,7 @@ export default [
   {
     ISBN: "9780439358071",
     book_title: "Harry Potter And The Order Of The Phoenix (Book 5)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/c246726a594105e3c66cfdf68325fc76.jpg",
@@ -80,6 +87,7 @@ export default [
   {
     ISBN: "9780439785969",
     book_title: "Harry Potter And The Half Blood Prince (Book 6)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/35ceabaa28765a3d977fcfbab03493c4.jpg",
@@ -91,6 +99,7 @@ export default [
   {
     ISBN: "9780439136365",
     book_title: "Harry Potter And The Prisoner Of Azkaban (Book 3)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/8bd2a103ee5b0ac751eb1053ef3c7014.jpg",
@@ -102,6 +111,7 @@ export default [
   {
     ISBN: "9780061122415",
     book_title: "1984",
+    language: "English",
     author: "George Orwell",
     book_cover_url:
       "https://m.media-amazon.com/images/I/61ZewDE3beL._SL1200_.jpg",
@@ -114,6 +124,7 @@ export default [
   {
     ISBN: "9780141439563",
     book_title: "Pride and Prejudice",
+    language: "English",
     author: "Jane Austen",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81NLDvyAHrL._SL1500_.jpg",
@@ -126,6 +137,7 @@ export default [
   {
     ISBN: "9780141439723",
     book_title: "Moby-Dick",
+    language: "English",
     author: "Herman Melville",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81+3Wl6KVNL._SL1500_.jpg",
@@ -137,6 +149,7 @@ export default [
   {
     ISBN: "9781984823489",
     book_title: "The Silent Patient",
+    language: "English",
     author: "Alex Michaelides",
     book_cover_url:
       "https://m.media-amazon.com/images/I/91lslnZ-btL._SL1500_.jpg",
@@ -148,6 +161,7 @@ export default [
   {
     ISBN: "9780593099322",
     book_title: "Dune",
+    language: "English",
     author: "Frank Herbert",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
@@ -159,6 +173,7 @@ export default [
   {
     ISBN: "9788445071403",
     book_title: "The Fellowship of the Ring (The Lord of the Rings #1)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1704737084i/222947.jpg",
@@ -170,6 +185,7 @@ export default [
   {
     ISBN: "9786073908245",
     book_title: "The Two Towers (The Lord of the Rings #2)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://tmgames.com/ins/images/stories/virtuemart/product/lotr%202.jpg",
@@ -181,6 +197,7 @@ export default [
   {
     ISBN: "9788445075753",
     book_title: "Return of the King (The Lord of the Rings #3)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://tmgames.com/ins/images/stories/virtuemart/product/lotr%203.jpg",
@@ -192,6 +209,7 @@ export default [
   {
     ISBN: "9789505470631",
     book_title: "The Hobbit (The Lord of the Rings #0)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://m.media-amazon.com/images/I/91U3Yg8PFDL._SL1500_.jpg",

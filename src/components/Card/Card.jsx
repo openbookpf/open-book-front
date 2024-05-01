@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -24,6 +22,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
   const handleAddToCart = () => {
     const productToAdd = {
       ISBN: book.ISBN,
+      language: book.language,
       book_title: book.book_title,
       book_cover_url: book.book_cover_url,
       author: book.author,
@@ -47,9 +46,8 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
     handleAddToCart();
   };
 
-  /* const handleRemoveFromFavorites = () => {
-    handleRemoveFromFavorites(book.ISBN);
-  }; */
+
+  
 
   return (
     <div

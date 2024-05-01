@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const FILTER_BOOKS_BY_LANGUAGE = "FILTER_BOOKS_BY_LANGUAGE";
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_USERS = "GET_USERS";
@@ -9,7 +10,6 @@ export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const RESET_SEARCHED_BOOKS = "RESET_SEARCHED_BOOKS";
-
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ALL = "REMOVE_ALL";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
@@ -20,6 +20,11 @@ export const GET_BOOKS_BY_GENRE = "GET_BOOKS_BY_GENRE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
+
+export const filterBooksByLanguage = (language) => ({
+  type: FILTER_BOOKS_BY_LANGUAGE,
+  payload: language,
+});
 
 export const addToFavorites = (product) => ({
     type: "ADD_TO_FAVORITES",
@@ -103,17 +108,17 @@ export const removeAll = (ISBN) => {
 
 export const search_book_by_name = (name) => {
 
-    return async function (dispatch) {
-        await fetch(`https://open-book-back.onrender.com/book?name=${name}`)
-            .then((res) => res.json())
-            .then((data) =>
-                dispatch({
-                    type: SEARCH_BOOK_BY_NAME,
+  return async function (dispatch) {
+    await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({
+          type: SEARCH_BOOK_BY_NAME,
+          payload: [...data.filter((book) => book.book_status)],
+        })
+      );
+  };
 
-                    payload: [...data.filter((book) => book.book_status)],
-                })
-            );
-    };
 };
 export const change_name = (name) => {
     return { type: CHANGE_NAME, payload: name };
@@ -129,17 +134,21 @@ export const sortByPrice = (order) => ({
     payload: order,
 });
 
-export function getBooksFilterGenre(genre) {
-    return {
-        type: FILTER_BOOKS_BY_GENRE,
-        payload: genre,
-    };
+
+export function getBooksFilterGenre(genres) {
+  return {
+    type: FILTER_BOOKS_BY_GENRE,
+    payload: genres,
+  };
+
 }
 export const getUsers = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
+
         "https://open-book-back.onrender.com/users"
+
       );
 
       const data = response.data;
@@ -173,39 +182,57 @@ export const getBooks = () => {
 };
 
 export const getGenresAndAuthors = () => {
-    return async (dispatch) => {
-        try {
-            const responseGenres = await axios.get("https://open-book-back.onrender.com/genres");
-            const responseAuthors = await axios.get("https://open-book-back.onrender.com/authors");
-            console.log(responseAuthors);
-            dispatch({
-                type: GET_GENRES_AND_AUTHORS,
-                payload: { genres: responseGenres.data, authors: responseAuthors.data },
-            });
-        } catch (error) {
-            console.error(error);
-        }
-    };
+
+  return async (dispatch) => {
+    try {
+      const authors = await axios.get(
+        "https://open-book-back.onrender.com/authors"
+      );
+      const genres = await axios.get(
+        "https://open-book-back.onrender.com/genres"
+      );
+      dispatch({
+        type: GET_GENRES_AND_AUTHORS,
+        payload: { authors: authors.data, genres: genres.data },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 };
 
 export const getBooksFilter = (objFilters) => {
-    return async (dispatch) => {
-        const { genre, author, min, max } = objFilters;
-        try {
-            const response = await axios.get(
-                `https://open-book-back.onrender.com/book/filtrar?author=${author}&genre=${genre}&min=${min}&max=${max}`
-            );
+  return async (dispatch) => {
+    const { genres, author, min, max } = objFilters;
+    console.log({
+      authorArray: author === "" ? [] : author,
+      genreArray: genres === "" ? [] : genres,
+      minPrice: min,
+      maxPrice: max,
+    });
+    try {
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/books/filtrar",
 
-            localStorage.setItem("booksFilters", JSON.stringify(response.data));
-
-            dispatch({
-                type: GET_BOOKS_FILTERS,
-                payload: response.data,
-            });
-        } catch (error) {
-            console.error(error);
+        {
+          authorArray: author === "" ? [] : author,
+          genreArray: genres === "" ? [] : genres,
+          minPrice: min,
+          maxPrice: max,
         }
-    };
+      );
+
+      localStorage.setItem("booksFilters", JSON.stringify(response.data));
+
+      dispatch({
+        type: GET_BOOKS_FILTERS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 };
 
 export const appliedFilter = (objFilters) => {
@@ -221,17 +248,26 @@ export const resetSearchedBooks = () => ({
 });
 
 export const getBooksByGenre = (genre) => {
-    return async (dispatch) => {
-        try {
-            const response = await axios.get(
-                `https://open-book-back.onrender.com/book/filtrar?author&genre=${genre}&min&max`
-            );
-            dispatch({
-                type: GET_BOOKS_BY_GENRE,
-                payload: response.data,
-            });
-        } catch (error) {
-            console.error(error);
+
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/books/filtrar",
+
+        {
+          authorArray: [],
+          genreArray: [genre],
+          min: null,
+          max: null,
         }
-    };
+      );
+      dispatch({
+        type: GET_BOOKS_BY_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 };
