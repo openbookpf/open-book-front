@@ -11,9 +11,13 @@ const CreateBookForm = () => {
     ISBN: "",
     book_title: "",
     author: "",
-    genre: "",
+    genres: [],
     book_description: "",
     price: 0,
+    editorial: "",
+    year_of_edition: "",
+    lenguage: "",
+    age_segment: "",
   };
   const [selectedFile, setSelectedFile] = useState(null);
   const [createProgress, setCreateProgress] = useState(0);
@@ -23,10 +27,14 @@ const CreateBookForm = () => {
     ISBN: "",
     book_title: "",
     author: "",
-    genre: "",
+    genres: "",
     book_description: "",
     price: "",
     img: "",
+    editorial: "",
+    year_of_edition: "",
+    lenguage: "",
+    age_segment: "",
   });
 
   //? descripciones de cada campo:
@@ -35,6 +43,9 @@ const CreateBookForm = () => {
   const authorName = "Author's full name (cannot contain numbers).";
   const priceBook = "Book price (specify cents).";
   const imgBook = "Book cover (only .jpg and .png files accepted)";
+  const yearEdition = "Specifies the year of the released";
+  const ageSegment = "Specifies age for readers";
+
   //? ----------------------------
 
   const handleFileChange = (event) => {
@@ -53,8 +64,12 @@ const CreateBookForm = () => {
       !bookData.ISBN ||
       !bookData.book_title ||
       !bookData.author ||
-      !bookData.genre ||
+      !bookData.genres ||
       !bookData.book_description ||
+      !bookData.editorial ||
+      !bookData.year_of_edition ||
+      !bookData.lenguage ||
+      !bookData.age_segment ||
       !bookData.price ||
       !selectedFile
     ) {
@@ -82,8 +97,12 @@ const CreateBookForm = () => {
       errorForm.ISBN ||
       errorForm.book_title ||
       errorForm.author ||
-      errorForm.genre ||
+      errorForm.genres ||
       errorForm.book_description ||
+      errorForm.editorial ||
+      errorForm.year_of_edition ||
+      errorForm.lenguage ||
+      errorForm.age_segment ||
       errorForm.price ||
       errorForm.img
     ) {
@@ -120,7 +139,11 @@ const CreateBookForm = () => {
       formData.append("book_title", bookData.book_title);
       formData.append("author", bookData.author);
       formData.append("book_description", bookData.book_description);
-      formData.append("genre", bookData.genre);
+      formData.append("genres", bookData.genres);
+      formData.append("editorial", bookData.editorial);
+      formData.append("year_of_edition", Number(bookData.year_of_edition))
+      formData.append("lenguage", bookData.lenguage);
+      formData.append("age_segment", Number(bookData.age_segment));
       formData.append("price", Number(bookData.price));
 
       console.log("THIS IS THE DATA", formData.keys());
@@ -182,6 +205,32 @@ const CreateBookForm = () => {
     });
   };
 
+  const handleGenre = (event) => {
+    const { name, value, type, checked } = event.target;
+
+      // Manejar el cambio para los checkboxes de género
+      if (name === "genres") {
+        let updatedGenres = [...bookData.genres];
+        if (checked) {
+          if (updatedGenres.length < 3) {
+            updatedGenres.push(value);
+          } else {
+            // Máximo 3 géneros seleccionados
+            return;
+          }
+        } else {
+          updatedGenres = updatedGenres.filter((genre) => genre !== value);
+        }
+        setBookData((prevData) => ({
+          ...prevData,
+          genres: updatedGenres,
+        }));
+      } else {
+        validationsForm(name, value, errorForm, setErrorForm);
+        updateData(name, value);
+      }
+    };
+
   const handleDataChange = (event) => {
     const key = event.target.name;
     const value = event.target.value;
@@ -198,6 +247,7 @@ const CreateBookForm = () => {
         action="submit"
         id="register_a_book"
       >
+
         <div className="flex justify-center">
           <h5 className="text-center bg-blue-0 text-white-0 font-semibold text-2xl w-4/6 py-3 mb-5 rounded-xl">
             Register your Book
@@ -208,7 +258,7 @@ const CreateBookForm = () => {
           {/* ISBN INPUT FIELD */}
           <div className="w-5/6 flex mt-3 duration-200">
             <label
-              className="mr-3"
+              className="mr-3 font-semibold"
               htmlFor="ISBN"
               data-tooltip-id="ISBM-description"
               data-tooltip-content={ISBMDescription}
@@ -242,7 +292,7 @@ const CreateBookForm = () => {
           </div>
           {/* BOOK TITLE INPUT FIELD */}
           <div className="w-5/6 flex mt-3">
-            <label className=" mr-3" htmlFor="book_title">
+            <label className=" mr-3 font-semibold" htmlFor="book_title">
               Book title:
             </label>
             <input
@@ -270,10 +320,11 @@ const CreateBookForm = () => {
             </div>
             <Tooltip className="text-xs" id="Title-tooltip" />
           </div>
+
           {/* AUTHOR'S NAME FIELD */}
           <div className="w-5/6 flex mt-3">
             <label
-              className="mr-3"
+              className="mr-3 font-semibold"
               htmlFor="author"
               data-tooltip-id="author-description"
               data-tooltip-content={authorName}
@@ -305,41 +356,171 @@ const CreateBookForm = () => {
             <Tooltip className="text-xs" id="Author-tooltip" />
           </div>
 
-          {/* GENRE FIELD */}
-          <div className="w-5/6 flex mt-3 font-poppins">
-            <label className="mr-3" htmlFor="genre">
-              Genre:
+           {/* EDITORIAL INPUT FIELD */}
+           <div className="w-5/6 flex mt-3">
+            <label className=" mr-3 font-semibold" htmlFor="editorial">
+              Editorial:
             </label>
-            <select
-              name="genre"
-              value={bookData.genre}
+            <input
+              name="editorial"
+              type="text"
+              autoComplete="off"
+              value={bookData.editorial}
               onChange={handleDataChange}
               className={
-                errorForm.genre
+                errorForm.editorial
                   ? "rounded-xl border-2 border-orange-0 grow"
-                  : "rounded-xl border-2 grow pl-5"
-              } //className="rounded-xl border-2 grow"
-            >
-              {arrayGenres.map((genre, index) => (
-                <option className="text-black " key={index} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
+                  : "rounded-xl border-2 grow"
+              }
+            />
             <div
-              data-tooltip-id="Genre-tooltip"
-              data-tooltip-content={errorForm.genre}
+              data-tooltip-id="Editorial-tooltip"
+              data-tooltip-content={errorForm.editorial}
               className="flex justify-center items-center"
             >
               <MdError
-                className={errorForm.genre ? "text-orange-0 ml-1" : "hidden"}
+                className={
+                  errorForm.editorial ? "text-orange-0 ml-1" : "hidden"
+                }
               />
             </div>
-            <Tooltip className="text-xs" id="Genre-tooltip" />
+            <Tooltip className="text-xs" id="Editorial-tooltip" />
           </div>
+
+          {/* AGE SEGMENT FIELD */}
+          <div className="w-5/6 flex mt-3">
+            <label
+              className="mr-3 font-semibold"
+              htmlFor="age"
+              data-tooltip-id="age-description"
+              data-tooltip-content={ageSegment}
+            >
+             Age Segment:
+            </label>
+            <Tooltip className="text-xs " id="age-description" />
+            <input
+              name="age"
+              type="number"
+              autoComplete="off"
+              value={bookData.ageSegment}
+              onChange={handleDataChange}
+              className={
+                errorForm.age_segment
+                  ? "rounded-xl border-2 border-orange-0 pl-2 grow"
+                  : "rounded-xl border-2 grow pl-2"
+              }
+            />
+            <div
+              data-tooltip-id="Age-tooltip"
+              data-tooltip-content={errorForm.age_segment}
+              className="flex justify-center items-center"
+            >
+              <MdError
+                className={errorForm.age_segment ? "text-orange-0 ml-1" : "hidden"}
+              />
+            </div>
+            <Tooltip className="text-xs" id="Age-tooltip" />
+          </div>
+
+          {/* LENGUAGE INPUT FIELD */}
+          <div className="w-5/6 flex mt-3">
+            <label className=" mr-3 font-semibold" htmlFor="lenguage">
+              Lenguage:
+            </label>
+            <input
+              name="lenguage"
+              type="text"
+              autoComplete="off"
+              value={bookData.lenguage}
+              onChange={handleDataChange}
+              className={
+                errorForm.lenguage
+                  ? "rounded-xl border-2 border-orange-0 grow"
+                  : "rounded-xl border-2 grow"
+              }
+            />
+            <div
+              data-tooltip-id="Lenguage-tooltip"
+              data-tooltip-content={errorForm.lenguage}
+              className="flex justify-center items-center"
+            >
+              <MdError
+                className={
+                  errorForm.editorial ? "text-orange-0 ml-1" : "hidden"
+                }
+              />
+            </div>
+            <Tooltip className="text-xs" id="Lenguage-tooltip" />
+          </div>
+
+          
+            {/* YEAR OF EDITION FIELD */}
+            <div className="w-5/6 flex mt-3">
+            <label
+              className="mr-3 font-semibold"
+              htmlFor="year"
+              data-tooltip-id="year-description"
+              data-tooltip-content={yearEdition}
+            >
+              Year of Edition:
+            </label>
+            <Tooltip className="text-xs" id="year-description" />
+            <input
+              name="year"
+              type="number"
+              autoComplete="off"
+              value={bookData.yearEdition}
+              onChange={handleDataChange}
+              className={
+                errorForm.year_of_edition
+                  ? "rounded-xl border-2 border-orange-0 pl-2 grow"
+                  : "rounded-xl border-2 grow pl-2"
+              }
+            />
+            <div
+              data-tooltip-id="Year-tooltip"
+              data-tooltip-content={errorForm.year_of_edition}
+              className="flex justify-center items-center"
+            >
+              <MdError
+                className={errorForm.year_of_edition ? "text-orange-0 ml-1" : "hidden"}
+              />
+            </div>
+            <Tooltip className="text-xs" id="Year-tooltip" />
+          </div>
+
+            {/* GENRES FIELD */}
+          <div className="w-5/6 flex flex-wrap justify-center mt-3 font-poppins">
+          <label className="mr-3 font-semibold">
+            Genres:</label>
+          {arrayGenres.map((genre, index) => (
+            <div key={index} className="mr-3">
+              <input
+                type="checkbox"
+                name="genres"
+                value={genre}
+                checked={bookData.genres.includes(genre)}
+                onChange={handleGenre}
+              />
+              <label className="ml-1">{genre}</label>
+            </div>
+          ))}
+          <div
+            data-tooltip-id="Genre-tooltip"
+            data-tooltip-content={errorForm.genres}
+            className="flex justify-center items-center"
+          >
+            <MdError
+              className={errorForm.genres ? "text-orange-0 ml-1" : "hidden"}
+            />
+          </div>
+          <Tooltip className="text-xs" id="Genre-tooltip" />
+        </div>
+
+
           {/* BOOK'S DESCRIPTION FIELD */}
           <div className="flex flex-col w-5/6 mt-3">
-            <div className="flex">
+            <div className="flex font-semibold">
               <label htmlFor="book_description">Book description:</label>
               <div
                 data-tooltip-id="Description-tooltip"
@@ -368,10 +549,11 @@ const CreateBookForm = () => {
               }
             />
           </div>
+
           {/* PRICE FIELD */}
           <div className="w-5/6 flex mt-3">
             <label
-              className="mr-3"
+              className="mr-3 font-semibold"
               htmlFor="price"
               data-tooltip-id="price-description"
               data-tooltip-content={priceBook}
@@ -402,9 +584,11 @@ const CreateBookForm = () => {
             </div>
             <Tooltip className="text-xs" id="Price-tooltip" />
           </div>
+
+          {/* IMG FIELD */}
           <div className="w-5/6 flex mt-3">
             <label
-              className="mr-3"
+              className="mr-3 font-semibold"
               htmlFor="book_cover"
               data-tooltip-id="Img-description"
               data-tooltip-content={imgBook}
