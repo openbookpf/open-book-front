@@ -2,6 +2,7 @@ export default [
   {
     ISBN: "9780345803474",
     book_title: "To Kill a Mockingbird",
+    language: "English",
     author: "Harper Lee",
     book_cover_url:
       "https://media.glamour.com/photos/56e1f3c4bebf143c52613c00/master/w_1280,c_limit/entertainment-2016-02-06-main.jpg",
@@ -13,6 +14,7 @@ export default [
   {
     ISBN: "9780547249643",
     book_title: "The Hunger Games",
+    language: "English",
     author: "Suzanne Collins",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586722975i/2767052.jpg",
@@ -24,6 +26,7 @@ export default [
   {
     ISBN: "9780385511616",
     book_title: "Water for Elephants",
+    language: "English",
     author: "Sara Gruen",
     book_cover_url:
       "https://m.media-amazon.com/images/I/519ng1DJRPL._SY445_SX342_.jpg",
@@ -35,6 +38,7 @@ export default [
   {
     ISBN: "9789589016114",
     book_title: "La Fiesta del Chivo",
+    language: "Spanish",
     author: "Mario Vargas Llosa",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/3c971739655f834805aa13f77cfdd7a3.jpg",
@@ -46,6 +50,7 @@ export default [
   {
     ISBN: "7840251005088",
     book_title: "Fuenteovejuna",
+    language: "Spanish",
     author: "Lope de Vega",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/ce91189dfcd9eb824bc48b85e323436f.jpg",
@@ -57,6 +62,7 @@ export default [
   {
     ISBN: "9789875666474",
     book_title: "Ficciones",
+    language: "Spanish",
     author: "Jorge Luis Borges",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/9f4383e7-acc8-40fa-a831-443091292413/46fc0098-071a-4a9e-8d19-dc5e7eb9e602.jpg",
@@ -68,6 +74,7 @@ export default [
   {
     ISBN: "9788433998859",
     book_title: "Nuestra Parte de Noche",
+    language: "Spanish",
     author: "Mariana Enriquez",
     book_cover_url:
       "https://data.livriz.com/media/MediaSpace/F9AFB48D-741D-4834-B760-F59344EEFF34/45/051d14ff-58cb-4538-8008-57500c041a8f/a7e12dc1-e7f7-4d35-89b3-0e73b7885354.jpg",
@@ -80,6 +87,7 @@ export default [
   {
     ISBN: "9788466342438",
     book_title: "Fuera de Serie Outliers",
+    language: "Spanish",
     author: "Malcolm Gladwell",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/9f82c9b2de29fee8c2d252e66a0ae97e.jpg",
@@ -91,6 +99,7 @@ export default [
   {
     ISBN: "9788418395635",
     book_title: "Robinson Crusoe Td",
+    language: "Spanish",
     author: "Defoe, Daniel",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/3a42fcf346f04b514de4707bb1590a91.jpg",
@@ -102,6 +111,7 @@ export default [
   {
     ISBN: "9780545139700",
     book_title: "Harry Potter and the Deathly Hallows (Book 7)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/c6bbdfe21440918be26f9b7f15a135c4.jpg",
@@ -113,6 +123,7 @@ export default [
   {
     ISBN: "9780439064873",
     book_title: "Harry Potter And The Chamber Of Secrets (Book 2)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/b873fa86ec27ba3556e692be1a7cb9de.jpg",
@@ -124,6 +135,7 @@ export default [
   {
     ISBN: "9780590353427",
     book_title: "Harry Potter And The Sorcerer´s Stone (Book 1)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/68ee3669135dccf2358b8bcb72c803b8.jpg",
@@ -135,6 +147,7 @@ export default [
   {
     ISBN: "9780439358071",
     book_title: "Harry Potter And The Order Of The Phoenix (Book 5)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/c246726a594105e3c66cfdf68325fc76.jpg",
@@ -146,6 +159,7 @@ export default [
   {
     ISBN: "9780439785969",
     book_title: "Harry Potter And The Half Blood Prince (Book 6)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/35ceabaa28765a3d977fcfbab03493c4.jpg",
@@ -157,6 +171,7 @@ export default [
   {
     ISBN: "9780439136365",
     book_title: "Harry Potter And The Prisoner Of Azkaban (Book 3)",
+    language: "English",
     author: "J. K. Rowling",
     book_cover_url:
       "https://ellector.com.py/product_photos/24b89be1/8bd2a103ee5b0ac751eb1053ef3c7014.jpg",
@@ -168,6 +183,7 @@ export default [
   {
     ISBN: "9780061122415",
     book_title: "1984",
+    language: "English",
     author: "George Orwell",
     book_cover_url:
       "https://m.media-amazon.com/images/I/61ZewDE3beL._SL1200_.jpg",
@@ -179,6 +195,7 @@ export default [
   {
     ISBN: "9780062315007",
     book_title: "The Catcher in the Rye",
+    language: "English",
     author: "J.D. Salinger",
     book_cover_url:
       "https://cdn.britannica.com/94/181394-050-2F76F7EE/Reproduction-cover-edition-The-Catcher-in-the.jpg",
@@ -191,6 +208,7 @@ export default [
   {
     ISBN: "9780679783268",
     book_title: "The Great Gatsby",
+    language: "English",
     author: "F. Scott Fitzgerald",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1490528560i/4671.jpg",
@@ -202,6 +220,7 @@ export default [
   {
     ISBN: "9780141439563",
     book_title: "Pride and Prejudice",
+    language: "English",
     author: "Jane Austen",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81NLDvyAHrL._SL1500_.jpg",
@@ -213,6 +232,7 @@ export default [
   {
     ISBN: "9780743273565",
     book_title: "The Alchemist",
+    language: "English",
     author: "Paulo Coelho",
     book_cover_url:
       "https://m.media-amazon.com/images/I/71zHDXu1TaL._SL1500_.jpg",
@@ -224,6 +244,7 @@ export default [
   {
     ISBN: "9780142437186",
     book_title: "Jane Eyre",
+    language: "English",
     author: "Charlotte Brontë",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81pwJjgcwwL._SL1500_.jpg",
@@ -235,6 +256,7 @@ export default [
   {
     ISBN: "9780375704024",
     book_title: "The Road",
+    language: "English",
     author: "Cormac McCarthy",
     book_cover_url:
       "https://m.media-amazon.com/images/I/51M7XGLQTBL._SL1200_.jpg",
@@ -246,6 +268,7 @@ export default [
   {
     ISBN: "9780141439723",
     book_title: "Moby-Dick",
+    language: "English",
     author: "Herman Melville",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81+3Wl6KVNL._SL1500_.jpg",
@@ -257,6 +280,7 @@ export default [
   {
     ISBN: "9781984823489",
     book_title: "The Silent Patient",
+    language: "English",
     author: "Alex Michaelides",
     book_cover_url:
       "https://m.media-amazon.com/images/I/91lslnZ-btL._SL1500_.jpg",
@@ -268,6 +292,7 @@ export default [
   {
     ISBN: "9780593099322",
     book_title: "Dune",
+    language: "English",
     author: "Frank Herbert",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
@@ -279,6 +304,7 @@ export default [
   {
     ISBN: "9788445071403",
     book_title: "The Fellowship of the Ring (The Lord of the Rings #1)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1704737084i/222947.jpg",
@@ -290,6 +316,7 @@ export default [
   {
     ISBN: "9786073908245",
     book_title: "The Two Towers (The Lord of the Rings #2)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://tmgames.com/ins/images/stories/virtuemart/product/lotr%202.jpg",
@@ -301,6 +328,7 @@ export default [
   {
     ISBN: "9788445075753",
     book_title: "Return of the King (The Lord of the Rings #3)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://tmgames.com/ins/images/stories/virtuemart/product/lotr%203.jpg",
@@ -312,6 +340,7 @@ export default [
   {
     ISBN: "9789505470631",
     book_title: "The Hobbit (The Lord of the Rings #0)",
+    language: "English",
     author: "J.R.R. Tolkien",
     book_cover_url:
       "https://m.media-amazon.com/images/I/91U3Yg8PFDL._SL1500_.jpg",
@@ -323,6 +352,7 @@ export default [
   {
     ISBN: "9781501142970",
     book_title: "It",
+    language: "English",
     author: "Stephen King",
     book_cover_url:
       "https://res.cloudinary.com/dprhzfhiy/image/upload/v1713214302/OPEN_BOOK/file_lkjwzt.jpg",
@@ -334,6 +364,7 @@ export default [
   {
     ISBN: "9781501156748",
     book_title: "Misery",
+    language: "English",
     author: "Stephen King",
     book_cover_url:
       "https://res.cloudinary.com/dprhzfhiy/image/upload/v1713214476/OPEN_BOOK/file_zqa3ky.jpg",
@@ -345,6 +376,7 @@ export default [
   {
     ISBN: "9780140449068",
     book_title: "Around the World in 80 Days",
+    language: "English",
     author: "Jules Verne",
     book_cover_url:
       "https://m.media-amazon.com/images/I/71g0eZ7Is-L._SL1200_.jpg",
@@ -356,6 +388,7 @@ export default [
   {
     ISBN: "9780140621396",
     book_title: "Journey to the Centre of the Earth",
+    language: "English",
     author: "Jules Verne",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1326025033i/623395.jpg",
@@ -367,6 +400,7 @@ export default [
   {
     ISBN: "9780760728505",
     book_title: "Twenty Thousand Leagues Under the Sea",
+    language: "English",
     author: "Jules Verne",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1494979127i/33507.jpg",
@@ -379,6 +413,7 @@ export default [
     ISBN: "9781250069535",
     book_title:
       "The Universe in Your Hand: A Journey Through Space, Time, and Beyond",
+    language: "English",
     author: "Christophe Galfard",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1440420017i/22892322.jpg",
@@ -390,6 +425,7 @@ export default [
   {
     ISBN: "9780735223790",
     book_title: "Fundamentals: Ten Keys to Reality",
+    language: "English",
     author: "Frank Wilczek",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1606104694i/53398908.jpg",
@@ -401,6 +437,7 @@ export default [
   {
     ISBN: "0099483629",
     book_title: "Seeing",
+    language: "English",
     author: "José Saramago",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81yn6HiFxeL._SL1178_.jpg",
@@ -412,6 +449,7 @@ export default [
   {
     ISBN: "0156007754",
     book_title: "Blindness",
+    language: "English",
     author: "José Saramago",
     book_cover_url:
       "https://m.media-amazon.com/images/I/71FeYR+eOVL._SL1500_.jpg",
@@ -423,6 +461,7 @@ export default [
   {
     ISBN: "9780141439570",
     book_title: "The Picture of Dorian Gray",
+    language: "English",
     author: "Oscar Wilde",
     book_cover_url:
       "https://m.media-amazon.com/images/I/61FdXlJX0-L._SL1200_.jpg",
@@ -434,6 +473,7 @@ export default [
   {
     ISBN: "9780062428936",
     book_title: "American Gods",
+    language: "English",
     author: "Neil Gaiman",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1462924585i/30165203.jpg",
@@ -445,6 +485,7 @@ export default [
   {
     ISBN: "9780450031069",
     book_title: "Salem's Lot",
+    language: "English",
     author: "Stephen King",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1289333263i/9668519.jpg",
@@ -456,6 +497,7 @@ export default [
   {
     ISBN: "9780007491568",
     book_title: "Fahrenheit 451",
+    language: "English",
     author: "Ray Bradbury",
     book_cover_url:
       "https://m.media-amazon.com/images/I/71GXp9W7bmL._SL1500_.jpg",
@@ -467,6 +509,7 @@ export default [
   {
     ISBN: "0142437239",
     book_title: "Don Quixote",
+    language: "English",
     author: "Miguel de Cervantes",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1546112331i/3836.jpg",
@@ -478,6 +521,7 @@ export default [
   {
     ISBN: "1407230026",
     book_title: "Do Androids Dream of Electric Sheep?",
+    language: "English",
     author: "Philip K. Dick",
     book_cover_url:
       "https://m.media-amazon.com/images/I/81MG+urXp5L._SL1500_.jpg",
@@ -489,6 +533,7 @@ export default [
   {
     ISBN: "9780156001311",
     book_title: "The Name of the Rose",
+    language: "English",
     author: "Umberto Eco",
     book_cover_url:
       "https://m.media-amazon.com/images/I/7171HdBzN3L._SL1167_.jpg",
@@ -500,6 +545,7 @@ export default [
   {
     ISBN: "9780375760303",
     book_title: "The Count of Monte Cristo",
+    language: "English",
     author: "Alexandre Dumas",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1388197713i/7131.jpg",
@@ -511,6 +557,7 @@ export default [
   {
     ISBN: "9780140444308",
     book_title: "Les Misérables",
+    language: "English",
     author: "Victor Hugo",
     book_cover_url:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1424269061i/33175.jpg",
@@ -522,6 +569,7 @@ export default [
   {
     ISBN: "9780141439600",
     book_title: "A Tale of Two Cities",
+    language: "English",
     author: "Charles Dickens",
     book_cover_url:
       "https://m.media-amazon.com/images/I/91ptoYiDzeL._SL1500_.jpg",
@@ -533,6 +581,7 @@ export default [
   {
     ISBN: "9780553278224",
     book_title: "The Martian Chronicles",
+    language: "English",
     author: "Ray Bradbury",
     book_cover_url: "https://images.thenile.io/r1000/9780006479239.jpg",
     genre: "Science Fiction",

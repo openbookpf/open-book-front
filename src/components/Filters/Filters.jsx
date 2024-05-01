@@ -1,10 +1,10 @@
-// Filter.js
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   getGenresAndAuthors,
   getBooksFilter,
   appliedFilter,
+  filterBooksByLanguage,
 } from "../../redux/actions";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -21,6 +21,7 @@ const Filter = () => {
 
   const [showMoresGenres, setShowMoreGenres] = useState(false);
   const [showMoresAuthors, setShowMoreAuthors] = useState(false);
+  const [languages, setLanguages] = useState([]);
 
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
@@ -30,9 +31,19 @@ const Filter = () => {
     const property = event.target.value;
     const value = event.target.innerHTML;
 
-    dispatch(getBooksFilter({ ...appliedFilters, [property]: value }));
+    dispatch(
+      getBooksFilter({
+        ...appliedFilters,
+        [property]: [...appliedFilters[property], value],
+      })
+    );
 
-    dispatch(appliedFilter({ ...appliedFilters, [property]: value }));
+    dispatch(
+      appliedFilter({
+        ...appliedFilters,
+        [property]: [...appliedFilters[property], value],
+      })
+    );
   };
 
   const handleChangePrice = (event) => {
@@ -56,19 +67,19 @@ const Filter = () => {
   };
 
   const handleShowGenres = () => {
-    if (!showMoresGenres) {
-      setShowMoreGenres(true);
-    } else {
-      setShowMoreGenres(false);
-    }
-    console.log(showMoresGenres);
+    setShowMoreGenres(!showMoresGenres);
   };
 
   const handleShowAuthors = () => {
-    if (!showMoresAuthors) {
-      setShowMoreAuthors(true);
-    } else {
-      setShowMoreAuthors(false);
+    setShowMoreAuthors(!showMoresAuthors);
+  };
+
+  const handleLanguageChange = (e) => {
+    const { value, checked } = e.target;
+    console.log(value);
+    if (checked) {
+      setLanguages(value);
+      dispatch(filterBooksByLanguage(value));
     }
   };
 
@@ -80,12 +91,12 @@ const Filter = () => {
         <div className="text-sm ml-10 w-40 flex flex-col items-start">
           {!showMoresGenres
             ? genres.slice(0, 15).map((gen) => (
-                <button onClick={handleFilter} value={"genre"} key={gen}>
+                <button onClick={handleFilter} value={"genres"} key={gen}>
                   {gen}
                 </button>
               ))
             : genres.map((gen) => (
-                <button onClick={handleFilter} value={"genre"} key={gen}>
+                <button onClick={handleFilter} value={"genres"} key={gen}>
                   {gen}
                 </button>
               ))}
@@ -133,6 +144,27 @@ const Filter = () => {
               Show less...
             </button>
           )}
+        </div>
+        <p className="text-lg mt-3">Languages</p>
+        <div className="text-sm ml-10 w-40 flex flex-col items-start">
+          <label>
+            <input
+              type="checkbox"
+              value="Spanish"
+              checked={languages.includes("Spanish")}
+              onChange={handleLanguageChange}
+            />
+            Spanish
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="English"
+              checked={languages.includes("English")}
+              onChange={handleLanguageChange}
+            />
+            English
+          </label>
         </div>
         <div className="text-lg mt-3">
           <p>Price</p>

@@ -2,7 +2,6 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { BsFacebook, BsWhatsapp, BsTwitterX } from "react-icons/bs";
 import axios from "axios";
 import { Carousel } from "primereact/carousel";
-
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -14,7 +13,7 @@ function Detail() {
   const [bookData, setBookData] = useState(null);
   const [sameGenreBooks, setSameGenreBooks] = useState([]);
 
-  const apiUrl = `https://open-book-back.onrender.com/book/bookId/${isbn.replace(
+  const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn.replace(
     /\D/g,
     ""
   )}`;
@@ -32,20 +31,26 @@ function Detail() {
 
     getBookById();
   }, [isbn]);
+
   useEffect(() => {
     async function getBooksByGenre() {
-      if (!bookData) {
+      if (
+        !bookData ||
+        !bookData.genres ||
+        typeof bookData.genres !== "string"
+      ) {
         return;
       }
 
       try {
-        const response = await axios.get(
-          `https://open-book-back.onrender.com/book/filtrar?author&genre=${bookData.genre}&min&max`
-        );
-        const filteredBooks = response.data.filter(
-          (book) => book.ISBN !== bookData.ISBN
-        );
-        setSameGenreBooks(filteredBooks);
+        const genres = bookData.genres.split(",");
+        const apiUrl = "https://open-book-back.onrender.com/books/filtrar";
+        const requestBody = {
+          authorArray: [],
+          genreArray: genres,
+        };
+        const response = await axios.post(apiUrl, requestBody);
+        setSameGenreBooks(response.data);
       } catch (error) {
         console.error("Error al obtener los libros del mismo género:", error);
       }
@@ -69,8 +74,14 @@ function Detail() {
     return null;
   }
 
-  const { book_cover_url, book_title, author, price, book_description, genre } =
-    bookData;
+  const {
+    book_cover_url,
+    book_title,
+    author,
+    price,
+    book_description,
+    genres,
+  } = bookData;
 
   return (
     <div className="flex flex-col">
@@ -111,17 +122,17 @@ function Detail() {
                   Description:
                 </p>
                 <p className="text-gray-700 mt-2 text-sm">{book_description}</p>
-                <p className="text-gray-700 mt-4 font-bold text-xl">Genre:</p>
+                <p className="text-gray-700 mt-4 font-bold text-xl">Genres:</p>
                 <div className="mt-2 flex space-x-4">
-                  <Link
-                    to={`/filterbook/${genre}`}
-                    className="bg-blue-0 hover:bg-blue-950 ease-linear delay-50 transition-colors text-white-0 text-base py-1 px-10 focus:outline-none focus:shadow-outline rounded-full"
-                  >
-                    {genre}
-                  </Link>
-                  {/* <button className="bg-blue-0 hover:bg-blue-950 ease-linear delay-50 transition-colors text-white-0 text-base py-1 px-10 focus:outline-none focus:shadow-outline rounded-full">
-                  {genre}
-                </button> */}
+                  {genres.map((genre, index) => (
+                    <Link
+                      to={`/filterbook/${genre}`}
+                      className="bg-blue-0 hover:bg-blue-950 ease-linear delay-50 transition-colors text-white-0 text-base py-1 px-10 focus:outline-none focus:shadow-outline rounded-full"
+                      key={index}
+                    >
+                      <button>{genre}</button>
+                    </Link>
+                  ))}
                 </div>
                 <hr className="my-4 border-gray-300 w-full" />
                 <p className="text-gray-700 mt-2 mb-4 font-bold text-xl">
