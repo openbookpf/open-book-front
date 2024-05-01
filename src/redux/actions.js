@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
+export const GET_USERS = "GET_USERS";
 export const SORT_BY_TITLE = "SORT_BY_TITLE";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
@@ -101,6 +102,7 @@ export const removeAll = (ISBN) => {
 };
 
 export const search_book_by_name = (name) => {
+
     return async function (dispatch) {
         await fetch(`https://open-book-back.onrender.com/book?name=${name}`)
             .then((res) => res.json())
@@ -133,7 +135,26 @@ export function getBooksFilterGenre(genre) {
         payload: genre,
     };
 }
+export const getUsers = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/users"
+      );
+
+      const data = response.data;
+
+      dispatch({
+        type: GET_USERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 export const getBooks = () => {
+
     return async (dispatch) => {
         try {
             const response = await axios.get("https://open-book-back.onrender.com/books");

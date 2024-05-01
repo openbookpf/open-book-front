@@ -1,4 +1,7 @@
 import {
+
+  GET_USERS,
+
     FILTER_BOOKS_BY_GENRE,
     GET_BOOKS,
     SORT_BY_PRICE,
@@ -17,6 +20,7 @@ import {
     ADD_TO_FAVORITES,
     REMOVE_FROM_FAVORITES,
     LOAD_FAVORITES_FROM_STORAGE,
+
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -29,6 +33,8 @@ const calculateTotalItems = (cartItems) => {
 };
 
 const initialState = {
+
+    users: [],
     books: [],
     filteredBooks: [],
     filterGenreBooks: [],
@@ -50,6 +56,11 @@ const initialState = {
 
 function booksReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
         case CHANGE_NAME:
             return { ...state, searchname: action.payload };
 
