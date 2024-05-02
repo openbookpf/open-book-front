@@ -18,77 +18,95 @@ import {
 } from "../../redux/actions";
 
 const BookList = () => {
-  const books = useSelector((state) => state.filteredBooks);
-  const appliedFilters = useSelector((state) => state.appliedFilters);
-  const favorites = useSelector((state) => state.favorites);
 
-  const appliedFiltersMod = {
-    ...appliedFilters,
-    min: Number(appliedFilters.min),
-    max: Number(appliedFilters.max),
-  };
+    const books = useSelector((state) => state.filteredBooks);
+    const appliedFilters = useSelector((state) => state.appliedFilters);
+    const favorites = useSelector((state) => state.favorites);
 
-  let filters = Object.values(appliedFilters);
+    // const appliedFiltersMod = {
+    //     ...appliedFilters,
+    //     min: Number(appliedFilters.min),
+    //     max: Number(appliedFilters.max),
+    // };
 
-  const dispatch = useDispatch();
+    // let filters = Object.values(appliedFilters);
 
-  const [selectedTitle, setSelectedTitle] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState("");
+    const dispatch = useDispatch();
 
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(9);
+    const [selectedTitle, setSelectedTitle] = useState("");
+    const [selectedPrice, setSelectedPrice] = useState("");
 
-  const onPageChange = (event) => {
-    setFirst(event.first);
-    setRows(event.rows);
-  };
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(9);
 
-  useEffect(() => {
-    dispatch(getBooks());
-  }, []);
+    const onPageChange = (event) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
 
-  useEffect(() => {
-    if (selectedTitle !== "") {
-      dispatch(sortByTitle(selectedTitle));
-    }
-  }, [dispatch, selectedTitle]);
+    useEffect(() => {
+        dispatch(getBooks());
+    }, []);
 
-  useEffect(() => {
-    if (selectedPrice !== "") {
-      dispatch(sortByPrice(selectedPrice));
-    }
-  }, [dispatch, selectedPrice]);
+    useEffect(() => {
+        if (selectedTitle !== "") {
+            dispatch(sortByTitle(selectedTitle));
+        }
+    }, [dispatch, selectedTitle]);
 
-  const handleSortChange = (event) => {
-    const [sortType, sortDirection] = event.target.value.split("-");
+    useEffect(() => {
+        if (selectedPrice !== "") {
+            dispatch(sortByPrice(selectedPrice));
+        }
+    }, [dispatch, selectedPrice]);
 
-    if (sortType === "title") {
-      setSelectedTitle(sortDirection);
-    } else if (sortType === "price") {
-      setSelectedPrice(sortDirection);
-    } else {
-      setSelectedTitle("");
-      setSelectedPrice("");
-    }
-    if (sortType === "none") {
-      dispatch;
-    }
-  };
+    const handleSortChange = (event) => {
+        const [sortType, sortDirection] = event.target.value.split("-");
 
-  const handleCloseFilter = (filter) => {
-    const filterToRemove = Object.keys(appliedFilters).find(
-      (key) => appliedFilters[key] === filter
-    );
-    dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
-    dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
-  };
+        if (sortType === "title") {
+            setSelectedTitle(sortDirection);
+        } else if (sortType === "price") {
+            setSelectedPrice(sortDirection);
+        } else {
+            setSelectedTitle("");
+            setSelectedPrice("");
+        }
+        if (sortType === "none") {
+            dispatch;
+        }
+    };
 
-  return (
-    <div className="mt-20 flex flex-col w-sreen px-10">
-      <div className="flex flex-row">
-        <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
-          <Filter />
-        </div>
+    const handleCloseFilter = (filter) => {
+        const filterToRemove = Object.keys(appliedFilters).find((key) => appliedFilters[key] === filter);
+        dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
+        dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
+    };
+
+    return (
+        <div className="mt-20 flex flex-col w-sreen px-10">
+            <div className="flex flex-row">
+                <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
+                    <Filter />
+                </div>
+
+                <div className="flex flex-col basis-11/12 w-full ml-10">
+                    <div className="flex flex-col h-10 items-center justify-items-end">
+                        <div className="flex flex-row justify-between w-full">
+                            <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
+                                <div className="text-lg flex justify-end ">
+                                    <p className="pr-2">Sort by:</p>
+                                    <select onChange={handleSortChange} className="rounded-xl">
+                                        <option value="">None</option>
+                                        <option value="title-asc">Title (A - Z)</option>
+                                        <option value="title-desc">Title (Z - A)</option>
+                                        <option value="price-min">Price (Low - High)</option>
+                                        <option value="price-max">Price (High - Low)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
         <div className="flex flex-col basis-11/12 w-full ml-10">
           <div className="flex flex-col h-10 items-center justify-items-end">
