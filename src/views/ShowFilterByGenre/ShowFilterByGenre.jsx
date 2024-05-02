@@ -36,8 +36,15 @@ const ShowFilterByGenre = () => {
   };
 
   return (
-    <div className="flex flex-col w-screen">
-      <div className="mt-20 flex flex-row w-screen">
+    <div className="relative flex flex-col w-screen">
+      <div
+        className="absolut brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-screen fixed"
+        style={{
+          backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
+          opacity: 0.9,
+        }}
+      ></div>
+      <div className="relative mt-20 flex flex-row w-screen">
         <div className="flex-col basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10 justify-between items-center ml-5 mt-5">
           <p className="text-xl font-bold mt-4 mx-5">Authors</p>
           <div className="flex-col mt-3 ml-10 leading-6">
@@ -70,9 +77,10 @@ const ShowFilterByGenre = () => {
         </div>
       </div>
 
-      <footer className="flex items-center text-center justify-center my-4 py-2">
-        <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
+      <footer className="relative flex items-center text-center justify-center my-4 py-2">
+        <div className="text-lg text-white-0 font-semibold border-2 rounded-full h-12 flex items-center justify-center">
           <Paginator
+            className="text-white-0"
             first={first}
             rows={rows}
             totalRecords={filteredBooks.length}
