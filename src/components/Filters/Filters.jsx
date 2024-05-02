@@ -21,7 +21,6 @@ const Filter = () => {
 
   const [showMoresGenres, setShowMoreGenres] = useState(false);
   const [showMoresAuthors, setShowMoreAuthors] = useState(false);
-  const [languages, setLanguages] = useState([]);
 
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
@@ -75,12 +74,9 @@ const Filter = () => {
   };
 
   const handleLanguageChange = (e) => {
-    const { value, checked } = e.target;
-    console.log(value);
-    if (checked) {
-      setLanguages(value);
-      dispatch(filterBooksByLanguage(value));
-    }
+    const { value } = e.target;
+
+    dispatch(filterBooksByLanguage(value));
   };
 
   return (
@@ -147,25 +143,22 @@ const Filter = () => {
         </div>
         <p className="text-lg mt-3">Languages</p>
         <div className="text-sm ml-10 w-40 flex flex-col items-start">
-          <label>
-            <input
-              type="checkbox"
-              value="Spanish"
-              checked={languages.includes("Spanish")}
-              onChange={handleLanguageChange}
-            />
+          <button
+            onClick={handleLanguageChange}
+            value={"Spanish"}
+            key={"Spanish"}
+          >
             Spanish
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="English"
-              checked={languages.includes("English")}
-              onChange={handleLanguageChange}
-            />
+          </button>
+          <button
+            onClick={handleLanguageChange}
+            value={"English"}
+            key={"English"}
+          >
             English
-          </label>
+          </button>
         </div>
+
         <div className="text-lg mt-3">
           <p>Price</p>
           <div className="flex justify-center items-center">

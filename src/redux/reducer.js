@@ -207,11 +207,9 @@ function booksReducer(state = initialState, action) {
     case FILTER_BOOKS_BY_LANGUAGE:
       return {
         ...state,
-        filteredBooks: [
-          ...state.filteredBooks.filter((book) => {
-            book.language === action.payload;
-          }),
-        ],
+        filteredBooks: state.books.filter(
+          (book) => book.language === action.payload
+        ),
       };
 
     default:
