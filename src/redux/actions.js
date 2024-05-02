@@ -3,6 +3,7 @@ import axios from "axios";
 export const FILTER_BOOKS_BY_LANGUAGE = "FILTER_BOOKS_BY_LANGUAGE";
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
+export const GET_USERS = "GET_USERS";
 export const SORT_BY_TITLE = "SORT_BY_TITLE";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
@@ -26,86 +27,87 @@ export const filterBooksByLanguage = (language) => ({
 });
 
 export const addToFavorites = (product) => ({
-  type: "ADD_TO_FAVORITES",
-  payload: product,
+    type: "ADD_TO_FAVORITES",
+    payload: product,
 });
 
 export const removeFromFavorites = (ISBN) => ({
-  type: "REMOVE_FROM_FAVORITES",
-  payload: ISBN,
+    type: "REMOVE_FROM_FAVORITES",
+    payload: ISBN,
 });
 
 export const loadFavoritesFromStorage = (favorites) => ({
-  type: LOAD_FAVORITES_FROM_STORAGE,
-  payload: favorites,
+    type: LOAD_FAVORITES_FROM_STORAGE,
+    payload: favorites,
 });
 
 export const addToFavoritesWithPersistence = (product) => {
-  return (dispatch, getState) => {
-    dispatch(addToFavorites(product));
+    return (dispatch, getState) => {
+        dispatch(addToFavorites(product));
 
-    const { favorites } = getState();
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  };
+        const { favorites } = getState();
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    };
 };
 
 export const removeFromFavoritesWithPersistence = (ISBN) => {
-  return (dispatch, getState) => {
-    dispatch(removeFromFavorites(ISBN));
+    return (dispatch, getState) => {
+        dispatch(removeFromFavorites(ISBN));
 
-    const { favorites } = getState();
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  };
+        const { favorites } = getState();
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    };
 };
 
 export const loadFavoritesFromStorageOnStart = () => {
-  return (dispatch) => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    dispatch(loadFavoritesFromStorage(favorites));
-  };
+    return (dispatch) => {
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        dispatch(loadFavoritesFromStorage(favorites));
+    };
 };
 
 export const updateCartFromStorage = (cartItems) => ({
-  type: UPDATE_CART_FROM_STORAGE,
-  payload: cartItems,
+    type: UPDATE_CART_FROM_STORAGE,
+    payload: cartItems,
 });
 
 export const addToCart = (product) => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: "ADD_TO_CART",
-      payload: product,
-    });
+    return (dispatch, getState) => {
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: product,
+        });
 
-    const { items } = getState();
-    localStorage.setItem("cart", JSON.stringify(items));
-  };
+        const { items } = getState();
+        localStorage.setItem("cart", JSON.stringify(items));
+    };
 };
 
 export const removeFromCart = (ISBN) => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: "REMOVE_FROM_CART",
-      payload: ISBN,
-    });
-    const { items } = getState();
-    localStorage.setItem("cart", JSON.stringify(items));
-  };
+    return (dispatch, getState) => {
+        dispatch({
+            type: "REMOVE_FROM_CART",
+            payload: ISBN,
+        });
+        const { items } = getState();
+        localStorage.setItem("cart", JSON.stringify(items));
+    };
 };
 
 export const removeAll = (ISBN) => {
-  return (dispatch, getState) => {
-    const { items } = getState();
-    const updatedItems = items.filter((item) => item.ISBN !== ISBN);
-    dispatch({
-      type: "REMOVE_ALL",
-      payload: updatedItems,
-    });
-    localStorage.setItem("cart", JSON.stringify(updatedItems));
-  };
+    return (dispatch, getState) => {
+        const { items } = getState();
+        const updatedItems = items.filter((item) => item.ISBN !== ISBN);
+        dispatch({
+            type: "REMOVE_ALL",
+            payload: updatedItems,
+        });
+        localStorage.setItem("cart", JSON.stringify(updatedItems));
+    };
 };
 
 export const search_book_by_name = (name) => {
+
   return async function (dispatch) {
     await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
       .then((res) => res.json())
@@ -116,39 +118,43 @@ export const search_book_by_name = (name) => {
         })
       );
   };
+
 };
 export const change_name = (name) => {
-  return { type: CHANGE_NAME, payload: name };
+    return { type: CHANGE_NAME, payload: name };
 };
 
 export const sortByTitle = (order) => ({
-  type: SORT_BY_TITLE,
-  payload: order,
+    type: SORT_BY_TITLE,
+    payload: order,
 });
 
 export const sortByPrice = (order) => ({
-  type: SORT_BY_PRICE,
-  payload: order,
+    type: SORT_BY_PRICE,
+    payload: order,
 });
+
 
 export function getBooksFilterGenre(genres) {
   return {
     type: FILTER_BOOKS_BY_GENRE,
     payload: genres,
   };
+
 }
-export const getBooks = () => {
+export const getUsers = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/books"
+
+        "https://open-book-back.onrender.com/users"
+
       );
 
-      const lastFilt = localStorage.getItem("booksFilters");
-      const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+      const data = response.data;
 
       dispatch({
-        type: GET_BOOKS,
+        type: GET_USERS,
         payload: data,
       });
     } catch (error) {
@@ -156,8 +162,27 @@ export const getBooks = () => {
     }
   };
 };
+export const getBooks = () => {
+
+    return async (dispatch) => {
+        try {
+            const response = await axios.get("https://open-book-back.onrender.com/books");
+
+            // const lastFilt = localStorage.getItem("booksFilters");
+            // const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+            console.log(response);
+            dispatch({
+                type: GET_BOOKS,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+};
 
 export const getGenresAndAuthors = () => {
+
   return async (dispatch) => {
     try {
       const authors = await axios.get(
@@ -207,21 +232,23 @@ export const getBooksFilter = (objFilters) => {
       console.error(error);
     }
   };
+
 };
 
 export const appliedFilter = (objFilters) => {
-  return {
-    type: APPLIED_FILTERS,
-    payload: objFilters,
-  };
+    return {
+        type: APPLIED_FILTERS,
+        payload: objFilters,
+    };
 };
 
 export const resetSearchedBooks = () => ({
-  type: RESET_SEARCHED_BOOKS,
-  payload: "",
+    type: RESET_SEARCHED_BOOKS,
+    payload: "",
 });
 
 export const getBooksByGenre = (genre) => {
+
   return async (dispatch) => {
     try {
       const response = await axios.post(
@@ -242,4 +269,5 @@ export const getBooksByGenre = (genre) => {
       console.error(error);
     }
   };
+
 };

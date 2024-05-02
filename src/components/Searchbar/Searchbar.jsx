@@ -93,7 +93,7 @@ const Searchbar = ({ setTrigger }) => {
             </button>
           ) : (
             <div className="h-[250px] flex flex-col items-center content-center justify-center text-black">
-              <p className="text-lg">Try Searching a Book for a Book </p>
+              <p className="text-lg ">Try Searching a Book for a Book </p>
             </div>
           )}
         </div>
