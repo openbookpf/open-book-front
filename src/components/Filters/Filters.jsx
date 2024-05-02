@@ -47,7 +47,9 @@ const Filter = () => {
             return dispatch(getBooksFilter({ ...filtersApplied, genreArray: [...filtersApplied.genreArray, value] }));
         }
 
+
         //!--
+
 
         if (property === "author") {
             //? si ya existe
@@ -88,6 +90,7 @@ const Filter = () => {
     const handleClearPrice = () => {
         setFiltersApplied({ ...filtersApplied, minPrice: "", maxPrice: "" });
 
+
         dispatch(getBooksFilter({ ...filtersApplied, minPrice: "", maxPrice: "" }));
     };
 
@@ -99,27 +102,14 @@ const Filter = () => {
         }
     };
 
-    const handleShowAuthors = () => {
-        if (!showMoresAuthors) {
-            setShowMoreAuthors(true);
-        } else {
-            setShowMoreAuthors(false);
-        }
-    };
 
-    const handleClearFitler = () => {
-        setFiltersApplied({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "" });
-        dispatch(getBooksFilter({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "" }));
-    };
+  const handleLanguageChange = (e) => {
+    const { value } = e.target;
 
-    const handleLanguageChange = (e) => {
-        const { value, checked } = e.target;
-        console.log(value);
-        if (checked) {
-            setLanguages(value);
-            dispatch(filterBooksByLanguage(value));
-        }
-    };
+    dispatch(filterBooksByLanguage(value));
+  };
+
+ 
 
     return (
         <div className="h-min min-h-screen">
@@ -217,26 +207,22 @@ const Filter = () => {
                     )}
                 </div>
                 <p className="text-lg mt-3">Languages</p>
-                <div className="text-sm ml-10 w-40 flex flex-col items-start">
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="Spanish"
-                            checked={languages.includes("Spanish")}
-                            onChange={handleLanguageChange}
-                        />
-                        Spanish
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value="English"
-                            checked={languages.includes("English")}
-                            onChange={handleLanguageChange}
-                        />
-                        English
-                    </label>
-                </div>
+        <div className="text-sm ml-10 w-40 flex flex-col items-start">
+          <button
+            onClick={handleLanguageChange}
+            value={"Spanish"}
+            key={"Spanish"}
+          >
+            Spanish
+          </button>
+          <button
+            onClick={handleLanguageChange}
+            value={"English"}
+            key={"English"}
+          >
+            English
+          </button>
+        </div>
                 <div className="text-lg mt-3">
                     <p>Price</p>
                     <div className="flex justify-center items-center">
@@ -290,9 +276,19 @@ const Filter = () => {
                         </div>
                     </div>
                 </div>
+
             </div>
+            <button
+              onClick={handleFilterByPrice}
+              className="duration-200 hover:text-orange-0 p-2 flex items-center justify-center font-bold"
+            >
+              <IoIosArrowForward />
+            </button>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Filter;
