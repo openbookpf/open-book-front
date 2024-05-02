@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getGenresAndAuthors, getBooksFilter, appliedFilter, filterBooksByLanguage } from "../../redux/actions";
+import { getGenresAndAuthors, getBooksFilter } from "../../redux/actions";
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -8,11 +8,15 @@ const Filter = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getGenresAndAuthors());
+
+        const filtersStorage = localStorage.getItem("filters");
+        if (filtersStorage) {
+            setFiltersApplied(JSON.parse(filtersStorage));
+        }
     }, []);
 
     const [showMoresGenres, setShowMoreGenres] = useState(false);
     const [showMoresAuthors, setShowMoreAuthors] = useState(false);
-    const [languages, setLanguages] = useState([]);
 
     const genres = useSelector((state) => state.genres);
     const authors = useSelector((state) => state.authors);
@@ -22,6 +26,7 @@ const Filter = () => {
         genreArray: [],
         minPrice: "",
         maxPrice: "",
+        language: "",
     });
 
     const handleFilter = (event) => {
@@ -35,6 +40,13 @@ const Filter = () => {
                     ...filtersApplied,
                     genreArray: [...filtersApplied.genreArray].filter((gen) => gen !== value),
                 });
+                localStorage.setItem(
+                    "filters",
+                    JSON.stringify({
+                        ...filtersApplied,
+                        genreArray: [...filtersApplied.genreArray].filter((gen) => gen !== value),
+                    })
+                );
                 return dispatch(
                     getBooksFilter({
                         ...filtersApplied,
@@ -44,6 +56,11 @@ const Filter = () => {
             }
             //? si no existe
             setFiltersApplied({ ...filtersApplied, genreArray: [...filtersApplied.genreArray, value] });
+            localStorage.setItem(
+                "filters",
+                JSON.stringify({ ...filtersApplied, genreArray: [...filtersApplied.genreArray, value] })
+            );
+
             return dispatch(getBooksFilter({ ...filtersApplied, genreArray: [...filtersApplied.genreArray, value] }));
         }
 
@@ -58,6 +75,14 @@ const Filter = () => {
                     ...filtersApplied,
                     authorArray: [...filtersApplied.authorArray].filter((auth) => auth !== value),
                 });
+                localStorage.setItem(
+                    "filters",
+                    JSON.stringify({
+                        ...filtersApplied,
+                        authorArray: [...filtersApplied.authorArray].filter((auth) => auth !== value),
+                    })
+                );
+
                 return dispatch(
                     getBooksFilter({
                         ...filtersApplied,
@@ -67,6 +92,11 @@ const Filter = () => {
             }
             //? si no existe
             setFiltersApplied({ ...filtersApplied, authorArray: [...filtersApplied.authorArray, value] });
+            localStorage.setItem(
+                "filters",
+                JSON.stringify({ ...filtersApplied, authorArray: [...filtersApplied.authorArray, value] })
+            );
+
             return dispatch(getBooksFilter({ ...filtersApplied, authorArray: [...filtersApplied.authorArray, value] }));
         }
     };
@@ -77,9 +107,11 @@ const Filter = () => {
 
         if (property === "min") {
             setFiltersApplied({ ...filtersApplied, minPrice: value });
+            localStorage.setItem("filters", JSON.stringify({ ...filtersApplied, minPrice: value }));
         }
         if (property === "max") {
             setFiltersApplied({ ...filtersApplied, maxPrice: value });
+            localStorage.setItem("filters", JSON.stringify({ ...filtersApplied, maxPrice: value }));
         }
     };
 
@@ -90,8 +122,29 @@ const Filter = () => {
     const handleClearPrice = () => {
         setFiltersApplied({ ...filtersApplied, minPrice: "", maxPrice: "" });
 
+        localStorage.setItem("filters", JSON.stringify({ ...filtersApplied, minPrice: "", maxPrice: "" }));
 
         dispatch(getBooksFilter({ ...filtersApplied, minPrice: "", maxPrice: "" }));
+    };
+
+    const handleClearFitler = () => {
+        setFiltersApplied({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "", language: "" });
+        localStorage.setItem(
+            "filters",
+            JSON.stringify({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "", language: "" })
+        );
+        dispatch(getBooksFilter({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "", language: "" }));
+    };
+
+    const handleLanguageChange = (e) => {
+        const { value } = e.target;
+
+        if (value === filtersApplied.language) {
+            setFiltersApplied({ ...filtersApplied, language: "" });
+            return dispatch(getBooksFilter({ ...filtersApplied, language: "" }));
+        }
+        setFiltersApplied({ ...filtersApplied, language: value });
+        dispatch(getBooksFilter({ ...filtersApplied, language: value }));
     };
 
     const handleShowGenres = () => {
@@ -103,13 +156,13 @@ const Filter = () => {
     };
 
 
+
   const handleLanguageChange = (e) => {
     const { value } = e.target;
 
     dispatch(filterBooksByLanguage(value));
   };
 
- 
 
     return (
         <div className="h-min min-h-screen">
@@ -207,22 +260,26 @@ const Filter = () => {
                     )}
                 </div>
                 <p className="text-lg mt-3">Languages</p>
-        <div className="text-sm ml-10 w-40 flex flex-col items-start">
-          <button
-            onClick={handleLanguageChange}
-            value={"Spanish"}
-            key={"Spanish"}
-          >
-            Spanish
-          </button>
-          <button
-            onClick={handleLanguageChange}
-            value={"English"}
-            key={"English"}
-          >
-            English
-          </button>
-        </div>
+
+                <div className="text-sm ml-10 w-40 flex flex-col items-start">
+                    <button
+                        onClick={handleLanguageChange}
+                        value={"Spanish"}
+                        key={"Spanish"}
+                        className={filtersApplied.language === "Spanish" ? "text-orange-0 font-bold" : null}
+                    >
+                        Spanish
+                    </button>
+                    <button
+                        onClick={handleLanguageChange}
+                        value={"English"}
+                        key={"English"}
+                        className={filtersApplied.language === "English" ? "text-orange-0 font-bold" : null}
+                    >
+                        English
+                    </button>
+                </div>
+
                 <div className="text-lg mt-3">
                     <p>Price</p>
                     <div className="flex justify-center items-center">
