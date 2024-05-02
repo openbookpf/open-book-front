@@ -1,6 +1,5 @@
 import axios from "axios";
 
-export const FILTER_BOOKS_BY_LANGUAGE = "FILTER_BOOKS_BY_LANGUAGE";
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_USERS = "GET_USERS";
@@ -20,11 +19,6 @@ export const GET_BOOKS_BY_GENRE = "GET_BOOKS_BY_GENRE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
-
-export const filterBooksByLanguage = (language) => ({
-    type: FILTER_BOOKS_BY_LANGUAGE,
-    payload: language,
-});
 
 export const addToFavorites = (product) => ({
     type: "ADD_TO_FAVORITES",

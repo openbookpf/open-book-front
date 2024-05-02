@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import arrayGenres from "../../data/arrayGenres";
 import { Paginator } from "primereact/paginator";
 import { IoMdClose } from "react-icons/io";
+import { HiOutlineEmojiSad } from "react-icons/hi";
 
 import {
     getBooks,
@@ -19,16 +20,7 @@ import {
 
 const BookList = () => {
     const books = useSelector((state) => state.filteredBooks);
-    const appliedFilters = useSelector((state) => state.appliedFilters);
     const favorites = useSelector((state) => state.favorites);
-
-    // const appliedFiltersMod = {
-    //     ...appliedFilters,
-    //     min: Number(appliedFilters.min),
-    //     max: Number(appliedFilters.max),
-    // };
-
-    // let filters = Object.values(appliedFilters);
 
     const dispatch = useDispatch();
 
@@ -106,28 +98,36 @@ const BookList = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col content-start grow">
-                        {/* <div className="grid grid-cols-4 my-11 gap-6 mx-auto p-2 "> */}
-                        <div className="flex flex-wrap content-start ijs my-11 ">
-                            {books.slice(first, first + rows).map((book) => (
-                                <Card book={book} key={book.ISBN} favorites={favorites} showFavoriteButton={true} />
-                            ))}
+                    {books.length ? (
+                        <div className="flex flex-col content-start grow">
+                            <div className="flex flex-wrap content-start ijs my-11 ">
+                                {books.slice(first, first + rows).map((book) => (
+                                    <Card book={book} key={book.ISBN} favorites={favorites} showFavoriteButton={true} />
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="flex items-center">
+                            <p className="text-2xl">No books found</p>
+                            <HiOutlineEmojiSad className="ml-3" />
+                        </div>
+                    )}
                 </div>
             </div>
 
             <footer className="flex items-center text-center justify-center my-4 py-2 ">
-                <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
-                    <Paginator
-                        first={first}
-                        rows={rows}
-                        totalRecords={books.length}
-                        onPageChange={onPageChange}
-                        rowsPerPageOptions={[10, 20, 30]}
-                        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                    />
-                </div>
+                {books.length > 9 ? (
+                    <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
+                        <Paginator
+                            first={first}
+                            rows={rows}
+                            totalRecords={books.length}
+                            onPageChange={onPageChange}
+                            rowsPerPageOptions={[10, 20, 30]}
+                            template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                        />
+                    </div>
+                ) : null}
             </footer>
         </div>
     );
