@@ -22,13 +22,13 @@ const BookList = () => {
     const appliedFilters = useSelector((state) => state.appliedFilters);
     const favorites = useSelector((state) => state.favorites);
 
-    const appliedFiltersMod = {
-        ...appliedFilters,
-        min: Number(appliedFilters.min),
-        max: Number(appliedFilters.max),
-    };
+    // const appliedFiltersMod = {
+    //     ...appliedFilters,
+    //     min: Number(appliedFilters.min),
+    //     max: Number(appliedFilters.max),
+    // };
 
-    let filters = Object.values(appliedFilters);
+    // let filters = Object.values(appliedFilters);
 
     const dispatch = useDispatch();
 
@@ -91,29 +91,6 @@ const BookList = () => {
                 <div className="flex flex-col basis-11/12 w-full ml-10">
                     <div className="flex flex-col h-10 items-center justify-items-end">
                         <div className="flex flex-row justify-between w-full">
-                            <div className="flex items-center">
-                                {filters.map((filt, index) =>
-                                    filt ? (
-                                        <div
-                                            className="flex items-center text-sm  bg-orange-0 bg-opacity-30 h-10 mx-2 px-2 rounded-xl duration-200 hover:scale-105"
-                                            key={filt}
-                                        >
-                                            <p className="mr-2 text-lg">
-                                                {!isNaN(filt) ? <>$</> : null}
-                                                {filt}
-                                            </p>
-                                            <button
-                                                onClick={() => handleCloseFilter(filt)}
-                                                className="duration-200 hover:bg-orange-0 rounded-full w-5 h-5 flex justify-center items-center"
-                                            >
-                                                <IoMdClose />
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div key={index}></div>
-                                    )
-                                )}
-                            </div>
                             <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
                                 <div className="text-lg flex justify-end ">
                                     <p className="pr-2">Sort by:</p>

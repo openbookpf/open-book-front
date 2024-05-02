@@ -22,8 +22,8 @@ export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
 
 export const filterBooksByLanguage = (language) => ({
-  type: FILTER_BOOKS_BY_LANGUAGE,
-  payload: language,
+    type: FILTER_BOOKS_BY_LANGUAGE,
+    payload: language,
 });
 
 export const addToFavorites = (product) => ({
@@ -107,18 +107,16 @@ export const removeAll = (ISBN) => {
 };
 
 export const search_book_by_name = (name) => {
-
-  return async function (dispatch) {
-    await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
-      .then((res) => res.json())
-      .then((data) =>
-        dispatch({
-          type: SEARCH_BOOK_BY_NAME,
-          payload: [...data.filter((book) => book.book_status)],
-        })
-      );
-  };
-
+    return async function (dispatch) {
+        await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
+            .then((res) => res.json())
+            .then((data) =>
+                dispatch({
+                    type: SEARCH_BOOK_BY_NAME,
+                    payload: [...data.filter((book) => book.book_status)],
+                })
+            );
+    };
 };
 export const change_name = (name) => {
     return { type: CHANGE_NAME, payload: name };
@@ -134,46 +132,40 @@ export const sortByPrice = (order) => ({
     payload: order,
 });
 
-
 export function getBooksFilterGenre(genres) {
-  return {
-    type: FILTER_BOOKS_BY_GENRE,
-    payload: genres,
-  };
-
+    return {
+        type: FILTER_BOOKS_BY_GENRE,
+        payload: genres,
+    };
 }
 export const getUsers = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(
+    return async (dispatch) => {
+        try {
+            const response = await axios.get("https://open-book-back.onrender.com/users");
 
-        "https://open-book-back.onrender.com/users"
+            const data = response.data;
 
-      );
-
-      const data = response.data;
-
-      dispatch({
-        type: GET_USERS,
-        payload: data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+            dispatch({
+                type: GET_USERS,
+                payload: data,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 };
 export const getBooks = () => {
-
     return async (dispatch) => {
         try {
             const response = await axios.get("https://open-book-back.onrender.com/books");
 
-            // const lastFilt = localStorage.getItem("booksFilters");
-            // const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+            const lastFilt = localStorage.getItem("booksFilters");
+            const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+
             console.log(response);
             dispatch({
                 type: GET_BOOKS,
-                payload: response.data,
+                payload: data,
             });
         } catch (error) {
             console.error(error);
@@ -182,57 +174,35 @@ export const getBooks = () => {
 };
 
 export const getGenresAndAuthors = () => {
-
-  return async (dispatch) => {
-    try {
-      const authors = await axios.get(
-        "https://open-book-back.onrender.com/authors"
-      );
-      const genres = await axios.get(
-        "https://open-book-back.onrender.com/genres"
-      );
-      dispatch({
-        type: GET_GENRES_AND_AUTHORS,
-        payload: { authors: authors.data, genres: genres.data },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    return async (dispatch) => {
+        try {
+            const authors = await axios.get("https://open-book-back.onrender.com/authors");
+            const genres = await axios.get("https://open-book-back.onrender.com/genres");
+            dispatch({
+                type: GET_GENRES_AND_AUTHORS,
+                payload: { authors: authors.data, genres: genres.data },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 };
 
 export const getBooksFilter = (objFilters) => {
-  return async (dispatch) => {
-    const { genres, author, min, max } = objFilters;
-    console.log({
-      authorArray: author === "" ? [] : author,
-      genreArray: genres === "" ? [] : genres,
-      minPrice: min,
-      maxPrice: max,
-    });
-    try {
-      const response = await axios.post(
-        "https://open-book-back.onrender.com/books/filtrar",
+    return async (dispatch) => {
+        try {
+            const response = await axios.post("https://open-book-back.onrender.com/books/filtrar", objFilters);
 
-        {
-          authorArray: author === "" ? [] : author,
-          genreArray: genres === "" ? [] : genres,
-          minPrice: min,
-          maxPrice: max,
+            localStorage.setItem("booksFilters", JSON.stringify(response.data));
+
+            dispatch({
+                type: GET_BOOKS_FILTERS,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.error(error);
         }
-      );
-
-      localStorage.setItem("booksFilters", JSON.stringify(response.data));
-
-      dispatch({
-        type: GET_BOOKS_FILTERS,
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+    };
 };
 
 export const appliedFilter = (objFilters) => {
@@ -248,26 +218,24 @@ export const resetSearchedBooks = () => ({
 });
 
 export const getBooksByGenre = (genre) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(
+                "https://open-book-back.onrender.com/books/filtrar",
 
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(
-        "https://open-book-back.onrender.com/books/filtrar",
-
-        {
-          authorArray: [],
-          genreArray: [genre],
-          min: null,
-          max: null,
+                {
+                    authorArray: [],
+                    genreArray: [genre],
+                    min: null,
+                    max: null,
+                }
+            );
+            dispatch({
+                type: GET_BOOKS_BY_GENRE,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.error(error);
         }
-      );
-      dispatch({
-        type: GET_BOOKS_BY_GENRE,
-        payload: response.data,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+    };
 };
