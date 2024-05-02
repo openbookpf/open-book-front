@@ -66,7 +66,6 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminProfile />} />
       </Routes>
     </div>
   );
