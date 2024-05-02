@@ -8,17 +8,18 @@ import { IoMdClose } from "react-icons/io";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 
 import {
-    getBooks,
-    getBooksFilterGenre,
-    sortByTitle,
-    sortByPrice,
-    appliedFilter,
-    getBooksFilter,
-    addToFavorites,
-    removeFromFavorites,
+  getBooks,
+  getBooksFilterGenre,
+  sortByTitle,
+  sortByPrice,
+  appliedFilter,
+  getBooksFilter,
+  addToFavorites,
+  removeFromFavorites,
 } from "../../redux/actions";
 
 const BookList = () => {
+
     const books = useSelector((state) => state.filteredBooks);
     const favorites = useSelector((state) => state.favorites);
 
@@ -98,6 +99,7 @@ const BookList = () => {
                         </div>
                     </div>
 
+
                     {books.length ? (
                         <div className="flex flex-col content-start grow">
                             <div className="flex flex-wrap content-start ijs my-11 ">
@@ -112,8 +114,11 @@ const BookList = () => {
                             <HiOutlineEmojiSad className="ml-3" />
                         </div>
                     )}
+
                 </div>
+              </div>
             </div>
+
 
             <footer className="flex items-center text-center justify-center my-4 py-2 ">
                 {books.length > 9 ? (
@@ -129,8 +134,11 @@ const BookList = () => {
                     </div>
                 ) : null}
             </footer>
+
         </div>
-    );
+      </footer>
+    </div>
+  );
 };
 
 export default BookList;

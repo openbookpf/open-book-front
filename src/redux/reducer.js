@@ -1,5 +1,6 @@
 import { act } from "react";
 import {
+
     GET_USERS,
     FILTER_BOOKS_BY_GENRE,
     GET_BOOKS,
@@ -23,20 +24,25 @@ import {
 
 const calculateTotalPrice = (cartItems) => {
     return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+
 };
 
 const calculateTotalItems = (cartItems) => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
 };
 
 const initialState = {
-    users: [],
-    books: [],
-    filteredBooks: [],
-    filteresBooksCopy: [],
-    filterGenreBooks: [],
-    searchbook: [],
-    searchname: "",
+
+  users: [],
+  books: [],
+  filteredBooks: [],
+  filterGenreBooks: [],
+  searchbook: [],
+  searchname: "",
+  genres: [],
+  authors: [],
+  appliedFilters: {
+
     genres: [],
     authors: [],
     appliedFilters: {
@@ -52,6 +58,7 @@ const initialState = {
 };
 
 function booksReducer(state = initialState, action) {
+
     switch (action.type) {
         case GET_USERS:
             return {
@@ -202,6 +209,7 @@ function booksReducer(state = initialState, action) {
         default:
             return state;
     }
+
 }
 
 export default booksReducer;
