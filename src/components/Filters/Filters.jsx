@@ -64,9 +64,7 @@ const Filter = () => {
             return dispatch(getBooksFilter({ ...filtersApplied, genreArray: [...filtersApplied.genreArray, value] }));
         }
 
-
         //!--
-
 
         if (property === "author") {
             //? si ya existe
@@ -155,14 +153,13 @@ const Filter = () => {
         }
     };
 
-
-
-  const handleLanguageChange = (e) => {
-    const { value } = e.target;
-
-    dispatch(filterBooksByLanguage(value));
-  };
-
+    const handleShowAuthors = () => {
+        if (!showMoresAuthors) {
+            setShowMoreAuthors(true);
+        } else {
+            setShowMoreAuthors(false);
+        }
+    };
 
     return (
         <div className="h-min min-h-screen">
@@ -333,19 +330,15 @@ const Filter = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
             <button
-              onClick={handleFilterByPrice}
-              className="duration-200 hover:text-orange-0 p-2 flex items-center justify-center font-bold"
+                onClick={handleFilterByPrice}
+                className="duration-200 hover:text-orange-0 p-2 flex items-center justify-center font-bold"
             >
-              <IoIosArrowForward />
+                <IoIosArrowForward />
             </button>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Filter;
