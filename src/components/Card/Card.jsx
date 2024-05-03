@@ -46,9 +46,6 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
     handleAddToCart();
   };
 
-
-  
-
   return (
     <div
       className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
