@@ -34,21 +34,19 @@ function Detail() {
 
   useEffect(() => {
     async function getBooksByGenre() {
-      if (
-        !bookData ||
-        !bookData.genres ||
-        typeof bookData.genres !== "string"
-      ) {
+      if (!bookData || !bookData.genres) {
         return;
       }
 
       try {
-        const genres = bookData.genres.split(",");
+        const genres = bookData.genres;
+
         const apiUrl = "https://open-book-back.onrender.com/books/filtrar";
         const requestBody = {
           authorArray: [],
           genreArray: genres,
         };
+
         const response = await axios.post(apiUrl, requestBody);
         setSameGenreBooks(response.data);
       } catch (error) {
@@ -149,13 +147,13 @@ function Detail() {
         </div>
       </div>
       {sameGenreBooks.length > 0 ? (
-        <div className="mx-20">
-          <p className="text-blue-0 my-8 font-bold text-2xl">
+        <div className="mx-5">
+          <p className="text-blue-0 my-8 mx-10 font-bold text-2xl">
             Recommended in the same genre:
           </p>
           <div className="mx-auto">
             <Carousel
-              className="justify-center mx-0 gap-0"
+              className="justify-center mx-0 "
               value={sameGenreBooks}
               numVisible={4}
               numScroll={2}
@@ -167,7 +165,8 @@ function Detail() {
       ) : (
         <div className="mx-20">
           <p className="text-blue-0 my-8 font-bold text-2xl">
-            Por el momento no tenemos otros libros disponibles con este género.
+            At the moment, we don't have any other books available in this
+            genre.
           </p>
         </div>
       )}

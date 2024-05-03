@@ -87,7 +87,7 @@ const Home = ({ books }) => {
           <div className="px-3">
             <Carousel
               value={books}
-              numVisible={5}
+              numVisible={4}
               numScroll={3}
               itemTemplate={bookTemplate}
               autoplayInterval={3000}
