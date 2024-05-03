@@ -19,6 +19,7 @@ import {
     ADD_TO_FAVORITES,
     REMOVE_FROM_FAVORITES,
     LOAD_FAVORITES_FROM_STORAGE,
+    GET_BOOK_COLECTION_USER,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -52,6 +53,7 @@ const initialState = {
     favorites: [],
     totalItems: 0,
     cartTotalPrice: 0,
+    bookColectionUser: [],
 };
 
 function booksReducer(state = initialState, action) {
@@ -202,6 +204,13 @@ function booksReducer(state = initialState, action) {
                 ...state,
                 favorites: action.payload,
             };
+
+        case GET_BOOK_COLECTION_USER:
+            return {
+                ...state,
+                bookColectionUser: action.payload,
+            };
+
         default:
             return state;
     }

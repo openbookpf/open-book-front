@@ -1,26 +1,39 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CardProfile from "./CardProfile";
 import { Link } from "react-router-dom";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { MdHeartBroken } from "react-icons/md";
-
-{
-    /* <IoIosArrowDropleftCircle /> */
-} //iz
-{
-    /* <IoIosArrowDroprightCircle /> */
-} //der
+import { getBookColectionUser } from "../../redux/actions";
+import ReviewForm from "../../components/ReviewForm/ReviewForm";
+import ShowAllColection from "../../components/ShowAllColection/ShowAllColection";
 
 const Profile = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [firstIndexFav, setFirstIndexFav] = useState(0);
     const [lastIndexFav, setLastIndexFav] = useState(4);
+    const [firstIndexCol, setFirstIndexCol] = useState(0);
+    const [lastIndexCol, setLastIndexCol] = useState(4);
+
+    const [showReviewForm, setShowReviewForm] = useState(false);
+    const [showAllColection, setShowAllColection] = useState(false);
+
+    const [bookISBN, setBookISBN] = useState("");
+    const [bookTitle, setBookTitle] = useState("");
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (user) {
+            console.log(user.sub);
+            dispatch(getBookColectionUser(user.sub));
+        }
+    }, [isAuthenticated]);
 
     const favorites = useSelector((state) => state.favorites);
-    // console.log(favorites);
+    const colection = useSelector((state) => state.bookColectionUser);
+    console.log(colection);
 
     if (!isAuthenticated) {
         return (
@@ -29,6 +42,10 @@ const Profile = () => {
             </div>
         );
     }
+
+    const handleShowAllColection = () => {
+        setShowAllColection(true);
+    };
 
     const handleEditProfileClick = () => {
         console.log("Editar perfil");
@@ -45,6 +62,20 @@ const Profile = () => {
         if (firstIndexFav > 0) {
             setFirstIndexFav(firstIndexFav - 1);
             setLastIndexFav(lastIndexFav - 1);
+        }
+    };
+
+    const handlenextCol = () => {
+        if (colection.purchase_books.length !== lastIndexCol) {
+            setFirstIndexCol(firstIndexCol + 1);
+            setLastIndexCol(lastIndexCol + 1);
+        }
+    };
+
+    const handleprevCol = () => {
+        if (firstIndexCol > 0) {
+            setFirstIndexCol(firstIndexCol - 1);
+            setLastIndexCol(lastIndexCol - 1);
         }
     };
 
@@ -70,12 +101,56 @@ const Profile = () => {
                             <h2 className="text-xl font-bold">My Library</h2>
                             <p className="text-lg mb-2">Books you bought</p>
                         </div>
-                        <button className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105">
+                        <button
+                            onClick={handleShowAllColection}
+                            className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105"
+                        >
                             See All
                         </button>
                     </div>
-                    <div className="flex overflow-x-auto w-[800px] ">
-                        <p className="text-red-500">completar con libros comprados, validar</p>
+                    <div className="flex overflow-x-auto w-[800px]">
+                        {colection.purchase_books && colection.purchase_books.length > 4 ? (
+                            <button className="flex items-center">
+                                <IoIosArrowDropleftCircle
+                                    onClick={handleprevCol}
+                                    className={
+                                        firstIndexCol === 0
+                                            ? "text-gray-300 cursor-default"
+                                            : "text-cyan-0 cursor-pointer"
+                                    }
+                                />
+                            </button>
+                        ) : null}
+                        {colection.purchase_books && colection.purchase_books.length ? (
+                            colection.purchase_books.slice(firstIndexCol, lastIndexCol).map((col) => (
+                                <div key={col.ISBN}>
+                                    <CardProfile
+                                        setBookTitle={setBookTitle}
+                                        setBookISBN={setBookISBN}
+                                        setShowReviewForm={setShowReviewForm}
+                                        review={true}
+                                        book={col}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <div className="mt-20 flex flex-col justify-center items-center w-[800px]">
+                                <p className="text-xl">You don't have favorite books yet</p>
+                                <MdHeartBroken className="text-orange-0 opacity-60" />
+                            </div>
+                        )}
+                        {colection.purchase_books && colection.purchase_books.length > 4 ? (
+                            <button className="flex items-center">
+                                <IoIosArrowDroprightCircle
+                                    onClick={handlenextCol}
+                                    className={
+                                        lastIndexCol === colection.purchase_books.length
+                                            ? "text-gray-300 cursor-default"
+                                            : "text-cyan-0 cursor-pointer"
+                                    }
+                                />
+                            </button>
+                        ) : null}
                     </div>
                 </div>
 
@@ -93,37 +168,56 @@ const Profile = () => {
                         </Link>
                     </div>
                     <div className="flex overflow-x-auto w-[800px]">
-                        {favorites.length ? (
-                            <div className="flex items-center">
+                        {favorites.length > 4 ? (
+                            <button className="flex items-center">
                                 <IoIosArrowDropleftCircle
                                     onClick={handleprevFav}
-                                    className={firstIndexFav === 0 ? "text-gray-300" : "text-cyan-0 cursor-pointer"}
+                                    className={
+                                        firstIndexFav === 0
+                                            ? "text-gray-300 cursor-default"
+                                            : "text-cyan-0 cursor-pointer"
+                                    }
                                 />
-                            </div>
+                            </button>
                         ) : null}
                         {favorites.length ? (
-                            favorites.slice(firstIndexFav, lastIndexFav).map((fav) => <CardProfile book={fav} />)
+                            favorites.slice(firstIndexFav, lastIndexFav).map((fav) => (
+                                <div key={fav.ISBN}>
+                                    <CardProfile book={fav} />
+                                </div>
+                            ))
                         ) : (
                             <div className="mt-20 flex flex-col justify-center items-center w-[800px]">
                                 <p className="text-xl">You don't have favorite books yet</p>
                                 <MdHeartBroken className="text-orange-0 opacity-60" />
                             </div>
                         )}
-                        {favorites.length ? (
-                            <div className="flex items-center">
+                        {favorites.length > 4 ? (
+                            <button className="flex items-center">
                                 <IoIosArrowDroprightCircle
                                     onClick={handlenextFav}
                                     className={
                                         lastIndexFav === favorites.length
-                                            ? "text-gray-300"
+                                            ? "text-gray-300 cursor-default"
                                             : "text-cyan-0 cursor-pointer"
                                     }
                                 />
-                            </div>
+                            </button>
                         ) : null}
                     </div>
                 </div>
             </div>
+            {showReviewForm ? (
+                <ReviewForm
+                    bookTitle={bookTitle}
+                    userId={user.sub}
+                    setShowReviewForm={setShowReviewForm}
+                    bookISBN={bookISBN}
+                />
+            ) : null}
+            {showAllColection ? (
+                <ShowAllColection setShowAllColection={setShowAllColection} colection={colection.purchase_books} />
+            ) : null}
         </div>
     );
 };
