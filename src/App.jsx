@@ -22,9 +22,15 @@ import {
   updateCartFromStorage,
   loadFavoritesFromStorageOnStart,
 } from "./redux/actions";
+import { useAuth0 } from "@auth0/auth0-react";
+import Dashboard from "./views/Dashboard/Dashboard";
+import Products from "./views/Products/Products";
+import UsersList from "./views/UsersList/UsersList";
 
 function App() {
   const dispatch = useDispatch();
+  const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
+  const adminEmail = "openbooklibrary.dev@gmail.com";
 
   useEffect(() => {
     const cartItems = localStorage.getItem("cart");
@@ -40,8 +46,15 @@ function App() {
     <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home books={arrayBestSellers} />} />
+        {isAuthenticated && user.email === adminEmail ? (
+          <Route path="/" element={<Dashboard />} />
+        ) : (
+          <Route path="/" element={<Home books={arrayBestSellers} />} />
+        )}
         <Route path="/aboutus" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/users" element={<UsersList />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/detail/:isbn" element={<Detail />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />

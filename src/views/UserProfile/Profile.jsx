@@ -97,11 +97,7 @@ const Profile = () => {
                             <div className="flex items-center">
                                 <IoIosArrowDropleftCircle
                                     onClick={handleprevFav}
-                                    className={
-                                        firstIndexFav === 0
-                                            ? "text-gray-300 cursor-pointer"
-                                            : "text-cyan-0 cursor-pointer"
-                                    }
+                                    className={firstIndexFav === 0 ? "text-gray-300" : "text-cyan-0 cursor-pointer"}
                                 />
                             </div>
                         ) : null}
@@ -119,7 +115,7 @@ const Profile = () => {
                                     onClick={handlenextFav}
                                     className={
                                         lastIndexFav === favorites.length
-                                            ? "text-gray-300 cursor-pointer"
+                                            ? "text-gray-300"
                                             : "text-cyan-0 cursor-pointer"
                                     }
                                 />

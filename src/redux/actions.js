@@ -2,13 +2,13 @@ import axios from "axios";
 
 export const FILTER_BOOKS_BY_GENRE = "FILTER_BOOKS_BY_GENRE";
 export const GET_BOOKS = "GET_BOOKS";
+export const GET_USERS = "GET_USERS";
 export const SORT_BY_TITLE = "SORT_BY_TITLE";
 export const SORT_BY_PRICE = "SORT_BY_PRICE";
 export const SEARCH_BOOK_BY_NAME = "SEARCH_BOOK_BY_NAME";
 export const CHANGE_NAME = "CHANGE_NAME";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const RESET_SEARCHED_BOOKS = "RESET_SEARCHED_BOOKS";
-
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const REMOVE_ALL = "REMOVE_ALL";
 export const UPDATE_CART_FROM_STORAGE = "UPDATE_CART_FROM_STORAGE";
@@ -102,12 +102,11 @@ export const removeAll = (ISBN) => {
 
 export const search_book_by_name = (name) => {
   return async function (dispatch) {
-    await fetch(`https://open-book-back.onrender.com/book?name=${name}`)
+    await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
       .then((res) => res.json())
       .then((data) =>
         dispatch({
           type: SEARCH_BOOK_BY_NAME,
-
           payload: [...data.filter((book) => book.book_status)],
         })
       );
@@ -127,12 +126,30 @@ export const sortByPrice = (order) => ({
   payload: order,
 });
 
-export function getBooksFilterGenre(genre) {
+export function getBooksFilterGenre(genres) {
   return {
     type: FILTER_BOOKS_BY_GENRE,
-    payload: genre,
+    payload: genres,
   };
 }
+export const getUsers = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/users"
+      );
+
+      const data = response.data;
+
+      dispatch({
+        type: GET_USERS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 export const getBooks = () => {
   return async (dispatch) => {
     try {
@@ -140,12 +157,13 @@ export const getBooks = () => {
         "https://open-book-back.onrender.com/books"
       );
 
-      // const lastFilt = localStorage.getItem("booksFilters");
-      // const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+      const lastFilt = localStorage.getItem("booksFilters");
+      const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+
       console.log(response);
       dispatch({
         type: GET_BOOKS,
-        payload: response.data,
+        payload: data,
       });
     } catch (error) {
       console.error(error);
@@ -156,16 +174,15 @@ export const getBooks = () => {
 export const getGenresAndAuthors = () => {
   return async (dispatch) => {
     try {
-      const responseGenres = await axios.get(
-        "https://open-book-back.onrender.com/genres"
-      );
-      const responseAuthors = await axios.get(
+      const authors = await axios.get(
         "https://open-book-back.onrender.com/authors"
       );
-      console.log(responseAuthors);
+      const genres = await axios.get(
+        "https://open-book-back.onrender.com/genres"
+      );
       dispatch({
         type: GET_GENRES_AND_AUTHORS,
-        payload: { genres: responseGenres.data, authors: responseAuthors.data },
+        payload: { authors: authors.data, genres: genres.data },
       });
     } catch (error) {
       console.error(error);
@@ -175,10 +192,10 @@ export const getGenresAndAuthors = () => {
 
 export const getBooksFilter = (objFilters) => {
   return async (dispatch) => {
-    const { genre, author, min, max } = objFilters;
     try {
-      const response = await axios.get(
-        `https://open-book-back.onrender.com/books/filtrar?author=${author}&genre=${genre}&min=${min}&max=${max}`
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/books/filtrar",
+        objFilters
       );
 
       localStorage.setItem("booksFilters", JSON.stringify(response.data));
@@ -208,8 +225,15 @@ export const resetSearchedBooks = () => ({
 export const getBooksByGenre = (genre) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `https://open-book-back.onrender.com/book/filtrar?author&genre=${genre}&min&max`
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/books/filtrar",
+
+        {
+          authorArray: [],
+          genreArray: [genre],
+          min: null,
+          max: null,
+        }
       );
       dispatch({
         type: GET_BOOKS_BY_GENRE,

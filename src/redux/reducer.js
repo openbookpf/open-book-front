@@ -1,8 +1,10 @@
+import { act } from "react";
 import {
+    GET_USERS,
     FILTER_BOOKS_BY_GENRE,
     GET_BOOKS,
-    SORT_BY_PRICE,
     SORT_BY_TITLE,
+    SORT_BY_PRICE,
     SEARCH_BOOK_BY_NAME,
     CHANGE_NAME,
     GET_GENRES_AND_AUTHORS,
@@ -21,7 +23,6 @@ import {
 
 const calculateTotalPrice = (cartItems) => {
     return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
-    return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
 };
 
 const calculateTotalItems = (cartItems) => {
@@ -29,6 +30,7 @@ const calculateTotalItems = (cartItems) => {
 };
 
 const initialState = {
+    users: [],
     books: [],
     filteredBooks: [],
     filterGenreBooks: [],
@@ -37,10 +39,14 @@ const initialState = {
     genres: [],
     authors: [],
     appliedFilters: {
-        genre: "",
-        author: "",
-        min: "",
-        max: "",
+        genres: [],
+        authors: [],
+        appliedFilters: {
+            genres: [],
+            author: [],
+            min: "",
+            max: "",
+        },
     },
     items: [],
     favorites: [],
@@ -50,6 +56,11 @@ const initialState = {
 
 function booksReducer(state = initialState, action) {
     switch (action.type) {
+        case GET_USERS:
+            return {
+                ...state,
+                users: action.payload,
+            };
         case CHANGE_NAME:
             return { ...state, searchname: action.payload };
 
@@ -61,6 +72,7 @@ function booksReducer(state = initialState, action) {
                 ...state,
                 books: action.payload,
                 filteredBooks: action.payload,
+                filteresBooksCopy: action.payload,
             };
 
         case SORT_BY_TITLE:
@@ -97,7 +109,7 @@ function booksReducer(state = initialState, action) {
             };
 
         case GET_BOOKS_FILTERS:
-            return { ...state, filteredBooks: action.payload };
+            return { ...state, filteredBooks: action.payload, filteresBooksCopy: action.payload };
 
         case APPLIED_FILTERS:
             return { ...state, appliedFilters: action.payload };
@@ -143,14 +155,16 @@ function booksReducer(state = initialState, action) {
                 }
             }
             return state;
-        case REMOVE_ALL:
+
+        case UPDATE_CART_FROM_STORAGE:
             return {
                 ...state,
                 items: action.payload,
                 totalItems: calculateTotalItems(action.payload),
                 cartTotalPrice: calculateTotalPrice(action.payload),
             };
-        case UPDATE_CART_FROM_STORAGE:
+
+        case REMOVE_ALL:
             return {
                 ...state,
                 items: action.payload,
@@ -188,7 +202,6 @@ function booksReducer(state = initialState, action) {
                 ...state,
                 favorites: action.payload,
             };
-
         default:
             return state;
     }
