@@ -17,6 +17,7 @@ const NavBar = () => {
 
     const [selectMenuOpen, setSelectMenuOpen] = useState(false); // Define selectMenuOpen y setSelectMenuOpen
 
+
     const cartCounter = useSelector((state) => state.totalItems || 0);
     const location = useLocation();
     const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
@@ -63,6 +64,7 @@ const NavBar = () => {
                     </div>
                 ) : (
                     <AdminNavbar />
+
                 )}
                 {location.pathname !== "/" ? (
                     <div className="flex items-center grow justify-end mr-10">

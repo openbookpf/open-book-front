@@ -1,5 +1,6 @@
 import { act } from "react";
 import {
+    GET_ALL_BOOKS,
     GET_USERS,
     FILTER_BOOKS_BY_GENRE,
     GET_BOOKS,
@@ -20,35 +21,40 @@ import {
     REMOVE_FROM_FAVORITES,
     LOAD_FAVORITES_FROM_STORAGE,
     GET_BOOK_COLECTION_USER,
+
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
-    return cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+  return cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
 };
 
 const calculateTotalItems = (cartItems) => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
 };
 
 const initialState = {
-    users: [],
-    books: [],
-    filteredBooks: [],
-    filterGenreBooks: [],
-    searchbook: [],
-    searchname: "",
+  users: [],
+  allBooks: [],
+  books: [],
+  filteredBooks: [],
+  filterGenreBooks: [],
+  searchbook: [],
+  searchname: "",
+  genres: [],
+  authors: [],
+  appliedFilters: {
     genres: [],
     authors: [],
     appliedFilters: {
-        genres: [],
-        authors: [],
-        appliedFilters: {
-            genres: [],
-            author: [],
-            min: "",
-            max: "",
-        },
+      genres: [],
+      author: [],
+      min: "",
+      max: "",
     },
+
     items: [],
     favorites: [],
     totalItems: 0,
@@ -75,6 +81,11 @@ function booksReducer(state = initialState, action) {
                 books: action.payload,
                 filteredBooks: action.payload,
                 filteresBooksCopy: action.payload,
+            };
+         case GET_ALL_BOOKS:
+            return {
+                ...state,
+                allBooks: action.payload,
             };
 
         case SORT_BY_TITLE:
@@ -214,6 +225,7 @@ function booksReducer(state = initialState, action) {
         default:
             return state;
     }
+
 }
 
 export default booksReducer;

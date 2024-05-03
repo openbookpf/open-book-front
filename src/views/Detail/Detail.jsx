@@ -33,6 +33,7 @@ function Detail() {
         getBookById();
     }, [isbn]);
 
+
     useEffect(() => {
         async function getBooksByGenre() {
             if (!bookData || !bookData.genres || typeof bookData.genres !== "string") {
@@ -52,6 +53,7 @@ function Detail() {
                 console.error("Error al obtener los libros del mismo género:", error);
             }
         }
+
 
         getBooksByGenre();
     }, [bookData]);
@@ -183,13 +185,16 @@ function Detail() {
             ) : (
                 <div className="mx-20">
                     <p className="text-blue-0 my-8 font-bold text-2xl">
-                        Por el momento no tenemos otros libros disponibles con este género.
+                         At the moment, we don't have any other books available in this
+            genre.
                     </p>
                 </div>
+
             )}
             {showReviews ? (
                 <ShowReviews reviews={reviews} book_title={book_title} setShowReviews={setShowReviews} />
             ) : null}
+
         </div>
     );
 }

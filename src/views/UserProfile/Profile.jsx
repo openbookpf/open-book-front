@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { MdHeartBroken } from "react-icons/md";
+
 import { getBookColectionUser } from "../../redux/actions";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import ShowAllColection from "../../components/ShowAllColection/ShowAllColection";
@@ -35,35 +36,38 @@ const Profile = () => {
     const colection = useSelector((state) => state.bookColectionUser);
     console.log(colection);
 
-    if (!isAuthenticated) {
-        return (
-            <div className="text-center flex flex-col mt-20">
-                <p>Por favor, inicia sesión</p>
-            </div>
-        );
-    }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="text-center flex flex-col mt-20">
+        <p>Please, log in to see your profile.</p>
+      </div>
+    );
+  }
+
 
     const handleShowAllColection = () => {
         setShowAllColection(true);
     };
 
     const handleEditProfileClick = () => {
-        console.log("Editar perfil");
+        console.log("Edit profile");
     };
 
-    const handlenextFav = () => {
-        if (favorites.length !== lastIndexFav) {
-            setFirstIndexFav(firstIndexFav + 1);
-            setLastIndexFav(lastIndexFav + 1);
-        }
-    };
 
-    const handleprevFav = () => {
-        if (firstIndexFav > 0) {
-            setFirstIndexFav(firstIndexFav - 1);
-            setLastIndexFav(lastIndexFav - 1);
-        }
-    };
+  const handlenextFav = () => {
+    if (favorites.length !== lastIndexFav) {
+      setFirstIndexFav(firstIndexFav + 1);
+      setLastIndexFav(lastIndexFav + 1);
+    }
+  };
+
+  const handleprevFav = () => {
+    if (firstIndexFav > 0) {
+      setFirstIndexFav(firstIndexFav - 1);
+      setLastIndexFav(lastIndexFav - 1);
+    }
+  };
 
     const handlenextCol = () => {
         if (colection.purchase_books.length !== lastIndexCol) {
@@ -88,12 +92,17 @@ const Profile = () => {
                     <p className="text-lg font-light mt-1">{user.email}</p>
                 </div>
 
-                <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
-                    <button onClick={handleEditProfileClick} className="text-white-0 text-xl">
-                        Edit Profile
-                    </button>
-                </div>
-            </div>
+
+        <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
+          <button
+            onClick={handleEditProfileClick}
+            className="text-white-0 text-xl"
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+      
             <div className="mt-32 mr-32 ml-10 grow">
                 <div className="bg-[#fef3ed] mb-10 rounded-xl pt-3 px-5 flex flex-col h-[410px] shadow-lg">
                     <div className="flex">
@@ -153,6 +162,7 @@ const Profile = () => {
                         ) : null}
                     </div>
                 </div>
+
 
                 <div className="bg-[#fef3ed] mb-10 rounded-xl py-3 px-5 flex flex-col h-[410px] shadow-lg">
                     <div className="flex">
@@ -218,12 +228,15 @@ const Profile = () => {
             {showAllColection ? (
                 <ShowAllColection setShowAllColection={setShowAllColection} colection={colection.purchase_books} />
             ) : null}
+
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Profile;
 
 {
-    /* <CardProfile book={fav} /> */
+  /* <CardProfile book={fav} /> */
 }

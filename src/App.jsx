@@ -38,34 +38,34 @@ function App() {
         dispatch(loadFavoritesFromStorageOnStart());
     }, [dispatch]);
 
-    return (
-        <div className="App flex flex-col text-3xl font-poppins">
-            <NavBar />
-            <Routes>
-                {isAuthenticated && user.email === adminEmail ? (
-                    <Route path="/" element={<Dashboard />} />
-                ) : (
-                    <Route path="/" element={<Home books={arrayBestSellers} />} />
-                )}
-                <Route path="/aboutus" element={<About />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/users" element={<UsersList />} />
-                <Route path="/books" element={<BookList />} />
-                <Route path="/detail/:isbn" element={<Detail />} />
-                <Route path="/admin_stock" element={<AdminStockForm />} />
-                <Route path="/create_book" element={<CreateBookForm />} />
-                <Route path="/searchbook" element={<ShowSearchByName />} />
-                <Route exact path="/cart" element={<Cart />} />
-                <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
-                <Route exact path="/checkout" element={<Checkout />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="/favourites" element={<Favourites />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/admin" element={<AdminProfile />} />
-            </Routes>
-        </div>
-    );
+
+  return (
+    <div className="App flex flex-col text-xl text-blue-1 font-poppins">
+      <NavBar />
+      <Routes>
+        {isAuthenticated && user.email === adminEmail ? (
+          <Route path="/" element={<Dashboard />} />
+        ) : (
+          <Route path="/" element={<Home books={arrayBestSellers} />} />
+        )}
+        <Route path="/aboutus" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/users" element={<UsersList />} />
+        <Route path="/books" element={<BookList />} />
+        <Route path="/detail/:isbn" element={<Detail />} />
+        <Route path="/admin_stock" element={<AdminStockForm />} />
+        <Route path="/create_book" element={<CreateBookForm />} />
+        <Route path="/searchbook" element={<ShowSearchByName />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
+        <Route exact path="/checkout" element={<Checkout />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
