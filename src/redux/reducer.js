@@ -1,5 +1,5 @@
 import {
-GET_USERS,
+  GET_USERS,
   FILTER_BOOKS_BY_GENRE,
   GET_BOOKS,
   SORT_BY_TITLE,
@@ -19,6 +19,8 @@ GET_USERS,
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
   FILTER_BOOKS_BY_LANGUAGE,
+  GET_ALL_BOOKS,
+  DELETE_BOOK,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -26,15 +28,15 @@ const calculateTotalPrice = (cartItems) => {
     (total, item) => total + item.quantity * item.price,
     0
   );
-
 };
 
 const calculateTotalItems = (cartItems) => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
 };
 
 const initialState = {
-users: [],
+  allBooks: [],
+  users: [],
   books: [],
   filteredBooks: [],
   filterGenreBooks: [],
@@ -56,8 +58,7 @@ users: [],
 
 function booksReducer(state = initialState, action) {
   switch (action.type) {
-      case GET_USERS:
-
+    case GET_USERS:
       return {
         ...state,
         users: action.payload,
@@ -74,6 +75,17 @@ function booksReducer(state = initialState, action) {
         books: action.payload,
         filteredBooks: action.payload,
       };
+    case GET_ALL_BOOKS:
+      return {
+        ...state,
+        allBooks: action.payload,
+      };
+    // case DELETE_BOOK:
+    //   return {
+    //     ...state,
+    //     // Actualizamos el estado del libro a false
+    //     books: state.books.filter((book) => book.book_status === true),
+    //   };
 
     case SORT_BY_TITLE:
       const sortedBooksByTitle = [...state.filteredBooks].sort((a, b) => {
@@ -163,9 +175,6 @@ function booksReducer(state = initialState, action) {
         }
       }
       return state;
-    
-
-       
 
     case UPDATE_CART_FROM_STORAGE:
       return {
@@ -174,14 +183,14 @@ function booksReducer(state = initialState, action) {
         totalItems: calculateTotalItems(action.payload),
         cartTotalPrice: calculateTotalPrice(action.payload),
       };
-      
-      case REMOVE_ALL:
-            return {
-                ...state,
-                items: action.payload,
-                totalItems: calculateTotalItems(action.payload),
-                cartTotalPrice: calculateTotalPrice(action.payload),
-            };
+
+    case REMOVE_ALL:
+      return {
+        ...state,
+        items: action.payload,
+        totalItems: calculateTotalItems(action.payload),
+        cartTotalPrice: calculateTotalPrice(action.payload),
+      };
     case RESET_SEARCHED_BOOKS:
       return { ...state, searchbook: action.payload };
 
@@ -217,8 +226,6 @@ function booksReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
-      
-      
 
     case FILTER_BOOKS_BY_LANGUAGE:
       return {
@@ -233,9 +240,6 @@ function booksReducer(state = initialState, action) {
     default:
       return state;
   }
-
-
-       
 }
 
 export default booksReducer;

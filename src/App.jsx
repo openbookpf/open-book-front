@@ -43,7 +43,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App flex flex-col text-3xl font-poppins">
+    <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
       <Routes>
         {isAuthenticated && user.email === adminEmail ? (
