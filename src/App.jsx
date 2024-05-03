@@ -43,7 +43,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App flex flex-col text-3xl font-poppins">
+    <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
       <Routes>
         {isAuthenticated && user.email === adminEmail ? (
@@ -66,7 +66,6 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminProfile />} />
       </Routes>
     </div>
   );

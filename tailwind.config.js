@@ -18,15 +18,19 @@ export default {
       colors: {
         orange: {
           0: "#D34720",
+          1: "#D48620",
         },
         cyan: {
           0: "#81B29A",
         },
         white: {
           0: "#F4F1DE",
+          1: "#fef3ed",
+          2: "#DBD1CC",
         },
         blue: {
           0: "#3D405B",
+          1: "#262738",
         },
       },
     },
