@@ -23,6 +23,7 @@ export const GET_BOOKS_BY_GENRE = "GET_BOOKS_BY_GENRE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
+export const GET_BOOK_COLECTION_USER = "GET_BOOK_COLECTION_USER";
 
 export const filterBooksByLanguage = (language) => ({
   type: FILTER_BOOKS_BY_LANGUAGE,
@@ -182,6 +183,7 @@ export const getUsers = () => {
   };
 };
 export const getBooks = () => {
+
   return async (dispatch) => {
     try {
       const response = await axios.get(
@@ -299,4 +301,18 @@ export const getBooksByGenre = (genre) => {
       console.error(error);
     }
   };
+};
+
+export const getBookColectionUser = (idUser) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios(`https://open-book-back.onrender.com/users/book-collection?idAuth0=${idUser}`);
+            dispatch({
+                type: GET_BOOK_COLECTION_USER,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 };
