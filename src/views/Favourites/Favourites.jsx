@@ -15,7 +15,7 @@ const Favorites = () => {
     };
 
     return favorites.length ? (
-        <div>
+        <div className="h-screen max-w-screen">
             <div
                 className="brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-screen fixed"
                 style={{
@@ -23,7 +23,7 @@ const Favorites = () => {
                     opacity: 0.9,
                 }}
             ></div>
-            <div className="h-screen w-screen">
+            <div className="">
                 <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto max-w-7xl py-28 px-5">
                     {favorites.slice(first, first + rows).map((favorite) => (
                         <div key={favorite.ISBN} className="relative">

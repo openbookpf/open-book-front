@@ -6,7 +6,7 @@ const CardProfile = (props) => {
     }
     console.log(book);
     return (
-        <div className="h-80 min-w-40 max-w-40 mx-3 bg-orange-0 bg-opacity-20 p-2 rounded-xl">
+        <div className="h-80 min-w-40 max-w-40 mx-3 p-2 rounded-xl">
             <div className="flex justify-center">
                 <img
                     src={book.book_cover_url}

@@ -1,3 +1,4 @@
+import { act } from "react";
 import {
   GET_USERS,
   FILTER_BOOKS_BY_GENRE,
@@ -18,9 +19,6 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
-  FILTER_BOOKS_BY_LANGUAGE,
-  GET_ALL_BOOKS,
-  DELETE_BOOK,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -35,7 +33,6 @@ const calculateTotalItems = (cartItems) => {
 };
 
 const initialState = {
-  allBooks: [],
   users: [],
   books: [],
   filteredBooks: [],
@@ -46,9 +43,13 @@ const initialState = {
   authors: [],
   appliedFilters: {
     genres: [],
-    author: [],
-    min: "",
-    max: "",
+    authors: [],
+    appliedFilters: {
+      genres: [],
+      author: [],
+      min: "",
+      max: "",
+    },
   },
   items: [],
   favorites: [],
@@ -74,18 +75,8 @@ function booksReducer(state = initialState, action) {
         ...state,
         books: action.payload,
         filteredBooks: action.payload,
+        filteresBooksCopy: action.payload,
       };
-    case GET_ALL_BOOKS:
-      return {
-        ...state,
-        allBooks: action.payload,
-      };
-    // case DELETE_BOOK:
-    //   return {
-    //     ...state,
-    //     // Actualizamos el estado del libro a false
-    //     books: state.books.filter((book) => book.book_status === true),
-    //   };
 
     case SORT_BY_TITLE:
       const sortedBooksByTitle = [...state.filteredBooks].sort((a, b) => {
@@ -121,7 +112,11 @@ function booksReducer(state = initialState, action) {
       };
 
     case GET_BOOKS_FILTERS:
-      return { ...state, filteredBooks: action.payload };
+      return {
+        ...state,
+        filteredBooks: action.payload,
+        filteresBooksCopy: action.payload,
+      };
 
     case APPLIED_FILTERS:
       return { ...state, appliedFilters: action.payload };
@@ -226,17 +221,6 @@ function booksReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
-
-    case FILTER_BOOKS_BY_LANGUAGE:
-      return {
-        ...state,
-        filteredBooks: [
-          ...state.filteredBooks.filter((book) => {
-            book.language === action.payload;
-          }),
-        ],
-      };
-
     default:
       return state;
   }
