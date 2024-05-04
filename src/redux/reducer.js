@@ -192,7 +192,7 @@ function booksReducer(state = initialState, action) {
       return { ...state, filterGenreBooks: action.payload };
 
     case ADD_TO_FAVORITES:
-      return { ...state, favorites: [state.favorites, action.payload] };
+      return { ...state, favorites: [...state.favorites, action.payload] };
     // const existingFavorite = state.favorites.find(
     //   (item) => item.ISBN === action.payload.ISBN
     // );

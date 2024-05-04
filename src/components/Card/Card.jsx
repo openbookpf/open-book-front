@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   addToCart,
   addToFavorites,
   removeFromFavorites,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
-
+  const { user } = useAuth0();
+  const [idauth, setIdauth] = useState({});
+  const { book_name, book_picture, description, user_id } = idauth;
+  const favorite = useSelector((state) => state.favorites);
+  // useEffect(() => {
+  //   if (favorites && favorites.length > 0) {
+  //     setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
+  //   }
+  // }, [favorites, book.ISBN]);
   useEffect(() => {
-    if (favorites && favorites.length > 0) {
-      setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
-    }
-  }, [favorites, book.ISBN]);
+    fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+      .then((res) => res.json())
+      .then((data) => setIdauth(data));
+  }, []);
 
   const handleAddToCart = () => {
     const productToAdd = {
@@ -35,14 +44,21 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
       dispatch(removeFromFavorites(book.ISBN));
     } else {
       setIsFav(true);
-      dispatch(addToFavorites(book));
+      dispatch(
+        addToFavorites({
+          book_name: book.book_title,
+          book_picture: book.book_cover_url,
+          description: book.book_description,
+          user_id: idauth.user_id,
+        })
+      );
     }
   };
 
   /* const handleRemoveFromFavorites = () => {
     handleRemoveFromFavorites(book.ISBN);
   }; */
-
+  console.log(favorite);
   return (
     <div className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10">
       <div className="flex flex-col gap-10">

@@ -27,8 +27,9 @@ export const saveuser = (newobject) => ({
 export const addToFavorites = (product) => {
   // type: "ADD_TO_FAVORITES",
   // payload: product,
+  // product = { book_picture, description, user_id, book_name };
   return async function (dispatch) {
-    fetch("http://localhost:3001/favorite", {
+    fetch("http://localhost:3001/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +43,7 @@ export const addToFavorites = (product) => {
 
 export const removeFromFavorites = (ISBN) => {
   return async function (dispatch) {
-    fetch(`http://localhost:3001/favorite/`)
+    fetch(`http://localhost:3001/favorites/`)
       .then((res) => res.json())
       .then((data) =>
         dispatch({
@@ -159,9 +160,8 @@ export const getBooks = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/book"
+        "https://open-book-back.onrender.com/books"
       );
-
       const lastFilt = localStorage.getItem("booksFilters");
       const data = lastFilt ? JSON.parse(lastFilt) : response.data;
 
