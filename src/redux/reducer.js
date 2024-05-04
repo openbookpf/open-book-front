@@ -37,6 +37,7 @@ const calculateTotalItems = (cartItems) => {
 const initialState = {
   users: [],
   allBooks: [],
+  bookColectionUser: [],
   books: [],
   filteredBooks: [],
   filterGenreBooks: [],
