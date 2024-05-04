@@ -88,51 +88,11 @@ const Profile = () => {
           </div>
         </div>
 
-
-                <div className="bg-[#fef3ed] mb-10 rounded-xl py-3 px-5 flex flex-col h-[410px] shadow-lg">
-                    <div className="flex">
-                        <div className="grow">
-                            <h2 className="text-xl font-bold">WishList</h2>
-                            <p className="text-lg mb-2">Favorites books</p>
-                        </div>
-                        <Link
-                            to="/Favourites"
-                            className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105 flex justify-center items-center"
-                        >
-                            See All
-                        </Link>
-                    </div>
-                    <div className="flex overflow-x-auto w-[800px]">
-                        {favorites.length ? (
-                            <div className="flex items-center">
-                                <IoIosArrowDropleftCircle
-                                    onClick={handleprevFav}
-                                    className={firstIndexFav === 0 ? "text-gray-300" : "text-cyan-0 cursor-pointer"}
-                                />
-                            </div>
-                        ) : null}
-                        {favorites.length ? (
-                            favorites.slice(firstIndexFav, lastIndexFav).map((fav) => <CardProfile book={fav} />)
-                        ) : (
-                            <div className="mt-20 flex flex-col justify-center items-center w-[800px]">
-                                <p className="text-xl">You don't have favorite books yet</p>
-                                <MdHeartBroken className="text-orange-0 opacity-60" />
-                            </div>
-                        )}
-                        {favorites.length ? (
-                            <div className="flex items-center">
-                                <IoIosArrowDroprightCircle
-                                    onClick={handlenextFav}
-                                    className={
-                                        lastIndexFav === favorites.length
-                                            ? "text-gray-300"
-                                            : "text-cyan-0 cursor-pointer"
-                                    }
-                                />
-                            </div>
-                        ) : null}
-                    </div>
-                </div>
+        <div className="bg-[#fef3ed] mb-10 rounded-xl py-3 px-5 flex flex-col h-[410px] shadow-lg">
+          <div className="flex">
+            <div className="grow">
+              <h2 className="text-xl font-bold">WishList</h2>
+              <p className="text-lg mb-2">Favorites books</p>
             </div>
             <Link
               to="/Favourites"
@@ -148,7 +108,7 @@ const Profile = () => {
                   onClick={handleprevFav}
                   className={
                     firstIndexFav === 0
-                      ? "text-gray-300 cursor-pointer"
+                      ? "text-gray-300"
                       : "text-cyan-0 cursor-pointer"
                   }
                 />
@@ -170,7 +130,7 @@ const Profile = () => {
                   onClick={handlenextFav}
                   className={
                     lastIndexFav === favorites.length
-                      ? "text-gray-300 cursor-pointer"
+                      ? "text-gray-300"
                       : "text-cyan-0 cursor-pointer"
                   }
                 />
@@ -179,6 +139,12 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Link
+        to="/Favourites"
+        className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105 flex justify-center items-center"
+      >
+        See All
+      </Link>
     </div>
   );
 };

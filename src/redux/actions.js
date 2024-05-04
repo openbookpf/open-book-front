@@ -216,7 +216,7 @@ export const getAllBooks = () => {
       const lastFilt = localStorage.getItem("booksFilters");
       const data = lastFilt ? JSON.parse(lastFilt) : response.data;
 
-      console.log(response);
+      console.log("THIS IS THE DATA I'M GETTIN", data);
       dispatch({
         type: GET_ALL_BOOKS,
         payload: data,
