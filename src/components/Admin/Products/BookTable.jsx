@@ -90,7 +90,7 @@ const BookTable = () => {
               <td className="flex flex-row  gap-2 justify-center  p-1">
                 <button
                   className="bg-cyan-0 p-2 my-auto rounded-md"
-                  onClick={() => handleEditBook(book.ISBN)}
+                  onClick={() => handleEditBook(book)}
                   // onClick={() => editBook(book.ISBN)}
                 >
                   <LuPencil className="text-white-0" />
