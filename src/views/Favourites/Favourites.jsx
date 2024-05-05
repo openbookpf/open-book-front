@@ -1,29 +1,32 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { Paginator } from "primereact/paginator";
+import { useSelector } from "react-redux";
+import CardFav from "../../components/Card/CardFav";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import Card from "../../components/Card/Card";
-
-const Favorites = () => {
-  const favorites = useSelector((state) => state.favorites);
+const Favorites = (props) => {
+  const { user } = useAuth0();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(8);
+  const favoritos = useSelector((state) => state.favorites);
+  const [newusuario, setNewusuario] = useState({});
 
   const onPageChange = (event) => {
     setFirst(event.first);
     setRows(event.rows);
   };
-
+  useEffect(() => {
+    fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+      .then((res) => res.json())
+      .then((data) => setNewusuario(data));
+  }, []);
+  console.log(newusuario);
   return (
     <div>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto max-w-7xl py-28 px-5">
-        {favorites.slice(first, first + rows).map((favorite) => (
-          <div key={favorite.ISBN} className="relative">
-            <Card
-              book={favorite}
-              favorites={favorites}
-              showFavoriteButton={true}
-            />
+        {newusuario.favorites.slice(first, first + rows).map((favorite) => (
+          <div key={favorite.fav_id} className="relative">
+            <CardFav book={favorite} showFavoriteButton={true} />
           </div>
         ))}
       </div>
@@ -32,7 +35,7 @@ const Favorites = () => {
           <Paginator
             first={first}
             rows={rows}
-            totalRecords={favorites.length}
+            totalRecords={newusuario.favorites.length}
             onPageChange={onPageChange}
             rowsPerPageOptions={[9, 18, 27]}
             template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"

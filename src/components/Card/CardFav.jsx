@@ -8,13 +8,11 @@ import {
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
+const CardFav = (props) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
   // const { user } = useAuth0();
   // const [idauth, setIdauth] = useState({});
-
-  const favorite = useSelector((state) => state.favorites);
   // useEffect(() => {
   //   if (favorites && favorites.length > 0) {
   //     setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
@@ -26,17 +24,17 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   //     .then((data) => setIdauth(data));
   // }, []);
 
-  const handleAddToCart = () => {
-    const productToAdd = {
-      ISBN: book.ISBN,
-      book_title: book.book_title,
-      book_cover_url: book.book_cover_url,
-      author: book.author,
-      price: book.price,
-      quantity: 1,
-    };
-    dispatch(addToCart(productToAdd));
-  };
+  //   const handleAddToCart = () => {
+  //     const productToAdd = {
+  //       ISBN: book.ISBN,
+  //       book_title: book.book_title,
+  //       book_cover_url: book.book_cover_url,
+  //       author: book.author,
+  //       price: book.price,
+  //       quantity: 1,
+  //     };
+  //     dispatch(addToCart(productToAdd));
+  //   };
 
   const handleFavoriteButtonClick = () => {
     if (isFav) {
@@ -46,13 +44,13 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
       setIsFav(true);
       dispatch(
         addToFavorites({
-          book_name: book.book_title,
-          book_picture: book.book_cover_url,
-          description: book.book_description,
-          book_author: book.author,
-          book_quantity: book.quantity,
-          book_id: book.ISBN,
-          book_price: book.price,
+          book_name: props.book.book_title,
+          book_picture: props.book.book_cover_url,
+          description: props.book.book_description,
+          book_author: props.book.author,
+          book_quantity: props.book.quantity,
+          book_id: props.book.ISBN,
+          book_price: props.book.price,
           user_id: idauth.user_id,
         })
       );
@@ -62,25 +60,25 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   /* const handleRemoveFromFavorites = () => {
     handleRemoveFromFavorites(book.ISBN);
   }; */
-  console.log(favorite);
+
   return (
     <div className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10">
       <div className="flex flex-col gap-10">
         <div className="max-h-40 my-2 mx-auto">
           <img
             className="max-h-64 rounded-lg object-contain"
-            src={book.book_cover_url}
-            alt={book.book_title}
+            src={props.book.book_picture}
+            alt={props.book.book_name}
           />
         </div>
         <div className="flex flex-col text-black mx-auto mt-12 pt-2 px-5 w-full">
-          <Link to={`/detail/${book.ISBN}`} rel="noopener noreferrer">
+          <Link to={`/detail/${props.book.ISBN}`} rel="noopener noreferrer">
             <p className="font-bold truncate hover:underline hover:cursor-pointer delay-200 text-base w-full">
-              {book.book_title}
+              {props.book.book_name}
             </p>
           </Link>
-          <p className="font-light text-xs">{book.author}</p>
-          <p className="font-semibold text-lg">${book.price}</p>
+          {/* <p className="font-light text-xs">{book.author}</p>
+          <p className="font-semibold text-lg">${book.price}</p> */}
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
@@ -92,7 +90,7 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
           </button>
         </Link>
 
-        <button
+        {/* <button
           onClick={handleAddToCart}
           className="bg-blue-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
         >
@@ -115,52 +113,51 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
             <path d="M16 19h6" />
             <path d="M19 16v6" />
           </svg>
-        </button>
-        {showFavoriteButton && (
-          <button
-            onClick={handleFavoriteButtonClick}
-            className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
-              isFav ? "text-red-500" : ""
-            }`}
-          >
-            {isFav ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="stroke-red-800 m-2"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="stroke-slate-50 m-2"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-              </svg>
-            )}
-          </button>
-        )}
+        </button> */}
+
+        {/* <button
+          onClick={handleFavoriteButtonClick}
+          className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
+            isFav ? "text-red-500" : ""
+          }`}
+        >
+          {isFav ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="stroke-red-800 m-2"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="stroke-slate-50 m-2"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+            </svg>
+          )}
+        </button> */}
       </div>
     </div>
   );
 };
 
-export default Card;
+export default CardFav;

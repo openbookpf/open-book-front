@@ -3,11 +3,13 @@ import { BiSolidMap } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import Favorites from "../../views/Favorites/Favorites";
 
 const UserProfile = (props) => {
   // const newuser = useSelector((state) => state.userAuth0);
   const { user } = useAuth0();
   const [image, setImage] = useState(null);
+  // const [newusuario, setNewusuario] = useState({});
   const navigate = useNavigate();
 
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
@@ -25,6 +27,10 @@ const UserProfile = (props) => {
     props.setNewuser(user.name);
   };
 
+  const handleFavoriteClick = () => {
+    navigate("/favourites");
+  };
+
   const handleAdvancedSettingsClick = () => {
     setShowAdvancedSettings(!showAdvancedSettings);
   };
@@ -33,6 +39,12 @@ const UserProfile = (props) => {
     const selectedImage = e.target.files[0];
     setImage(URL.createObjectURL(selectedImage));
   };
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setNewusuario(data));
+  // }, []);
 
   return (
     <div className="bg-gray-500 min-h-screen flex justify-center items-center ">
@@ -146,7 +158,10 @@ const UserProfile = (props) => {
           <div className="bg-white p-10 rounded-lg shadow-md">
             <h2 className="text-lg font-bold">WishList ✨</h2>
             <p className="text-sm text-gray-600 mb-2">Favorites books</p>
-            <button className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md">
+            <button
+              onClick={() => handleFavoriteClick()}
+              className="bg-orange-0 hover:bg-orange-500 text-white-0 px-4 py-2 rounded-md"
+            >
               See All
             </button>
           </div>

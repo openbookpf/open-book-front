@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import arrayGenres from "../../data/arrayGenres";
 import { Paginator } from "primereact/paginator";
 import { IoMdClose } from "react-icons/io";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   getBooks,
@@ -21,6 +22,8 @@ const BookList = () => {
   const books = useSelector((state) => state.filteredBooks);
   const appliedFilters = useSelector((state) => state.appliedFilters);
   const favorites = useSelector((state) => state.favorites);
+  const { user } = useAuth0();
+  const [idauth, setIdauth] = useState({});
 
   const appliedFiltersMod = {
     ...appliedFilters,
@@ -43,6 +46,11 @@ const BookList = () => {
     setRows(event.rows);
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+      .then((res) => res.json())
+      .then((data) => setIdauth(data));
+  }, []);
   useEffect(() => {
     dispatch(getBooks());
   }, []);
@@ -82,7 +90,7 @@ const BookList = () => {
     dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
     dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
   };
-
+  console.log(idauth);
   return (
     <div className="mt-20 flex flex-col w-sreen px-10">
       <div className="flex flex-row">
@@ -137,6 +145,7 @@ const BookList = () => {
                   book={book}
                   key={book.ISBN}
                   favorites={favorites}
+                  idauth={idauth}
                   showFavoriteButton={true}
                 />
               ))}

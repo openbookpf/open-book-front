@@ -39,7 +39,6 @@ function App() {
     dispatch(getBooks());
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
-
   return (
     <div className="App flex flex-col text-3xl font-poppins">
       <NavBar />

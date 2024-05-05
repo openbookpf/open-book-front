@@ -179,7 +179,7 @@ export const getGenresAndAuthors = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/book/filters"
+        "https://open-book-back.onrender.com/books/filters"
       );
       dispatch({
         type: GET_GENRES_AND_AUTHORS,
