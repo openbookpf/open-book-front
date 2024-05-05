@@ -4,27 +4,43 @@ import { getUsers } from "../../../redux/actions";
 import { LuPencil, LuTrash2, LuUserCircle2 } from "react-icons/lu";
 import axios from "axios";
 import DeleteUserModal from "./DeleteUserModal";
+import EditUsersModal from "./EditUsersModal";
 
 const UserTable = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   const [openDelete, setOpenDelete] = useState(false);
+  // Estado para almacenar el ID del usuario que se va a eliminar
   const [userIdToDelete, setUserIdToDelete] = useState(null);
+  const [openEdit, setOpenEdit] = useState(false);
+  // Estado para almacenar el usuario que se va a editar
+  const [userToEdit, setUserToEdit] = useState(null);
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const toggleSelectUser = (userId) => {
-    setSelectedUsers((prevSelectedUsers) =>
-      prevSelectedUsers.includes(userId)
-        ? prevSelectedUsers.filter((id) => id !== userId)
-        : [...prevSelectedUsers, userId]
-    );
+  const handleEditUser = (user) => {
+    // Almacenar el libro que se va a editar
+    setUserToEdit(user);
+    // Abrir el modal de edición
+    setOpenEdit(true);
   };
 
-  const editUsers = () => {
-    // Implementar lógica de edición aquí
+  const handleSubmitEdit = (editedUser) => {
+    axios
+      .put(
+        `https://open-book-back.onrender.com/users/modify?user_id=${editedUser.idAuth0}`,
+        editedUser
+      )
+      .then((response) => {
+        console.log(response.data);
+        // Cerrar el modal después de editar el libro
+        setOpenEdit(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const deleteUsers = () => {
@@ -70,7 +86,7 @@ const UserTable = () => {
               <td className="flex flex-row  gap-2 justify-center  p-1">
                 <button
                   className="bg-cyan-0 p-2 my-auto rounded-md"
-                  onClick={() => editUsers(user.idAuth0)}
+                  onClick={() => handleEditUser(user)}
                 >
                   <LuPencil className="text-white-0" />
                 </button>
@@ -93,6 +109,23 @@ const UserTable = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex justify-center mb-24 items-center p-5 ">
+        <EditUsersModal
+          open={openEdit}
+          onClose={() => setOpenEdit(false)}
+          className="mt-16 py-5"
+          defaultValues={userToEdit}
+          onSubmit={handleSubmitEdit}
+        >
+          <div className="text-center mx-auto py-5">
+            <LuPencil
+              size={56}
+              className="text-white-0 bg-cyan-0 p-2 mx-auto rounded-md "
+            />
+            <h3 className="text-lg mt-2 font-black text-blue-1">Edit book</h3>
+          </div>
+        </EditUsersModal>
+      </div>
       <div className="flex justify-center items-center">
         <DeleteUserModal
           open={openDelete}

@@ -183,7 +183,6 @@ export const getUsers = () => {
   };
 };
 export const getBooks = () => {
-
   return async (dispatch) => {
     try {
       const response = await axios.get(
@@ -215,13 +214,13 @@ export const getAllBooks = () => {
         "https://open-book-back.onrender.com/books"
       );
 
-      const lastFilt = localStorage.getItem("booksFilters");
-      const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+      // const lastFilt = localStorage.getItem("booksFilters");
+      // const data = lastFilt ? JSON.parse(lastFilt) : response.data;
 
       console.log(response);
       dispatch({
         type: GET_ALL_BOOKS,
-        payload: data,
+        payload: response.data,
       });
     } catch (error) {
       console.error(error);
@@ -304,15 +303,17 @@ export const getBooksByGenre = (genre) => {
 };
 
 export const getBookColectionUser = (idUser) => {
-    return async (dispatch) => {
-        try {
-            const response = await axios(`https://open-book-back.onrender.com/users/book-collection?idAuth0=${idUser}`);
-            dispatch({
-                type: GET_BOOK_COLECTION_USER,
-                payload: response.data,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  return async (dispatch) => {
+    try {
+      const response = await axios(
+        `https://open-book-back.onrender.com/users/book-collection?idAuth0=${idUser}`
+      );
+      dispatch({
+        type: GET_BOOK_COLECTION_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
