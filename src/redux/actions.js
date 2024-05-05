@@ -214,8 +214,8 @@ export const getAllBooks = () => {
         "https://open-book-back.onrender.com/books"
       );
 
-      const lastFilt = localStorage.getItem("booksFilters");
-      const data = lastFilt ? JSON.parse(lastFilt) : response.data;
+      // const lastFilt = localStorage.getItem("booksFilters");
+      // const data = lastFilt ? JSON.parse(lastFilt) : response.data;
 
       dispatch({
         type: GET_ALL_BOOKS,
