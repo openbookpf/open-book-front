@@ -1,5 +1,6 @@
-import { act } from "react";
+import { react } from "react";
 import {
+  GET_ALL_BOOKS,
   GET_USERS,
   FILTER_BOOKS_BY_GENRE,
   GET_BOOKS,
@@ -19,6 +20,7 @@ import {
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
+  GET_BOOK_COLECTION_USER,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -34,6 +36,8 @@ const calculateTotalItems = (cartItems) => {
 
 const initialState = {
   users: [],
+  allBooks: [],
+  bookColectionUser: [],
   books: [],
   filteredBooks: [],
   filterGenreBooks: [],
@@ -76,6 +80,11 @@ function booksReducer(state = initialState, action) {
         books: action.payload,
         filteredBooks: action.payload,
         filteresBooksCopy: action.payload,
+      };
+    case GET_ALL_BOOKS:
+      return {
+        ...state,
+        allBooks: action.payload,
       };
 
     case SORT_BY_TITLE:
@@ -221,6 +230,13 @@ function booksReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
+
+    case GET_BOOK_COLECTION_USER:
+      return {
+        ...state,
+        bookColectionUser: action.payload,
+      };
+
     default:
       return state;
   }

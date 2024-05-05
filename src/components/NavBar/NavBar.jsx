@@ -24,7 +24,7 @@ const NavBar = () => {
   return (
     <div>
       <nav
-        className="z-30 flex flex-row fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-base w-full"
+        className="z-30 flex flex-row fixed shadow-md bg-[#fef3ed] justify-between font-semibold text-lg w-full"
         style={{
           alignItems: "center",
         }}
@@ -45,16 +45,16 @@ const NavBar = () => {
               </Link>
             </div>
             {/* ----------------- USER LINKS ------------------- */}
-            <div className="flex flex-row text-blue-1 font-medium gap-2 my-auto">
+            <div className="flex flex-row font-medium gap-3 my-auto">
               <Link
                 to="/books"
-                className="hover:bg-white-2 p-2 rounded-lg transition-colors delay-50"
+                className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
               >
                 Books
               </Link>
               <Link
                 to="/aboutus"
-                className="p-2  hover:bg-white-2  rounded-lg transition-colors delay-50"
+                className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
               >
                 About Us
               </Link>
@@ -62,7 +62,7 @@ const NavBar = () => {
               {location.pathname !== "/chat" ? (
                 <Link
                   to="/chat"
-                  className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-lg hover:scale-105 duration-200"
+                  className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-full hover:scale-105 duration-200"
                 >
                   OpenBook Community
                 </Link>
@@ -73,17 +73,17 @@ const NavBar = () => {
           <AdminNavbar />
         )}
         {location.pathname !== "/" ? (
-          <div className="flex items-center grow justify-end mr-10 ">
+          <div className="flex items-center grow justify-end mr-10">
             <FaSearch
               onClick={() => setTrigger(true)}
-              className="mr-3 text-xl cursor-pointer duration-200 hover:scale-105 "
+              className="mr-3 text-xl cursor-pointer duration-200 hover:scale-105"
             />
           </div>
         ) : null}
 
         <div className="flex flex-row mr-4 gap-6">
           {isAuthenticated && user?.email !== adminEmail && (
-            <div className="my-auto ">
+            <div className="my-auto">
               <Link to="/cart">
                 <AiOutlineShoppingCart className="text-3xl align-middle my-auto hover:scale-110 transition-transform delay-50" />
                 {cartCounter > 0 && (

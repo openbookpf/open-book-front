@@ -9,7 +9,6 @@ import EditBooksModal from "./EditBooksModal";
 const BookTable = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.allBooks);
-  console.log("THIS IS BOOKS", books);
 
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -38,6 +37,7 @@ const BookTable = () => {
         console.log(response.data);
         // Cerrar el modal después de editar el libro
         setOpenEdit(false);
+        dispatch(getAllBooks());
       })
       .catch((error) => {
         console.error(error);
@@ -55,6 +55,7 @@ const BookTable = () => {
         console.log(response.data);
         // Cerrar el modal después de eliminar el libro
         setOpenDelete(false);
+        dispatch(getAllBooks());
       })
       .catch((error) => {
         console.error(error);
@@ -93,7 +94,7 @@ const BookTable = () => {
                 <td className="flex flex-row  gap-2 justify-center  p-1">
                   <button
                     className="bg-cyan-0 p-2 my-auto rounded-md"
-                    onClick={() => handleEditBook(book.ISBN)}
+                    onClick={() => handleEditBook(book)}
                     // onClick={() => editBook(book.ISBN)}
                   >
                     <LuPencil className="text-white-0" />
