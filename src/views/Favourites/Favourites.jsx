@@ -9,7 +9,7 @@ const Favorites = (props) => {
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(8);
   const favoritos = useSelector((state) => state.favorites);
-  const [newusuario, setNewusuario] = useState({});
+  const [newusuario, setNewusuario] = useState([]);
 
   const onPageChange = (event) => {
     setFirst(event.first);
@@ -18,15 +18,15 @@ const Favorites = (props) => {
   useEffect(() => {
     fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
       .then((res) => res.json())
-      .then((data) => setNewusuario(data));
-  }, []);
+      .then((data) => setNewusuario(data.favorites));
+  }, [user]);
   console.log(newusuario);
   return (
     <div>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto max-w-7xl py-28 px-5">
-        {newusuario.favorites.slice(first, first + rows).map((favorite) => (
+        {newusuario.slice(first, first + rows).map((favorite) => (
           <div key={favorite.fav_id} className="relative">
-            <CardFav book={favorite} showFavoriteButton={true} />
+            <CardFav book={favorite} user={user} showFavoriteButton={true} />
           </div>
         ))}
       </div>
@@ -35,7 +35,7 @@ const Favorites = (props) => {
           <Paginator
             first={first}
             rows={rows}
-            totalRecords={newusuario.favorites.length}
+            totalRecords={newusuario.length}
             onPageChange={onPageChange}
             rowsPerPageOptions={[9, 18, 27]}
             template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
