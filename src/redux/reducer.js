@@ -21,6 +21,7 @@ import {
   REMOVE_FROM_FAVORITES,
   LOAD_FAVORITES_FROM_STORAGE,
   GET_BOOK_COLECTION_USER,
+  SET_CHART_DATA,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -59,10 +60,21 @@ const initialState = {
   favorites: [],
   totalItems: 0,
   cartTotalPrice: 0,
+  chartData: {},
 };
 
 function booksReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_CHART_DATA:
+      return {
+        ...state,
+        chartData: action.payload,
+      };
+    /* case UPDATE_CHART:
+      return {
+        ...state,
+        chartData: action.payload,
+      }; */
     case GET_USERS:
       return {
         ...state,
