@@ -141,7 +141,7 @@ const CreateBookForm = () => {
       formData.append("book_description", bookData.book_description);
       formData.append("genres", bookData.genres);
       formData.append("editorial", bookData.editorial);
-      formData.append("year_of_edition", Number(bookData.year_of_edition))
+      formData.append("year_of_edition", Number(bookData.year_of_edition));
       formData.append("lenguage", bookData.lenguage);
       formData.append("age_segment", Number(bookData.age_segment));
       formData.append("price", Number(bookData.price));
@@ -208,28 +208,28 @@ const CreateBookForm = () => {
   const handleGenre = (event) => {
     const { name, value, type, checked } = event.target;
 
-      // Manejar el cambio para los checkboxes de género
-      if (name === "genres") {
-        let updatedGenres = [...bookData.genres];
-        if (checked) {
-          if (updatedGenres.length < 3) {
-            updatedGenres.push(value);
-          } else {
-            // Máximo 3 géneros seleccionados
-            return;
-          }
+    // Manejar el cambio para los checkboxes de género
+    if (name === "genres") {
+      let updatedGenres = [...bookData.genres];
+      if (checked) {
+        if (updatedGenres.length < 3) {
+          updatedGenres.push(value);
         } else {
-          updatedGenres = updatedGenres.filter((genre) => genre !== value);
+          // Máximo 3 géneros seleccionados
+          return;
         }
-        setBookData((prevData) => ({
-          ...prevData,
-          genres: updatedGenres,
-        }));
       } else {
-        validationsForm(name, value, errorForm, setErrorForm);
-        updateData(name, value);
+        updatedGenres = updatedGenres.filter((genre) => genre !== value);
       }
-    };
+      setBookData((prevData) => ({
+        ...prevData,
+        genres: updatedGenres,
+      }));
+    } else {
+      validationsForm(name, value, errorForm, setErrorForm);
+      updateData(name, value);
+    }
+  };
 
   const handleDataChange = (event) => {
     const key = event.target.name;
@@ -247,7 +247,6 @@ const CreateBookForm = () => {
         action="submit"
         id="register_a_book"
       >
-
         <div className="flex justify-center">
           <h5 className="text-center bg-blue-0 text-white-0 font-semibold text-2xl w-4/6 py-3 mb-5 rounded-xl">
             Register your Book
@@ -356,8 +355,8 @@ const CreateBookForm = () => {
             <Tooltip className="text-xs" id="Author-tooltip" />
           </div>
 
-           {/* EDITORIAL INPUT FIELD */}
-           <div className="w-5/6 flex mt-3">
+          {/* EDITORIAL INPUT FIELD */}
+          <div className="w-5/6 flex mt-3">
             <label className=" mr-3 font-semibold" htmlFor="editorial">
               Editorial:
             </label>
@@ -395,7 +394,7 @@ const CreateBookForm = () => {
               data-tooltip-id="age-description"
               data-tooltip-content={ageSegment}
             >
-             Age Segment:
+              Age Segment:
             </label>
             <Tooltip className="text-xs " id="age-description" />
             <input
@@ -416,7 +415,9 @@ const CreateBookForm = () => {
               className="flex justify-center items-center"
             >
               <MdError
-                className={errorForm.age_segment ? "text-orange-0 ml-1" : "hidden"}
+                className={
+                  errorForm.age_segment ? "text-orange-0 ml-1" : "hidden"
+                }
               />
             </div>
             <Tooltip className="text-xs" id="Age-tooltip" />
@@ -453,9 +454,8 @@ const CreateBookForm = () => {
             <Tooltip className="text-xs" id="Lenguage-tooltip" />
           </div>
 
-          
-            {/* YEAR OF EDITION FIELD */}
-            <div className="w-5/6 flex mt-3">
+          {/* YEAR OF EDITION FIELD */}
+          <div className="w-5/6 flex mt-3">
             <label
               className="mr-3 font-semibold"
               htmlFor="year"
@@ -483,40 +483,40 @@ const CreateBookForm = () => {
               className="flex justify-center items-center"
             >
               <MdError
-                className={errorForm.year_of_edition ? "text-orange-0 ml-1" : "hidden"}
+                className={
+                  errorForm.year_of_edition ? "text-orange-0 ml-1" : "hidden"
+                }
               />
             </div>
             <Tooltip className="text-xs" id="Year-tooltip" />
           </div>
 
-            {/* GENRES FIELD */}
+          {/* GENRES FIELD */}
           <div className="w-5/6 flex flex-wrap justify-center mt-3 font-poppins">
-          <label className="mr-3 font-semibold">
-            Genres:</label>
-          {arrayGenres.map((genre, index) => (
-            <div key={index} className="mr-3">
-              <input
-                type="checkbox"
-                name="genres"
-                value={genre}
-                checked={bookData.genres.includes(genre)}
-                onChange={handleGenre}
+            <label className="mr-3 font-semibold">Genres:</label>
+            {arrayGenres.map((genre, index) => (
+              <div key={index} className="mr-3">
+                <input
+                  type="checkbox"
+                  name="genres"
+                  value={genre}
+                  checked={bookData.genres.includes(genre)}
+                  onChange={handleGenre}
+                />
+                <label className="ml-1">{genre}</label>
+              </div>
+            ))}
+            <div
+              data-tooltip-id="Genre-tooltip"
+              data-tooltip-content={errorForm.genres}
+              className="flex justify-center items-center"
+            >
+              <MdError
+                className={errorForm.genres ? "text-orange-0 ml-1" : "hidden"}
               />
-              <label className="ml-1">{genre}</label>
             </div>
-          ))}
-          <div
-            data-tooltip-id="Genre-tooltip"
-            data-tooltip-content={errorForm.genres}
-            className="flex justify-center items-center"
-          >
-            <MdError
-              className={errorForm.genres ? "text-orange-0 ml-1" : "hidden"}
-            />
+            <Tooltip className="text-xs" id="Genre-tooltip" />
           </div>
-          <Tooltip className="text-xs" id="Genre-tooltip" />
-        </div>
-
 
           {/* BOOK'S DESCRIPTION FIELD */}
           <div className="flex flex-col w-5/6 mt-3">
