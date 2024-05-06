@@ -48,11 +48,11 @@ const Home = ({ books }) => {
           }}
         ></div>
 
-        <div className="grid grid-cols-1 gap-6 place-content-center align-middle h-svh">
+        <div className="grid grid-cols-1 gap-4 place-content-center align-middle h-svh">
           <h3
-            className="relative text-[#fef3ed] text-center font-medium "
+            className="relative text-[#fef3ed] text-center text-4xl px-20 mx-44 font-medium "
             style={{
-              textShadow: "2px 6px 4px rgba(0, 0, 0, 1.0)",
+              textShadow: "2px 6px 4px #12131b",
             }}
           >
             Welcome to <strong>OpenBook</strong>, your definitive literary

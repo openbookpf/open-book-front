@@ -17,27 +17,31 @@ import { useDispatch } from "react-redux";
 import Profile from "./views/UserProfile/Profile";
 import Chat from "./views/Chat/Chat";
 import AdminProfile from "./views/adminProfile/AdminProfile";
-import { getBooks, updateCartFromStorage, loadFavoritesFromStorageOnStart } from "./redux/actions";
+import {
+  getBooks,
+  updateCartFromStorage,
+  loadFavoritesFromStorageOnStart,
+} from "./redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Products from "./views/Products/Products";
 import UsersList from "./views/UsersList/UsersList";
+import CreateUserForm from "./components/Admin/Users/CreateUserForm";
 
 function App() {
-    const dispatch = useDispatch();
-    const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
-    const adminEmail = "openbooklibrary.dev@gmail.com";
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
+  const adminEmail = "openbooklibrary.dev@gmail.com";
 
-    useEffect(() => {
-        const cartItems = localStorage.getItem("cart");
-        if (cartItems) {
-            const parsedCartItems = JSON.parse(cartItems);
-            dispatch(updateCartFromStorage(parsedCartItems));
-        }
-        dispatch(getBooks());
-        dispatch(loadFavoritesFromStorageOnStart());
-    }, [dispatch]);
-
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cart");
+    if (cartItems) {
+      const parsedCartItems = JSON.parse(cartItems);
+      dispatch(updateCartFromStorage(parsedCartItems));
+    }
+    dispatch(getBooks());
+    dispatch(loadFavoritesFromStorageOnStart());
+  }, [dispatch]);
 
   return (
     <div className="App flex flex-col text-xl text-blue-1 font-poppins">
@@ -56,6 +60,7 @@ function App() {
         <Route path="/detail/:isbn" element={<Detail />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
+        <Route path="/create_user" element={<CreateUserForm />} />
         <Route path="/searchbook" element={<ShowSearchByName />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
