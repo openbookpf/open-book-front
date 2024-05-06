@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const CardFav = (props) => {
   const dispatch = useDispatch();
-  const [isFav, setIsFav] = useState(false);
+  const [isFav, setIsFav] = useState(true);
   // const { user } = useAuth0();
   // const [idauth, setIdauth] = useState({});
   // useEffect(() => {
@@ -24,42 +24,45 @@ const CardFav = (props) => {
   //     .then((data) => setIdauth(data));
   // }, []);
 
-  //   const handleAddToCart = () => {
-  //     const productToAdd = {
-  //       ISBN: book.ISBN,
-  //       book_title: book.book_title,
-  //       book_cover_url: book.book_cover_url,
-  //       author: book.author,
-  //       price: book.price,
-  //       quantity: 1,
-  //     };
-  //     dispatch(addToCart(productToAdd));
-  //   };
-
-  const handleFavoriteButtonClick = () => {
-    if (isFav) {
-      setIsFav(false);
-      dispatch(removeFromFavorites(book.ISBN));
-    } else {
-      setIsFav(true);
-      dispatch(
-        addToFavorites({
-          book_name: props.book.book_title,
-          book_picture: props.book.book_cover_url,
-          description: props.book.book_description,
-          book_author: props.book.author,
-          book_quantity: props.book.quantity,
-          book_id: props.book.ISBN,
-          book_price: props.book.price,
-          user_id: idauth.user_id,
-        })
-      );
-    }
+  const handleAddToCart = () => {
+    const productToAdd = {
+      ISBN: book.ISBN,
+      book_title: book.book_title,
+      book_cover_url: book.book_cover_url,
+      author: book.author,
+      price: book.price,
+      quantity: 1,
+    };
+    dispatch(addToCart(productToAdd));
   };
 
-  /* const handleRemoveFromFavorites = () => {
-    handleRemoveFromFavorites(book.ISBN);
-  }; */
+  //   const handleFavoriteButtonClick = () => {
+  //     if (isFav) {
+  //       setIsFav(false);
+  //       dispatch(removeFromFavorites(book.ISBN));
+  //     } else {
+  //       setIsFav(true);
+  //       dispatch(
+  //         addToFavorites({
+  //           book_name: props.book.book_title,
+  //           book_picture: props.book.book_cover_url,
+  //           description: props.book.book_description,
+  //           book_author: props.book.author,
+  //           book_quantity: props.book.quantity,
+  //           book_id: props.book.ISBN,
+  //           book_price: props.book.price,
+  //           user_id: props.user.user_id,
+  //         })
+  //       );
+  //     }
+  //   };
+
+  const handleRemoveFromFavorites = () => {
+    setIsFav(false);
+    if (isFav === false) {
+      removeFromFavorites(props.book.ISBN);
+    }
+  };
 
   return (
     <div className="flex flex-col shadow-md gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10">
@@ -77,8 +80,8 @@ const CardFav = (props) => {
               {props.book.book_name}
             </p>
           </Link>
-          {/* <p className="font-light text-xs">{book.author}</p>
-          <p className="font-semibold text-lg">${book.price}</p> */}
+          <p className="font-light text-xs">{props.book.book_author}</p>
+          <p className="font-semibold text-lg">${props.book.book_price}</p>
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">
@@ -90,7 +93,7 @@ const CardFav = (props) => {
           </button>
         </Link>
 
-        {/* <button
+        <button
           onClick={handleAddToCart}
           className="bg-blue-0 h-auto rounded-2xl w-auto hover:scale-110 transition ease-in delay-100"
         >
@@ -113,15 +116,15 @@ const CardFav = (props) => {
             <path d="M16 19h6" />
             <path d="M19 16v6" />
           </svg>
-        </button> */}
+        </button>
 
-        {/* <button
-          onClick={handleFavoriteButtonClick}
+        <button
+          onClick={handleRemoveFromFavorites}
           className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
-            isFav ? "text-red-500" : ""
+            isFav === true ? "text-red-500" : ""
           }`}
         >
-          {isFav ? (
+          {isFav === true ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -154,7 +157,7 @@ const CardFav = (props) => {
               <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
             </svg>
           )}
-        </button> */}
+        </button>
       </div>
     </div>
   );
