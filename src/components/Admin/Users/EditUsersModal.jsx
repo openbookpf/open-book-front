@@ -48,21 +48,23 @@ const EditUsersModal = ({
             onSubmit={handleSubmit(handleFormSubmit)}
           >
             {" "}
-            <div className="flex gap-4 p-1 justify-between w-2/5 text-base font-normal">
-              <p className="p-1">Name: </p>
+            <div className="flex gap-1 p-1 justify-center w-2/5 text-base font-normal">
+              <p className="p-1 font-medium">Name: </p>
               <input
                 className="rounded-lg p-1 w-2/4"
                 {...register("user_name")}
                 placeholder="Name"
               />
             </div>
-            <div className="flex gap-4 p-1 justify-between w-2/5 text-base font-normal">
-              <p className="p-1">Email Address: </p>
-              <input
-                className="rounded-lg p-1 justify-between w-2/5"
-                {...register("email_address")}
-                placeholder="Email Address"
-              />
+            <div className="flex flex-col  text-center gap-4 p-1 justify-center items-center w-2/5 text-base font-normal">
+              <p className="p-1 font-medium">Email Address: </p>
+              <div className="w-3/4 flex justify-center px-2 py-1 bg-red-500 text-sm rounded-md">
+                <p className="text-white-0">
+                  Warning: <br />
+                  Email cannot be changed because of security reasons regarding
+                  with Auth0.
+                </p>
+              </div>
             </div>
             <button
               className="bg-blue-0 hover:bg-blue-1 transition-colors text-white-0 w-2/6 items-center mx-auto p-2 rounded-md"
