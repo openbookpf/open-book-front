@@ -13,6 +13,7 @@ import ShowAllColection from "../../components/ShowAllColection/ShowAllColection
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(user);
   const [firstIndexFav, setFirstIndexFav] = useState(0);
   const [lastIndexFav, setLastIndexFav] = useState(4);
   const [firstIndexCol, setFirstIndexCol] = useState(0);
