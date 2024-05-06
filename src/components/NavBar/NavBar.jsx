@@ -45,16 +45,16 @@ const NavBar = () => {
               </Link>
             </div>
             {/* ----------------- USER LINKS ------------------- */}
-            <div className="flex flex-row font-medium gap-5 my-auto">
+            <div className="flex flex-row font-medium gap-3 my-auto">
               <Link
                 to="/books"
-                className="text-black hover:underline hover:scale-110 py-1 transition-transform delay-50"
+                className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
               >
                 Books
               </Link>
               <Link
                 to="/aboutus"
-                className="py-1 text-black  hover:underline hover:scale-15 transition-transform delay-50"
+                className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
               >
                 About Us
               </Link>
@@ -62,7 +62,7 @@ const NavBar = () => {
               {location.pathname !== "/chat" ? (
                 <Link
                   to="/chat"
-                  className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-lg hover:scale-105 duration-200"
+                  className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-full hover:scale-105 duration-200"
                 >
                   OpenBook Community
                 </Link>

@@ -7,11 +7,15 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
 import Card from "../../components/Card/Card";
+import ReviewCard from "../../components/ReviewCard/ReviewCard";
+import ShowReviews from "../../components/ReviewCard/ShowReviews";
+import { Rating } from "@mui/material";
 
 function Detail() {
   const { isbn } = useParams();
   const [bookData, setBookData] = useState(null);
   const [sameGenreBooks, setSameGenreBooks] = useState([]);
+  const [showReviews, setShowReviews] = useState(false);
 
   const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn.replace(
     /\D/g,
@@ -34,16 +38,12 @@ function Detail() {
 
   useEffect(() => {
     async function getBooksByGenre() {
-      if (
-        !bookData ||
-        !bookData.genres ||
-        typeof bookData.genres !== "string"
-      ) {
+      if (!bookData || !bookData.genres) {
         return;
       }
 
       try {
-        const genres = bookData.genres.split(",");
+        const genres = bookData.genres;
         const apiUrl = "https://open-book-back.onrender.com/books/filtrar";
         const requestBody = {
           authorArray: [],
@@ -74,6 +74,10 @@ function Detail() {
     return null;
   }
 
+  const handleShowReviews = () => {
+    setShowReviews(true);
+  };
+
   const {
     book_cover_url,
     book_title,
@@ -81,6 +85,8 @@ function Detail() {
     price,
     book_description,
     genres,
+    reviews,
+    average_rating,
   } = bookData;
 
   return (
@@ -93,7 +99,7 @@ function Detail() {
               <p className="font-semibold">{book_title}</p>
             </div>
             <div className="flex flex-row justify-center">
-              <div className="content-center overflow-auto">
+              <div className="overflow-auto">
                 <img
                   src={book_cover_url}
                   alt={book_title}
@@ -143,19 +149,56 @@ function Detail() {
                   <BsTwitterX className="hover:scale-125 transition-transform delay-50 ease-linear cursor-pointer" />
                   <BsWhatsapp className="hover:scale-125 transition-transform delay-50 ease-linear cursor-pointer" />
                 </div>
+                <hr className="my-4 border-gray-300 w-full" />
+                <div className="flex flex-col">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center mb-2">
+                      <p className="text-gray-700 font-bold text-xl mr-2">
+                        Reviews:
+                      </p>
+                      <Rating
+                        size="large"
+                        readOnly
+                        precision={0.5}
+                        value={average_rating}
+                      />
+                    </div>
+                    <button
+                      onClick={handleShowReviews}
+                      className="bg-cyan-0 px-2 rounded-full text-lg mr-3 duration-200 hover:bg-opacity-70"
+                    >
+                      See all
+                    </button>
+                  </div>
+                  <div className="flex flex-col ">
+                    {reviews.slice(0, 3).map((rev) => (
+                      <ReviewCard review={rev} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        {/* <div className="flex justify-center">
+                    <div className="w-3/5 flex flex-col">
+                        <p>Reviews</p>
+                        <div className="flex flex-col ">
+                            {reviews.slice(0, 3).map((rev) => (
+                                <ReviewCard review={rev} />
+                            ))}
+                        </div>
+                    </div>
+                </div> */}
       </div>
       {sameGenreBooks.length > 0 ? (
-        <div className="mx-20">
-          <p className="text-blue-0 my-8 font-bold text-2xl">
+        <div className="mx-5">
+          <p className="text-blue-0 my-8 mx-10 font-bold text-2xl">
             Recommended in the same genre:
           </p>
           <div className="mx-auto">
             <Carousel
-              className="justify-center mx-0 gap-0"
+              className="justify-center mx-0"
               value={sameGenreBooks}
               numVisible={4}
               numScroll={2}
@@ -167,10 +210,18 @@ function Detail() {
       ) : (
         <div className="mx-20">
           <p className="text-blue-0 my-8 font-bold text-2xl">
-            Por el momento no tenemos otros libros disponibles con este género.
+            At the moment, we don't have any other books available in this
+            genre.
           </p>
         </div>
       )}
+      {showReviews ? (
+        <ShowReviews
+          reviews={reviews}
+          book_title={book_title}
+          setShowReviews={setShowReviews}
+        />
+      ) : null}
     </div>
   );
 }

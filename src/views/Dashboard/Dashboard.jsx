@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
 import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
+import GraphicChart from "../../components/GraphicChart/GraphicChart";
 
 const Dashboard = () => {
   const dataTop = [
@@ -11,7 +13,7 @@ const Dashboard = () => {
   ];
 
   const adminEmail = "openbooklibrary.dev@gmail.com";
-
+  const chartData = useSelector((state) => state.chartData);
   return (
     <div className="mt-24 mb-24 flex flex-col justify-center  px-10 items-center">
       <h1 className="text-xl font-semibold text-center">Admin Dashboard</h1>
@@ -23,10 +25,11 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-row w-full gap-6 justify-between h-96">
         <div className="bg-white-0 shadow-md p-2 w-3/5 rounded-md mb-2">
-          graphic chart
+          <GraphicChart data={chartData} />
         </div>
         <LastSales />
       </div>
+      <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4"></div>
     </div>
   );
 };

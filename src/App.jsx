@@ -26,6 +26,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Products from "./views/Products/Products";
 import UsersList from "./views/UsersList/UsersList";
+import CreateUserForm from "./components/Admin/Users/CreateUserForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App flex flex-col text-3xl font-poppins">
+    <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
       <Routes>
         {isAuthenticated && user.email === adminEmail ? (
@@ -59,6 +60,7 @@ function App() {
         <Route path="/detail/:isbn" element={<Detail />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
+        <Route path="/create_user" element={<CreateUserForm />} />
         <Route path="/searchbook" element={<ShowSearchByName />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
@@ -66,7 +68,6 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminProfile />} />
       </Routes>
     </div>
   );
