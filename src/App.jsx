@@ -61,7 +61,6 @@ function App() {
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
         <Route path="/create_user" element={<CreateUserForm />} />
-
         <Route path="/searchbook" element={<ShowSearchByName />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />

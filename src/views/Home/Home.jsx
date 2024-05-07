@@ -53,7 +53,7 @@ const Home = ({ books }) => {
           <h3
             className="relative text-[#fef3ed] text-center text-4xl px-20 mx-44 font-medium "
             style={{
-              textShadow: "2px 6px 4px rgba(0, 0, 0, 1.0)",
+              textShadow: "2px 6px 4px #12131b",
             }}
           >
             Welcome to <strong>OpenBook</strong>, your definitive literary
