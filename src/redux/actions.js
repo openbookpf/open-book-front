@@ -41,14 +41,16 @@ export const addToFavorites = (product) => {
   };
 };
 
-export const removeFromFavorites = (ISBN) => {
+export const removeFromFavorites = (user_id, fav_id) => {
   return async function (dispatch) {
-    fetch(`http://localhost:3001/favorites/`)
+    fetch(
+      `http://localhost:3001/favorites/findtoremove/?user_id=${user_id}&?fav_id=${fav_id}`
+    )
       .then((res) => res.json())
       .then((data) =>
         dispatch({
           type: REMOVE_FROM_FAVORITES,
-          payload: data.filter((obj) => obj.ISBN !== ISBN),
+          payload: data,
         })
       );
   };

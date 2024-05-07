@@ -41,7 +41,7 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   const handleFavoriteButtonClick = () => {
     if (isFav) {
       setIsFav(false);
-      dispatch(removeFromFavorites(book.ISBN));
+      dispatch(removeFromFavorites(idauth.user_id, idauth.favorites.fav_id));
     } else {
       setIsFav(true);
       dispatch(

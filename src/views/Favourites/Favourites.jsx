@@ -26,7 +26,11 @@ const Favorites = (props) => {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto max-w-7xl py-28 px-5">
         {newusuario.slice(first, first + rows).map((favorite) => (
           <div key={favorite.fav_id} className="relative">
-            <CardFav book={favorite} user={user} showFavoriteButton={true} />
+            <CardFav
+              book={favorite}
+              newusuario={newusuario}
+              showFavoriteButton={true}
+            />
           </div>
         ))}
       </div>

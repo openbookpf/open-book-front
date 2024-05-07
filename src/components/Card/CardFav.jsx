@@ -59,9 +59,12 @@ const CardFav = (props) => {
 
   const handleRemoveFromFavorites = () => {
     setIsFav(false);
+    let objtoerase;
+    const new_favid = props.book.fav_id.toString();
     if (isFav === false) {
-      removeFromFavorites(props.book.ISBN);
+      objtoerase = removeFromFavorites(props.book.userUserId, new_favid);
     }
+    console.log(objtoerase);
   };
 
   return (

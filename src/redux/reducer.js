@@ -209,7 +209,11 @@ function booksReducer(state = initialState, action) {
     case REMOVE_FROM_FAVORITES:
       return {
         ...state,
-        favorite: action.payload,
+        favorites: [
+          ...state.favorites.filter(
+            (fav) => fav.fav_id !== action.payload.fav_id
+          ),
+        ],
       };
     // const updatedFavorites = state.favorites.filter(
     //   (item) => item.ISBN !== action.payload
