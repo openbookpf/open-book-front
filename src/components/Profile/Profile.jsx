@@ -49,6 +49,8 @@ const UserProfile = (props) => {
   return (
     <div className="bg-gray-500 min-h-screen flex justify-center items-center ">
       <div className="bg-white-0 p-4 rounded-lg shadow-md mr-80">
+
+        
         <div className="relative w-32 h-32 overflow-hidden rounded-full bg-gray-300 ">
           {user.picture ? (
             <img
