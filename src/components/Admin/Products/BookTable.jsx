@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBooks } from "../../../redux/actions";
-import { LuPencil, LuTrash2 } from "react-icons/lu";
+import { LuCheckCircle2, LuPencil, LuTrash2 } from "react-icons/lu";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
 import EditBooksModal from "./EditBooksModal";
@@ -14,6 +14,7 @@ const BookTable = () => {
   const [openEdit, setOpenEdit] = useState(false);
   // Estado para almacenar el ISBN del libro que se va a eliminar
   const [isbnToDelete, setIsbnToDelete] = useState(null);
+  const [isbnToActivate, setIsbnToActivate] = useState(null);
   // Estado para almacenar el libro que se va a editar
   const [bookToEdit, setBookToEdit] = useState(null);
 
@@ -61,6 +62,23 @@ const BookTable = () => {
         console.error(error);
       });
   };
+  const handleActivateBook = (isbnToActivate) => {
+    axios
+      .put(
+        `https://open-book-back.onrender.com/books/book-id/${isbnToActivate}`,
+        {
+          book_status: true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+
+        dispatch(getAllBooks());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     books && (
       <div className="mt-5 mb-24 p-5 flex flex-col justify-center px-10 items-center w-full">
@@ -99,15 +117,26 @@ const BookTable = () => {
                   >
                     <LuPencil className="text-white-0" />
                   </button>
-                  <button
-                    className="bg-red-600 p-2 my-auto rounded-md"
-                    onClick={() => {
-                      setOpenDelete(true);
-                      setIsbnToDelete(book.ISBN);
-                    }}
-                  >
-                    <LuTrash2 className="text-white-0" />
-                  </button>
+                  {book.book_status ? (
+                    <button
+                      className="bg-red-600 p-2 my-auto rounded-md"
+                      onClick={() => {
+                        setOpenDelete(true);
+                        setIsbnToDelete(book.ISBN);
+                      }}
+                    >
+                      <LuTrash2 className="text-white-0" />
+                    </button>
+                  ) : (
+                    <button
+                      className="bg-green-600 p-2 my-auto rounded-md"
+                      onClick={() => {
+                        handleActivateBook(book.ISBN);
+                      }}
+                    >
+                      <LuCheckCircle2 className="text-white-0" />
+                    </button>
+                  )}
                 </td>
                 <td className="my-auto p-2">
                   {book.book_status ? (

@@ -1,26 +1,101 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
 import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
 import GraphicChart from "../../components/GraphicChart/GraphicChart";
+import axios from "axios";
 
 const Dashboard = () => {
-  const dataTop = [
-    "Total revenue",
-    "Quantity of selled books",
-    "Users registered",
-    "Active users",
-  ];
+  const [dataTop, setDataTop] = useState([
+    {
+      title: "Total revenue",
+      data: null,
+      subtitle: "These values are calculated in US dollars",
+    },
+    {
+      title: "Sold books",
+      data: null,
+      subtitle: "These values are calculated since the library was opened",
+    },
+    {
+      title: "Users registered",
+      data: null,
+      subtitle: "These values are calculated since the library was opened",
+    },
+  ]);
+
+  async function countUserTypes() {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/users"
+      );
+      let adminCount = 0;
+      let shopperCount = 0;
+
+      response.data.forEach((user) => {
+        if (user.user_type === "admin") {
+          adminCount++;
+        } else if (user.user_type === "shopper") {
+          shopperCount++;
+        }
+      });
+
+      return { adminCount, shopperCount };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://open-book-back.onrender.com/orders/payments-and-orders"
+        );
+        const { shopperCount } = await countUserTypes();
+
+        setDataTop((prevDataTop) =>
+          prevDataTop.map((item) => {
+            if (item.title === "Total revenue") {
+              return { ...item, data: "$" + response.data.total_sales_amount };
+            } else if (item.title === "Sold books") {
+              return {
+                ...item,
+                data: response.data.total_sold_books + " units",
+              };
+            } else if (item.title === "Users registered") {
+              return {
+                ...item,
+                data: shopperCount,
+              };
+            } else {
+              return item;
+            }
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const adminEmail = "openbooklibrary.dev@gmail.com";
   const chartData = useSelector((state) => state.chartData);
   return (
-    <div className="mt-24 mb-24 flex flex-col justify-center  px-10 items-center">
-      <h1 className="text-xl font-semibold text-center">Admin Dashboard</h1>
+    <div className="mt-16 py-5 bg-blue-1 w-full h-svh flex flex-col justify-center  px-10 items-center">
+      <h1 className="text-3xl font-semibold text-white-0 text-center">
+        Admin Dashboard
+      </h1>
 
-      <div className="flex flex-row justify-between mb-4 gap-5 mx-auto w-full mt-6">
+      <div className="flex flex-row justify-between mb-4 gap-2 mx-auto w-full mt-6">
         {dataTop.map((data) => (
-          <TopCard key={data} data={data} />
+          <TopCard
+            key={data}
+            title={data.title}
+            data={data.data}
+            subtitle={data.subtitle}
+          />
         ))}
       </div>
       <div className="flex flex-row w-full gap-6 justify-between h-96">
