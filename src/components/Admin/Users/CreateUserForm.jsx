@@ -7,14 +7,17 @@ const CreateUserForm = () => {
   const formInitialState = {
     email: "",
     password: "",
+    user_type: "",
   };
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isMatch, setIsMatch] = useState(true);
   const [userData, setUserData] = useState(formInitialState);
+  const [userRole, setUserRole] = useState("Admin");
   const [errorForm, setErrorForm] = useState({
     email: "",
     password: "",
+    user_type: "",
   });
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -29,7 +32,7 @@ const CreateUserForm = () => {
   const handleUpload = async (event) => {
     event.preventDefault();
 
-    if (!userData.email || !userData.password) {
+    if (!userData.email || !userData.password || !userData.user_type) {
       const remainingFields = [];
       for (let key in userData) {
         if (!userData[key]) {
@@ -48,7 +51,7 @@ const CreateUserForm = () => {
       });
     }
 
-    if (errorForm.email || errorForm.password) {
+    if (errorForm.email || errorForm.password || userData.user_type) {
       const wrongFields = [];
       for (let key in errorForm) {
         if (errorForm[key]) {
@@ -121,6 +124,16 @@ const CreateUserForm = () => {
     updateData(key, value);
   };
 
+  const handleUserRoleChange = (event) => {
+    const key = event.target.name;
+    const value = event.target.value;
+    setUserRole(value);
+
+    validationsForm(key, value, errorForm, setErrorForm);
+
+    updateData(key, value);
+  };
+
   return (
     <div>
       <div className="flex justify-center mt-24">
@@ -186,6 +199,26 @@ const CreateUserForm = () => {
               />
             </div>
             {!isMatch && <p className="text-red-500">Passwords do not match</p>}
+            <div className="w-5/6 flex mt-3">
+              <label className="mr-3 font-semibold" htmlFor="confirmPassword">
+                Select User Role:
+              </label>
+              <select
+                name="user_type"
+                autoComplete="off"
+                value={userRole}
+                onChange={handleUserRoleChange}
+                className={
+                  errorForm.user_type
+                    ? "rounded-xl  border-2 grow"
+                    : "rounded-xl border-2 border-orange-0 grow"
+                }
+              >
+                <option value="select an option">select an option</option>
+                <option value="Admin">Admin</option>
+                <option value="Admin">Shopper</option>
+              </select>
+            </div>
             <button
               className="mt-5 text-lg bg-orange-0 px-10 py-2 rounded-full text-white-0 duration-200 hover:scale-110 hover:bg-[#D48620]"
               onClick={handleUpload}
