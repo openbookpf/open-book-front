@@ -244,4 +244,3 @@ export const validationImg = (selectedFile, errorForm, setErrorForm) => {
   return setErrorForm({ ...errorForm, img: "" });
 };
 
-// ... código existente ...

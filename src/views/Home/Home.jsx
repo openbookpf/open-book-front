@@ -49,6 +49,7 @@ const Home = ({ books }) => {
         ></div>
 
         <div className="grid grid-cols-1 gap-4 place-content-center align-middle h-svh">
+          {" "}
           <h3
             className="relative text-[#fef3ed] text-center text-4xl px-20 mx-44 font-medium "
             style={{
