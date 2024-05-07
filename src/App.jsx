@@ -12,7 +12,7 @@ import Cart from "./views/Cart/Cart";
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Checkout from "./views/Checkout/Checkout";
 import Favourites from "./views/Favourites/Favourites";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Profile from "./views/UserProfile/Profile";
 import Chat from "./views/Chat/Chat";
@@ -42,7 +42,6 @@ function App() {
     dispatch(getBooks());
     dispatch(loadFavoritesFromStorageOnStart());
   }, [dispatch]);
-
   return (
     <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
@@ -67,7 +66,12 @@ function App() {
         <Route exact path="/checkout" element={<Checkout />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<UserProfile setNewuser={setNewuser} />}
+        />
+        <Route path="/profileauth0" element={<ProfileAuth0 />} />
+        <Route path="/edituser" element={<EditProfile newuser={newuser} />} />
       </Routes>
     </div>
   );

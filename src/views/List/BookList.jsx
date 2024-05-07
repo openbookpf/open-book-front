@@ -6,131 +6,150 @@ import arrayGenres from "../../data/arrayGenres";
 import { Paginator } from "primereact/paginator";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
-    getBooks,
-    getBooksFilterGenre,
-    sortByTitle,
-    sortByPrice,
-    appliedFilter,
-    getBooksFilter,
-    addToFavorites,
-    removeFromFavorites,
+  getBooks,
+  getBooksFilterGenre,
+  sortByTitle,
+  sortByPrice,
+  appliedFilter,
+  getBooksFilter,
+  addToFavorites,
+  removeFromFavorites,
 } from "../../redux/actions";
 
 const BookList = () => {
-    const books = useSelector((state) => state.filteredBooks);
-    const favorites = useSelector((state) => state.favorites);
+  const books = useSelector((state) => state.filteredBooks);
+  const appliedFilters = useSelector((state) => state.appliedFilters);
+  const favorites = useSelector((state) => state.favorites);
+  const { user } = useAuth0();
+  const [idauth, setIdauth] = useState({});
 
-    const dispatch = useDispatch();
+  const appliedFiltersMod = {
+    ...appliedFilters,
+    min: Number(appliedFilters.min),
+    max: Number(appliedFilters.max),
+  };
 
-    const [selectedTitle, setSelectedTitle] = useState("");
-    const [selectedPrice, setSelectedPrice] = useState("");
+  let filters = Object.values(appliedFilters);
 
-    const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(9);
+  const dispatch = useDispatch();
 
-    const onPageChange = (event) => {
-        setFirst(event.first);
-        setRows(event.rows);
-    };
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState("");
 
-    useEffect(() => {
-        dispatch(getBooks());
-    }, []);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(9);
 
-    useEffect(() => {
-        if (selectedTitle !== "") {
-            dispatch(sortByTitle(selectedTitle));
-        }
-    }, [dispatch, selectedTitle]);
+  const onPageChange = (event) => {
+    setFirst(event.first);
+    setRows(event.rows);
+  };
 
-    useEffect(() => {
-        if (selectedPrice !== "") {
-            dispatch(sortByPrice(selectedPrice));
-        }
-    }, [dispatch, selectedPrice]);
+  useEffect(() => {
+    fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+      .then((res) => res.json())
+      .then((data) => setIdauth(data));
+  }, []);
+  useEffect(() => {
+    dispatch(getBooks());
+  }, []);
 
-    const handleSortChange = (event) => {
-        const [sortType, sortDirection] = event.target.value.split("-");
+  useEffect(() => {
+    if (selectedTitle !== "") {
+      dispatch(sortByTitle(selectedTitle));
+    }
+  }, [dispatch, selectedTitle]);
 
-        if (sortType === "title") {
-            setSelectedTitle(sortDirection);
-        } else if (sortType === "price") {
-            setSelectedPrice(sortDirection);
-        } else {
-            setSelectedTitle("");
-            setSelectedPrice("");
-        }
-        if (sortType === "none") {
-            dispatch;
-        }
-    };
+  useEffect(() => {
+    if (selectedPrice !== "") {
+      dispatch(sortByPrice(selectedPrice));
+    }
+  }, [dispatch, selectedPrice]);
 
-    const handleCloseFilter = (filter) => {
-        const filterToRemove = Object.keys(appliedFilters).find((key) => appliedFilters[key] === filter);
-        dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
-        dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
-    };
+  const handleSortChange = (event) => {
+    const [sortType, sortDirection] = event.target.value.split("-");
 
-    return (
-        <div className="mt-20 flex flex-col w-sreen px-10">
-            <div className="flex flex-row">
-                <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
-                    <Filter />
-                </div>
+    if (sortType === "title") {
+      setSelectedTitle(sortDirection);
+    } else if (sortType === "price") {
+      setSelectedPrice(sortDirection);
+    } else {
+      setSelectedTitle("");
+      setSelectedPrice("");
+    }
+    if (sortType === "none") {
+      dispatch;
+    }
+  };
 
-                <div className="flex flex-col basis-11/12 w-full ml-10">
-                    <div className="flex flex-col h-10 items-center justify-items-end">
-                        <div className="flex flex-row justify-between w-full">
-                            <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
-                                <div className="text-lg flex justify-end ">
-                                    <p className="pr-2">Sort by:</p>
-                                    <select onChange={handleSortChange} className="rounded-xl">
-                                        <option value="">None</option>
-                                        <option value="title-asc">Title (A - Z)</option>
-                                        <option value="title-desc">Title (Z - A)</option>
-                                        <option value="price-min">Price (Low - High)</option>
-                                        <option value="price-max">Price (High - Low)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {books.length ? (
-                        <div className="flex flex-col content-start grow">
-                            <div className="flex flex-wrap content-start ijs my-11 ">
-                                {books.slice(first, first + rows).map((book) => (
-                                    <Card book={book} key={book.ISBN} favorites={favorites} showFavoriteButton={true} />
-                                ))}
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="flex items-center">
-                            <p className="text-2xl">No books found</p>
-                            <HiOutlineEmojiSad className="ml-3" />
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            <footer className="flex items-center text-center justify-center my-4 py-2 ">
-                {books.length > 9 ? (
-                    <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
-                        <Paginator
-                            first={first}
-                            rows={rows}
-                            totalRecords={books.length}
-                            onPageChange={onPageChange}
-                            rowsPerPageOptions={[10, 20, 30]}
-                            template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                        />
-                    </div>
-                ) : null}
-            </footer>
-        </div>
+  const handleCloseFilter = (filter) => {
+    const filterToRemove = Object.keys(appliedFilters).find(
+      (key) => appliedFilters[key] === filter
     );
+    dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
+    dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
+  };
+
+  return (
+    <div className="mt-20 flex flex-col w-sreen px-10">
+      <div className="flex flex-row">
+        <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
+          <Filter />
+        </div>
+
+        <div className="flex flex-col basis-11/12 w-full ml-10">
+          <div className="flex flex-col h-10 items-center justify-items-end">
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
+                <div className="text-lg flex justify-end ">
+                  <p className="pr-2">Sort by:</p>
+                  <select onChange={handleSortChange} className="rounded-xl">
+                    <option value="">None</option>
+                    <option value="title-asc">Title (A - Z)</option>
+                    <option value="title-desc">Title (Z - A)</option>
+                    <option value="price-min">Price (Low - High)</option>
+                    <option value="price-max">Price (High - Low)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center content-start grow">
+            {/* <div className="grid grid-cols-4 my-11 gap-6 mx-auto p-2 "> */}
+            <div className="flex flex-wrap content-start my-11 p-2 ">
+              {books.slice(first, first + rows).map((book) => (
+                <Card
+                  book={book}
+                  key={book.ISBN}
+                  favorites={favorites}
+                  idauth={idauth}
+                  showFavoriteButton={true}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer className="flex items-center text-center justify-center my-4 py-2 ">
+        {books.length > 9 ? (
+          <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
+            <Paginator
+              first={first}
+              rows={rows}
+              totalRecords={books.length}
+              onPageChange={onPageChange}
+              rowsPerPageOptions={[10, 20, 30]}
+              template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+            />
+          </div>
+        ) : null}
+      </footer>
+    </div>
+  );
 };
 
 export default BookList;

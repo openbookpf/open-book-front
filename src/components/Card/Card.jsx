@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+// import { useAuth0 } from "@auth0/auth0-react";
 import {
   addToCart,
   addToFavorites,
   removeFromFavorites,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const Card = ({ book, favorites, showFavoriteButton }) => {
+const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
-  const { isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-    if (favorites && favorites.length > 0) {
-      setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
-    }
-  }, [favorites, book.ISBN]);
+  // useEffect(() => {
+  //   if (favorites && favorites.length > 0) {
+  //     setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
+  //   }
+  // }, [favorites, book.ISBN]);
 
   const handleAddToCart = () => {
     const productToAdd = {
@@ -35,17 +36,28 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
   const handleFavoriteButtonClick = () => {
     if (isFav) {
       setIsFav(false);
-      dispatch(removeFromFavorites(book.ISBN));
+      dispatch(removeFromFavorites(idauth.user_id, idauth.favorites.fav_id));
     } else {
       setIsFav(true);
-      dispatch(addToFavorites(book));
+      dispatch(
+        addToFavorites({
+          book_name: book.book_title,
+          book_picture: book.book_cover_url,
+          description: book.book_description,
+          book_author: book.author,
+          book_quantity: book.quantity,
+          book_id: book.ISBN,
+          book_price: book.price,
+          user_id: idauth.user_id,
+        })
+      );
     }
   };
 
   const handleBuyButton = () => {
     handleAddToCart();
   };
-
+  console.log(favorite);
   return (
     <div
       className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"

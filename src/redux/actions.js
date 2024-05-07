@@ -54,15 +54,37 @@ export const filterBooksByLanguage = (language) => ({
   payload: language,
 });
 
-export const addToFavorites = (product) => ({
-  type: "ADD_TO_FAVORITES",
-  payload: product,
-});
+export const addToFavorites = (product) => {
+  // type: "ADD_TO_FAVORITES",
+  // payload: product,
+  // product = { book_picture, description, user_id, book_name };
+  return async function (dispatch) {
+    fetch("https://open-book-back.onrender.com/favorites", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: ADD_TO_FAVORITES, payload: data }));
+  };
+};
 
-export const removeFromFavorites = (ISBN) => ({
-  type: "REMOVE_FROM_FAVORITES",
-  payload: ISBN,
-});
+export const removeFromFavorites = (user_id, fav_id) => {
+  return async function (dispatch) {
+    fetch(
+      `https://open-book-back.onrender.com/favorites/findtoremove/?user_id=${user_id}&?fav_id=${fav_id}`
+    )
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({
+          type: REMOVE_FROM_FAVORITES,
+          payload: data,
+        })
+      );
+  };
+};
 
 export const loadFavoritesFromStorage = (favorites) => ({
   type: LOAD_FAVORITES_FROM_STORAGE,
@@ -221,7 +243,6 @@ export const getBooks = () => {
       const lastFilt = localStorage.getItem("booksFilters");
       const data = lastFilt ? JSON.parse(lastFilt) : filteredBooks;
 
-      console.log(response);
       dispatch({
         type: GET_BOOKS,
         payload: data,
@@ -231,6 +252,7 @@ export const getBooks = () => {
     }
   };
 };
+
 export const getAllBooks = () => {
   return async (dispatch) => {
     try {
@@ -305,15 +327,8 @@ export const resetSearchedBooks = () => ({
 export const getBooksByGenre = (genre) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        "https://open-book-back.onrender.com/books/filtrar",
-
-        {
-          authorArray: [],
-          genreArray: [genre],
-          min: null,
-          max: null,
-        }
+      const response = await axios.get(
+        `https://open-book-back.onrender.com/book/filtrar?author&genre=${genre}&min&max`
       );
       dispatch({
         type: GET_BOOKS_BY_GENRE,
