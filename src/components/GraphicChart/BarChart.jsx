@@ -4,7 +4,7 @@ import * as echarts from "echarts";
 import { fetchChartData } from "../../redux/actions";
 import { format, parse } from "date-fns";
 
-const GraphicChart = () => {
+const BarChart = () => {
   const dispatch = useDispatch();
   const [selectedYear, setSelectedYear] = useState("2024");
   const chartData = useSelector((state) => state.chartData);
@@ -105,7 +105,7 @@ const GraphicChart = () => {
       ],
     };
 
-    const chart = echarts.init(document.getElementById("chart-container"));
+    const chart = echarts.init(document.getElementById("bar-chart-container"));
     chart.setOption(options);
   };
 
@@ -129,9 +129,9 @@ const GraphicChart = () => {
           2024
         </button>
       </div>
-      <div id="chart-container" className="w-full h-96" />
+      <div id="bar-chart-container" className="w-full h-96" />
     </div>
   );
 };
 
-export default GraphicChart;
+export default BarChart;

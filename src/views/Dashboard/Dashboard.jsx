@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
 import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
-import GraphicChart from "../../components/GraphicChart/GraphicChart";
+import BarChart from "../../components/GraphicChart/BarChart";
+import PieChart from "../../components/GraphicChart/PieChart";
 
 const Dashboard = () => {
   const dataTop = [
@@ -25,11 +26,16 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-row w-full gap-6 justify-between h-96">
         <div className="bg-white-0 shadow-md p-2 w-3/5 rounded-md mb-2">
-          <GraphicChart data={chartData} />
+          <BarChart data={chartData} />
         </div>
-        <LastSales />
+        <div className="bg-white-0 shadow-md p-2 w-2/5 rounded-md mb-2">
+          <PieChart data={chartData} className="self-end w-full h-full" />
+        </div>
       </div>
-      <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4"></div>
+
+      <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
+        {/* <LastSales /> */}
+      </div>
     </div>
   );
 };
