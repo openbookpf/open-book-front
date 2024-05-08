@@ -31,7 +31,7 @@ import CreateUserForm from "./components/Admin/Users/CreateUserForm";
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
-  const adminEmail = "openbooklibrary.dev@gmail.com";
+  // const adminEmail = "openbooklibrary.dev@gmail.com";
 
   useEffect(() => {
     const cartItems = localStorage.getItem("cart");
@@ -47,7 +47,7 @@ function App() {
     <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
       <Routes>
-        {isAuthenticated && user.email === adminEmail ? (
+        {isAuthenticated && user.user_type === "admin" ? (
           <Route path="/" element={<Dashboard />} />
         ) : (
           <Route path="/" element={<Home books={arrayBestSellers} />} />

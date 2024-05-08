@@ -85,11 +85,14 @@ const CreateUserForm = () => {
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const response = await axios.post("http://localhost:3001/users", {
-        email_address: email,
-        password: password,
-        user_type: userRole,
-      });
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/users",
+        {
+          email_address: email,
+          password: password,
+          user_type: userRole,
+        }
+      );
       setUserData(formInitialState);
       return Swal.fire({
         title: "User registered correctly!",

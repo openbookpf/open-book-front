@@ -19,7 +19,7 @@ const Select = ({ selectMenuOpen }) => {
             <Link to="/profile" className="transition-transform delay-50">
               Profile
             </Link>
-            {user.email === adminEmail ? (
+            {user.user_type === "admin" ? (
               <>
                 <Link
                   to="/admin"
