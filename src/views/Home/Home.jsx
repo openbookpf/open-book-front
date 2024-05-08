@@ -12,6 +12,7 @@ import TrasparentLightMoodLogoResponsive from "../../assets/TrasparentLightMoodL
 import { useAuth0 } from "@auth0/auth0-react";
 const Home = ({ books }) => {
   const newName = useSelector((state) => state.searchname);
+  const { isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loginWithRedirect } = useAuth0();
@@ -159,19 +160,21 @@ const Home = ({ books }) => {
               >
                 OpenBook Community
               </Link>
-              <Link
-                className="hover:scale-110 transition-transform duration-200"
-                onClick={() => loginWithRedirect()}
-              >
-                <p
-                  className="relative text-[#fef3ed] text-center font-medium mt-5"
-                  style={{
-                    textShadow: "2px 6px 4px rgba(0, 0, 0, 1.0)",
-                  }}
+              {!isAuthenticated && (
+                <Link
+                  className="hover:scale-110 transition-transform duration-200"
+                  onClick={() => loginWithRedirect()}
                 >
-                  Log in and try it now!
-                </p>
-              </Link>
+                  <p
+                    className="relative text-[#fef3ed] text-center font-medium mt-5"
+                    style={{
+                      textShadow: "2px 6px 4px rgba(0, 0, 0, 1.0)",
+                    }}
+                  >
+                    Log in and try it now!
+                  </p>
+                </Link>
+              )}
             </div>
           </div>
         </div>

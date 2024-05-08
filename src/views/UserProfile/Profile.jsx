@@ -99,7 +99,7 @@ const Profile = () => {
   ];
 
   return (
-    <div className="flex mv:flex-col mv:items-center md:items-start xl:flex-row">
+    <div className="flex bg-gradient-to-b from-blue-1 to-cyan-0 mv:flex-col mv:items-center md:items-start xl:flex-row">
       <div className="bg-[#fef3ed] h-3/5 mv:min-w-80 md:min-w-96 mv:mt-20 md:mt-32 rounded-xl shadow-lg xl:mr-0 2xl:mr-5 xl:ml-10 2xl:ml-32 flex flex-col">
         <div className="grow flex flex-col text-center mx-auto py-14 ">
           <img
