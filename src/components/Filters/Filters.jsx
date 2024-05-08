@@ -4,7 +4,7 @@ import { getGenresAndAuthors, getBooksFilter } from "../../redux/actions";
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-const Filter = () => {
+const Filter = ({ menu, setShowFilters }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getGenresAndAuthors());
@@ -32,6 +32,8 @@ const Filter = () => {
     const handleFilter = (event) => {
         const property = event.target.value;
         const value = event.target.innerHTML;
+
+        if (menu) setShowFilters(false);
 
         if (property === "genre") {
             //? si ya existe
@@ -115,6 +117,7 @@ const Filter = () => {
 
     const handleFilterByPrice = () => {
         dispatch(getBooksFilter(filtersApplied));
+        if (menu) setShowFilters(false);
     };
 
     const handleClearPrice = () => {
@@ -123,6 +126,8 @@ const Filter = () => {
         localStorage.setItem("filters", JSON.stringify({ ...filtersApplied, minPrice: "", maxPrice: "" }));
 
         dispatch(getBooksFilter({ ...filtersApplied, minPrice: "", maxPrice: "" }));
+
+        if (menu) setShowFilters(false);
     };
 
     const handleClearFitler = () => {
@@ -132,10 +137,14 @@ const Filter = () => {
             JSON.stringify({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "", language: "" })
         );
         dispatch(getBooksFilter({ authorArray: [], genreArray: [], minPrice: "", maxPrice: "", language: "" }));
+
+        if (menu) setShowFilters(false);
     };
 
     const handleLanguageChange = (e) => {
         const { value } = e.target;
+
+        if (menu) setShowFilters(false);
 
         if (value === filtersApplied.language) {
             setFiltersApplied({ ...filtersApplied, language: "" });
@@ -331,12 +340,6 @@ const Filter = () => {
                     </div>
                 </div>
             </div>
-            <button
-                onClick={handleFilterByPrice}
-                className="duration-200 hover:text-orange-0 p-2 flex items-center justify-center font-bold"
-            >
-                <IoIosArrowForward />
-            </button>
         </div>
     );
 };

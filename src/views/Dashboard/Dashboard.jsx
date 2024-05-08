@@ -1,86 +1,81 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
-// import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
-// // import GraphicChart from "../../components/GraphicChart/GraphicChart";
+
 import axios from "axios";
 import BarChart from "../../components/GraphicChart/BarChart";
 import PieChart from "../../components/GraphicChart/PieChart";
 
 const Dashboard = () => {
-  const [dataTop, setDataTop] = useState([
-    {
-      title: "Total revenue",
-      data: null,
-      subtitle: "These values are calculated in US dollars",
-    },
-    {
-      title: "Sold books",
-      data: null,
-      subtitle: "These values are calculated since the library was opened",
-    },
-    {
-      title: "Users registered",
-      data: null,
-      subtitle: "These values are calculated since the library was opened",
-    },
-  ]);
+    const [dataTop, setDataTop] = useState([
+        {
+            title: "Total revenue",
+            data: null,
+            subtitle: "These values are calculated in US dollars",
+        },
+        {
+            title: "Sold books",
+            data: null,
+            subtitle: "These values are calculated since the library was opened",
+        },
+        {
+            title: "Users registered",
+            data: null,
+            subtitle: "These values are calculated since the library was opened",
+        },
+    ]);
 
-  async function countUserTypes() {
-    try {
-      const response = await axios.get(
-        "https://open-book-back.onrender.com/users"
-      );
-      let adminCount = 0;
-      let shopperCount = 0;
+    async function countUserTypes() {
+        try {
+            const response = await axios.get("https://open-book-back.onrender.com/users");
+            let adminCount = 0;
+            let shopperCount = 0;
 
-      response.data.forEach((user) => {
-        if (user.user_type === "admin") {
-          adminCount++;
-        } else if (user.user_type === "shopper") {
-          shopperCount++;
+            response.data.forEach((user) => {
+                if (user.user_type === "admin") {
+                    adminCount++;
+                } else if (user.user_type === "shopper") {
+                    shopperCount++;
+                }
+            });
+
+            return { adminCount, shopperCount };
+        } catch (error) {
+            console.error(error);
         }
-      });
-
-      return { adminCount, shopperCount };
-    } catch (error) {
-      console.error(error);
     }
-  }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://open-book-back.onrender.com/orders/payments-and-orders"
-        );
-        const { shopperCount } = await countUserTypes();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("https://open-book-back.onrender.com/orders/payments-and-orders");
+                const { shopperCount } = await countUserTypes();
 
-        setDataTop((prevDataTop) =>
-          prevDataTop.map((item) => {
-            if (item.title === "Total revenue") {
-              return { ...item, data: "$" + response.data.total_sales_amount };
-            } else if (item.title === "Sold books") {
-              return {
-                ...item,
-                data: response.data.total_sold_books + " units",
-              };
-            } else if (item.title === "Users registered") {
-              return {
-                ...item,
-                data: shopperCount,
-              };
-            } else {
-              return item;
+                setDataTop((prevDataTop) =>
+                    prevDataTop.map((item) => {
+                        if (item.title === "Total revenue") {
+                            return { ...item, data: "$" + response.data.total_sales_amount };
+                        } else if (item.title === "Sold books") {
+                            return {
+                                ...item,
+                                data: response.data.total_sold_books + " units",
+                            };
+                        } else if (item.title === "Users registered") {
+                            return {
+                                ...item,
+                                data: shopperCount,
+                            };
+                        } else {
+                            return item;
+                        }
+                    })
+                );
+            } catch (error) {
+                console.error(error);
             }
-          })
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    };
+        };
 
-    fetchData();
-  }, []);
+        fetchData();
+    }, []);
 
   const adminEmail = "openbooklibrary.dev@gmail.com";
   const chartData = useSelector((state) => state.chartData);
@@ -109,11 +104,11 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
-        {/* <LastSales /> */}
-      </div>
-    </div>
-  );
+            <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
+                
+            </div>
+        </div>
+    );
 };
 
 export default Dashboard;

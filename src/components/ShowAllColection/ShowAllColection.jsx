@@ -10,10 +10,10 @@ const ShowAllColection = (props) => {
 
     return (
         <div className="z-30 w-screen h-screen fixed bg-black bg-opacity-30">
-            <div className="container w-2/3 h-[600px] flex flex-col border-black rounded-lg bg-[#fef3ed] bg-opacity-95 mx-auto mt-20 shadow-2xl p-5">
+            <div className="container mv:min-w-80 sm:w-2/3 h-[600px] flex flex-col border-black rounded-lg bg-[#fef3ed] bg-opacity-95 mx-auto mt-20 shadow-2xl p-5">
                 <div className="flex justify-between">
-                    <p className="text-2xl ml-3">
-                        <strong>My Library</strong> | Books you bought
+                    <p className="text-2xl ml-3 truncate">
+                        <strong>My Library</strong> <p className="mv:hiden sm:flex">| Books you bought</p>
                     </p>
                     <IoMdClose
                         onClick={handleClose}
