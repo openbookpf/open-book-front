@@ -7,6 +7,13 @@ import { Provider } from "react-redux";
 import { PrimeReactProvider } from "primereact/api";
 import Tailwind from "primereact/passthrough/tailwind";
 import { Auth0Provider } from "@auth0/auth0-react";
+import TagManager from "react-gtm-module";
+
+const tagManagerArgs = {
+  gtmId: "GTM-5PTJ54V4",
+};
+
+TagManager.initialize(tagManagerArgs);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Auth0Provider

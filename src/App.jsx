@@ -27,6 +27,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Products from "./views/Products/Products";
 import UsersList from "./views/UsersList/UsersList";
 import CreateUserForm from "./components/Admin/Users/CreateUserForm";
+import Footer from "./components/Footer/Footer";
 import EditUserProfile from "./views/UserProfile/EditUserProfile";
 
 function App() {
@@ -70,7 +71,8 @@ function App() {
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-user-profile" element={<EditUserProfile />} />
-      </Routes>
+      </Routes>{" "}
+      <Footer />
     </div>
   );
 }

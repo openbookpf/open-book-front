@@ -13,8 +13,8 @@ import { Carousel } from "primereact/carousel";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
 
+  console.log(user);
   const [firstIndexFav, setFirstIndexFav] = useState(0);
   const [lastIndexFav, setLastIndexFav] = useState(4);
   const [firstIndexCol, setFirstIndexCol] = useState(0);
@@ -112,7 +112,7 @@ const Profile = () => {
         </div>
 
         <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
-          <Link to="/edit-user-profile">
+          <Link to={"/edit-user-profile"}>
             <button className="text-white-0 text-xl">Edit Profile</button>
           </Link>
         </div>
