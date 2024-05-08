@@ -7,7 +7,7 @@ import Card from "../../components/Card/Card";
 const Favorites = () => {
     const favorites = useSelector((state) => state.favorites);
     const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(8);
+    const [rows, setRows] = useState(6);
 
     const onPageChange = (event) => {
         setFirst(event.first);
@@ -17,14 +17,13 @@ const Favorites = () => {
     return favorites.length ? (
         <div className="h-screen max-w-screen">
             <div
-                className="brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-screen fixed"
+                className="brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-screen fixed -z-10 opacity-90"
                 style={{
                     backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
-                    opacity: 0.9,
                 }}
             ></div>
-            <div className="">
-                <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto max-w-7xl py-28 px-5">
+            <div className="flex flex-col justify-between items-center">
+                <div className="flex flex-wrap justify-center mt-20 mb-5 w-3/5">
                     {favorites.slice(first, first + rows).map((favorite) => (
                         <div key={favorite.ISBN} className="relative">
                             <Card book={favorite} favorites={favorites} showFavoriteButton={true} />
@@ -32,7 +31,7 @@ const Favorites = () => {
                     ))}
                 </div>
                 <footer className="flex items-center justify-center">
-                    <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
+                    <div className="text-lg text-black font-semibold rounded-full h-12 flex items-center justify-center">
                         {favorites.length < 8 ? null : (
                             <Paginator
                                 className="mb-10"
