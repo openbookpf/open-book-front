@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { MdHeartBroken } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import { getBookColectionUser } from "../../redux/actions";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
@@ -23,6 +24,9 @@ const Profile = () => {
 
   const [bookISBN, setBookISBN] = useState("");
   const [bookTitle, setBookTitle] = useState("");
+  const [newuser, setNewuser] = useState([]);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,6 +35,11 @@ const Profile = () => {
       dispatch(getBookColectionUser(user.sub));
     }
   }, [isAuthenticated]);
+  useEffect(() => {
+    fetch(`http://localhost:3001/users/findbyidAuth0/${user.sub}`)
+      .then((res) => res.json())
+      .then((data) => setNewuser(data.favorites));
+  }, [user]);
 
   const favorites = useSelector((state) => state.favorites);
   const colection = useSelector((state) => state.bookColectionUser);
@@ -46,10 +55,6 @@ const Profile = () => {
 
   const handleShowAllColection = () => {
     setShowAllColection(true);
-  };
-
-  const handleEditProfileClick = () => {
-    console.log("Edit profile");
   };
 
   const handlenextFav = () => {
@@ -78,6 +83,11 @@ const Profile = () => {
       setFirstIndexCol(firstIndexCol - 1);
       setLastIndexCol(lastIndexCol - 1);
     }
+  };
+
+  const handleEditProfileClick = () => {
+    console.log("Editar perfil");
+    navigate("/edituser");
   };
 
   return (
@@ -179,7 +189,7 @@ const Profile = () => {
             </Link>
           </div>
           <div className="flex overflow-x-auto w-[800px]">
-            {favorites.length > 4 ? (
+            {newuser.length > 4 ? (
               <button className="flex items-center">
                 <IoIosArrowDropleftCircle
                   onClick={handleprevFav}
@@ -191,9 +201,9 @@ const Profile = () => {
                 />
               </button>
             ) : null}
-            {favorites.length ? (
-              favorites.slice(firstIndexFav, lastIndexFav).map((fav) => (
-                <div key={fav.ISBN}>
+            {newuser.length ? (
+              newuser.slice(firstIndexFav, lastIndexFav).map((fav) => (
+                <div key={fav.fav_id}>
                   <CardProfile book={fav} />
                 </div>
               ))
@@ -203,7 +213,7 @@ const Profile = () => {
                 <MdHeartBroken className="text-orange-0 opacity-60" />
               </div>
             )}
-            {favorites.length > 4 ? (
+            {newuser.length > 4 ? (
               <button className="flex items-center">
                 <IoIosArrowDroprightCircle
                   onClick={handlenextFav}

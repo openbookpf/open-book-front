@@ -59,7 +59,7 @@ export const addToFavorites = (product) => {
   // payload: product,
   // product = { book_picture, description, user_id, book_name };
   return async function (dispatch) {
-    fetch("https://open-book-back.onrender.com/favorites", {
+    fetch("http://localhost:3001/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export const addToFavorites = (product) => {
 export const removeFromFavorites = (user_id, fav_id) => {
   return async function (dispatch) {
     fetch(
-      `https://open-book-back.onrender.com/favorites/findtoremove/?user_id=${user_id}&?fav_id=${fav_id}`
+      `http>//localhost:3001/favorites/findtoremove/?user_id=${user_id}&?fav_id=${fav_id}`
     )
       .then((res) => res.json())
       .then((data) =>

@@ -26,11 +26,11 @@ const CardFav = (props) => {
 
   const handleAddToCart = () => {
     const productToAdd = {
-      ISBN: book.ISBN,
-      book_title: book.book_title,
-      book_cover_url: book.book_cover_url,
-      author: book.author,
-      price: book.price,
+      ISBN: props.book.book_id,
+      book_title: props.book.book_name,
+      book_cover_url: props.book.book_picture,
+      author: props.book.book_author,
+      price: props.book.book_price,
       quantity: 1,
     };
     dispatch(addToCart(productToAdd));

@@ -11,12 +11,13 @@ import ShowSearchByName from "./views/ShowSearchByName/ShowSearchByName";
 import Cart from "./views/Cart/Cart";
 import ShowFilterByGenre from "./views/ShowFilterByGenre/ShowFilterByGenre";
 import Checkout from "./views/Checkout/Checkout";
-import Favourites from "./views/Favourites/Favourites";
+import Favorites from "./views/Favourites/Favourites";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Profile from "./views/UserProfile/Profile";
 import Chat from "./views/Chat/Chat";
 import AdminProfile from "./views/adminProfile/AdminProfile";
+import EditProfile from "./views/EditProfile/EditProfile";
 import {
   getBooks,
   updateCartFromStorage,
@@ -65,16 +66,17 @@ function App() {
         <Route path="/filterbook/:genre" element={<ShowFilterByGenre />} />
         <Route exact path="/checkout" element={<Checkout />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/favourites" element={<Favourites />} />
-        <Route
-          path="/profile"
-          element={<UserProfile setNewuser={setNewuser} />}
-        />
-        <Route path="/profileauth0" element={<ProfileAuth0 />} />
-        <Route path="/edituser" element={<EditProfile newuser={newuser} />} />
+        <Route path="/favourites" element={<Favorites />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="/edituser" element={<EditProfile />} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+{
+  /* <Route path="/profileauth0" element={<ProfileAuth0 />} /> */
+}

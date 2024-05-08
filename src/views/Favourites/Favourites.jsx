@@ -46,12 +46,12 @@ const Favorites = (props) => {
         </div>
         <footer className="flex items-center justify-center my-4 py-2">
           <div className="text-lg text-black font-semibold border-2 rounded-full h-12 flex items-center justify-center">
-            {favorites.length < 8 ? null : (
+            {newusuario.length < 8 ? null : (
               <Paginator
                 className="mb-10"
                 first={first}
                 rows={rows}
-                totalRecords={favorites.length}
+                totalRecords={newusuario.length}
                 onPageChange={onPageChange}
                 rowsPerPageOptions={[9, 18, 27]}
                 template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"

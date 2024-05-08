@@ -13,7 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
-
+  const { isAuthenticated } = useAuth0();
   // useEffect(() => {
   //   if (favorites && favorites.length > 0) {
   //     setIsFav(favorites.some((fav) => fav.ISBN === book.ISBN));
@@ -57,7 +57,6 @@ const Card = ({ book, favorites, showFavoriteButton, idauth }) => {
   const handleBuyButton = () => {
     handleAddToCart();
   };
-  console.log(favorite);
   return (
     <div
       className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
