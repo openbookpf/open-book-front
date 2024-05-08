@@ -85,12 +85,12 @@ const Dashboard = () => {
   const adminEmail = "openbooklibrary.dev@gmail.com";
   const chartData = useSelector((state) => state.chartData);
   return (
-    <div className="mt-16 py-5 bg-blue-1 w-full h-svh flex flex-col justify-center  px-10 items-center">
+    <div className="mt-16 py-5 bg-blue-1 w-full h-full flex flex-col justify-center  px-10 items-center">
       <h1 className="text-3xl font-semibold text-white-0 text-center">
         Admin Dashboard
       </h1>
 
-      <div className="flex flex-row justify-between mb-4 gap-2 mx-auto w-full mt-6">
+      <div className="flex flex-row justify-between mb-4 gap-4 mx-auto w-full mt-6">
         {dataTop.map((data) => (
           <TopCard
             key={data}
@@ -100,7 +100,7 @@ const Dashboard = () => {
           />
         ))}
       </div>
-      <div className="flex flex-row w-full gap-6 justify-between h-96">
+      <div className="flex flex-row w-full gap-4 justify-between h-96">
         <div className="bg-white-0 shadow-md p-2 w-3/5 rounded-md mb-2">
           <BarChart data={chartData} />
         </div>
