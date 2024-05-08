@@ -27,6 +27,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Products from "./views/Products/Products";
 import UsersList from "./views/UsersList/UsersList";
 import CreateUserForm from "./components/Admin/Users/CreateUserForm";
+import EditUserProfile from "./views/UserProfile/EditUserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-user-profile" element={<EditUserProfile />} />
       </Routes>
     </div>
   );
