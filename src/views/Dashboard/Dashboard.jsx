@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
-import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
-import GraphicChart from "../../components/GraphicChart/GraphicChart";
+// import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
+// // import GraphicChart from "../../components/GraphicChart/GraphicChart";
 import axios from "axios";
 import BarChart from "../../components/GraphicChart/BarChart";
 import PieChart from "../../components/GraphicChart/PieChart";
-
 
 const Dashboard = () => {
   const [dataTop, setDataTop] = useState([

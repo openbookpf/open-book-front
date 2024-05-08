@@ -222,11 +222,11 @@ export const validationsForm = (key, value, errorForm, setErrorForm) => {
   //?-User type validation
 
   if (key === "user_type") {
-    if (!value || value === "Select an option") {
+    if (!value || value === "select an option") {
       return setErrorForm({ ...errorForm, [key]: "Este campo es obligatorio" });
+    } else {
+      return setErrorForm({ ...errorForm, [key]: "" });
     }
-
-    return setErrorForm({ ...errorForm, [key]: "" });
   }
 };
 
@@ -243,4 +243,3 @@ export const validationImg = (selectedFile, errorForm, setErrorForm) => {
   }
   return setErrorForm({ ...errorForm, img: "" });
 };
-

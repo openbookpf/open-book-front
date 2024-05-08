@@ -51,7 +51,7 @@ const CreateUserForm = () => {
       });
     }
 
-    if (errorForm.email || errorForm.password || userData.user_type) {
+    if (errorForm.email || errorForm.password || errorForm.user_type) {
       const wrongFields = [];
       for (let key in errorForm) {
         if (errorForm[key]) {
@@ -85,10 +85,11 @@ const CreateUserForm = () => {
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const response = await axios.post(
-        "https://open-book-back.onrender.com/users",
-        { email_address: email, password: password }
-      );
+      const response = await axios.post("http://localhost:3001/users", {
+        email_address: email,
+        password: password,
+        user_type: userRole,
+      });
       setUserData(formInitialState);
       return Swal.fire({
         title: "User registered correctly!",
@@ -201,7 +202,7 @@ const CreateUserForm = () => {
             {!isMatch && <p className="text-red-500">Passwords do not match</p>}
             <div className="w-5/6 flex mt-3">
               <label className="mr-3 font-semibold" htmlFor="confirmPassword">
-                Select User Role:
+                Select user type:
               </label>
               <select
                 name="user_type"
@@ -210,13 +211,13 @@ const CreateUserForm = () => {
                 onChange={handleUserRoleChange}
                 className={
                   errorForm.user_type
-                    ? "rounded-xl  border-2 grow"
-                    : "rounded-xl border-2 border-orange-0 grow"
+                    ? "rounded-xl border-2 border-orange-0 grow"
+                    : "rounded-xl  border-2 grow"
                 }
               >
                 <option value="select an option">select an option</option>
-                <option value="Admin">Admin</option>
-                <option value="Admin">Shopper</option>
+                <option value="admin">Admin</option>
+                <option value="shopper">Shopper</option>
               </select>
             </div>
             <button
