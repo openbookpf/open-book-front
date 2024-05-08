@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 const SelectButton = ({ selectMenuOpen, setSelectMenuOpen, user }) => {

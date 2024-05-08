@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
-import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
-// import GraphicChart from "../../components/GraphicChart/GraphicChart";
+
 import axios from "axios";
 import BarChart from "../../components/GraphicChart/BarChart";
 import PieChart from "../../components/GraphicChart/PieChart";
@@ -78,28 +77,35 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-    const adminEmail = "openbooklibrary.dev@gmail.com";
-    const chartData = useSelector((state) => state.chartData);
-    return (
-        <div className="mt-16 py-5 bg-blue-1 w-full h-svh flex flex-col justify-center  px-10 items-center">
-            <h1 className="text-3xl font-semibold text-white-0 text-center">Admin Dashboard</h1>
+  const adminEmail = "openbooklibrary.dev@gmail.com";
+  const chartData = useSelector((state) => state.chartData);
+  return (
+    <div className="mt-16 py-5 bg-blue-1 w-full h-full flex flex-col justify-center  px-10 items-center">
+      <h1 className="text-3xl font-semibold text-white-0 text-center">
+        Admin Dashboard
+      </h1>
 
-            <div className="flex flex-row justify-between mb-4 gap-2 mx-auto w-full mt-6">
-                {dataTop.map((data) => (
-                    <TopCard key={data} title={data.title} data={data.data} subtitle={data.subtitle} />
-                ))}
-            </div>
-            <div className="flex flex-row w-full gap-6 justify-between h-96">
-                <div className="bg-white-0 shadow-md p-2 w-3/5 rounded-md mb-2">
-                    <BarChart data={chartData} />
-                </div>
-                <div className="bg-white-0 shadow-md p-2 w-2/5 rounded-md mb-2">
-                    <PieChart data={chartData} className="self-end w-full h-full" />
-                </div>
-            </div>
+      <div className="flex flex-row justify-between mb-4 gap-4 mx-auto w-full mt-6">
+        {dataTop.map((data) => (
+          <TopCard
+            key={data}
+            title={data.title}
+            data={data.data}
+            subtitle={data.subtitle}
+          />
+        ))}
+      </div>
+      <div className="flex flex-row w-full gap-4 justify-between h-96">
+        <div className="bg-white-0 shadow-md p-2 w-3/5 rounded-md mb-2">
+          <BarChart data={chartData} />
+        </div>
+        <div className="bg-white-0 shadow-md p-2 w-2/5 rounded-md mb-2">
+          <PieChart data={chartData} className="self-end w-full h-full" />
+        </div>
+      </div>
 
             <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
-                {/* <LastSales /> */}
+                
             </div>
         </div>
     );

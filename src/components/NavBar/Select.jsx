@@ -23,24 +23,17 @@ const Select = ({ selectMenuOpen, setSelectMenuOpen }) => {
                         >
                             Profile
                         </Link>
-                        {user.email === adminEmail ? (
-                            <>
-                                <Link
-                                    onClick={() => setSelectMenuOpen(!selectMenuOpen)}
-                                    to="/admin"
-                                    className="align-middle p-1 transition-transform delay-50"
-                                >
-                                    Dashboard
-                                </Link>
-                                {/* <Link
-                  to="/create_book"
-                  className="text-white-0 hover:bg-[#D48620] bg-orange-0 align-middle my-auto rounded-lg text-sm font-medium hover:scale-105 transition-transform delay-50"
+                        {user.user_type === "admin" ? (
+              <>
+                <Link
+                  to="/admin"
+             onClick={() => setSelectMenuOpen(!selectMenuOpen)}
+                  className="align-middle p-1 transition-transform delay-50"
                 >
-                  <div className="flex flex-row gap-1 p-1 align-middle mx-auto my-auto">
-                    <p className="my-auto px-2"> Add Book</p>
-                    <IoMdAdd className="text-2xl " />
-                  </div>
-                </Link> */}
+                  Dashboard
+                </Link>
+                           
+                
                             </>
                         ) : (
                             <>
