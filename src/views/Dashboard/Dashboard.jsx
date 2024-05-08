@@ -7,81 +7,85 @@ import BarChart from "../../components/GraphicChart/BarChart";
 import PieChart from "../../components/GraphicChart/PieChart";
 
 const Dashboard = () => {
-    const [dataTop, setDataTop] = useState([
-        {
-            title: "Total revenue",
-            data: null,
-            subtitle: "These values are calculated in US dollars",
-        },
-        {
-            title: "Sold books",
-            data: null,
-            subtitle: "These values are calculated since the library was opened",
-        },
-        {
-            title: "Users registered",
-            data: null,
-            subtitle: "These values are calculated since the library was opened",
-        },
-    ]);
+  const [dataTop, setDataTop] = useState([
+    {
+      title: "Total revenue",
+      data: null,
+      subtitle: "These values are calculated in US dollars",
+    },
+    {
+      title: "Sold books",
+      data: null,
+      subtitle: "These values are calculated since the library was opened",
+    },
+    {
+      title: "Users registered",
+      data: null,
+      subtitle: "These values are calculated since the library was opened",
+    },
+  ]);
 
-    async function countUserTypes() {
-        try {
-            const response = await axios.get("https://open-book-back.onrender.com/users");
-            let adminCount = 0;
-            let shopperCount = 0;
+  async function countUserTypes() {
+    try {
+      const response = await axios.get(
+        "https://open-book-back.onrender.com/users"
+      );
+      let adminCount = 0;
+      let shopperCount = 0;
 
-            response.data.forEach((user) => {
-                if (user.user_type === "admin") {
-                    adminCount++;
-                } else if (user.user_type === "shopper") {
-                    shopperCount++;
-                }
-            });
-
-            return { adminCount, shopperCount };
-        } catch (error) {
-            console.error(error);
+      response.data.forEach((user) => {
+        if (user.user_type === "admin") {
+          adminCount++;
+        } else if (user.user_type === "shopper") {
+          shopperCount++;
         }
+      });
+
+      return { adminCount, shopperCount };
+    } catch (error) {
+      console.error(error);
     }
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("https://open-book-back.onrender.com/orders/payments-and-orders");
-                const { shopperCount } = await countUserTypes();
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://open-book-back.onrender.com/orders/payments-and-orders"
+        );
+        const { shopperCount } = await countUserTypes();
 
-                setDataTop((prevDataTop) =>
-                    prevDataTop.map((item) => {
-                        if (item.title === "Total revenue") {
-                            return { ...item, data: "$" + response.data.total_sales_amount };
-                        } else if (item.title === "Sold books") {
-                            return {
-                                ...item,
-                                data: response.data.total_sold_books + " units",
-                            };
-                        } else if (item.title === "Users registered") {
-                            return {
-                                ...item,
-                                data: shopperCount,
-                            };
-                        } else {
-                            return item;
-                        }
-                    })
-                );
-            } catch (error) {
-                console.error(error);
+        setDataTop((prevDataTop) =>
+          prevDataTop.map((item) => {
+            if (item.title === "Total revenue") {
+              return { ...item, data: "$" + response.data.total_sales_amount };
+            } else if (item.title === "Sold books") {
+              return {
+                ...item,
+                data: response.data.total_sold_books + " units",
+              };
+            } else if (item.title === "Users registered") {
+              return {
+                ...item,
+                data: shopperCount,
+              };
+            } else {
+              return item;
             }
-        };
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
   const adminEmail = "openbooklibrary.dev@gmail.com";
   const chartData = useSelector((state) => state.chartData);
   return (
-    <div className="mt-16 py-5 bg-blue-1 w-full h-full flex flex-col justify-center  px-10 items-center">
-      <h1 className="text-3xl font-semibold text-white-0 text-center">
+    <div className="mt-16 py-10 bg-blue-1 w-full h-full flex flex-col justify-center px-10 items-center">
+      <h1 className="text-3xl bg-cyan-0 my-2 px-14 py-3 rounded-full font-semibold text-white-0 text-center">
         Admin Dashboard
       </h1>
 
@@ -103,12 +107,8 @@ const Dashboard = () => {
           <PieChart data={chartData} className="self-end w-full h-full" />
         </div>
       </div>
-
-            <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
-                
-            </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Dashboard;
