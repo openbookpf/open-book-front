@@ -93,7 +93,7 @@ const ReviewForm = (props) => {
 
     return (
         <div className="z-30 w-screen h-screen fixed bg-black bg-opacity-30">
-            <div className="container w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] bg-opacity-95 mx-auto mt-20 shadow-2xl p-5">
+            <div className="container mv:min-w-80 sm:w-4/5 lg:w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] bg-opacity-95 mx-auto mt-20 shadow-2xl p-5">
                 <div className="flex justify-between items-center">
                     <p className="text-xl truncate">
                         Add a review for <strong className="text-2xl">{bookTitle}</strong>

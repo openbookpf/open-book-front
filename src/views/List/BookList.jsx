@@ -6,6 +6,7 @@ import arrayGenres from "../../data/arrayGenres";
 import { Paginator } from "primereact/paginator";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import { FiMenu } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {
@@ -39,6 +40,15 @@ const BookList = () => {
   const [selectedTitle, setSelectedTitle] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
 
+  const [showFilters, setShowFilters] = useState(false);
+
+  const handleShowFilters = () => {
+    if (showFilters) {
+      setShowFilters(false);
+    } else {
+      setShowFilters(true);
+    }
+  };
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(9);
 
@@ -84,24 +94,27 @@ const BookList = () => {
     }
   };
 
-  const handleCloseFilter = (filter) => {
-    const filterToRemove = Object.keys(appliedFilters).find(
-      (key) => appliedFilters[key] === filter
-    );
-    dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
-    dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
-  };
-
   return (
     <div className="mt-20 flex flex-col w-sreen px-10">
       <div className="flex flex-row">
-        <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
+        <div className="mv:hidden lg:flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
           <Filter />
         </div>
 
-        <div className="flex flex-col basis-11/12 w-full ml-10">
+        <div className="flex flex-col basis-11/12 w-full mv:ml-0 sm:ml-10">
           <div className="flex flex-col h-10 items-center justify-items-end">
-            <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-row justify-between mv:w-screen mv:px-4 sm:w-full">
+              <div className="lg:hidden">
+                <FiMenu
+                  onClick={handleShowFilters}
+                  className="bg-orange-0 bg-opacity-15 shadow-full rounded-full h-min text-4xl duration-200 hover:bg-orange-0 hover:bg-opacity-30 cursor-pointer p-2"
+                />
+                {showFilters ? (
+                  <div className="absolute bg-[#fef3ed] shadow-2xl rounded-xl h-min w-80">
+                    <Filter menu={true} setShowFilters={setShowFilters} />
+                  </div>
+                ) : null}
+              </div>
               <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
                 <div className="text-lg flex justify-end ">
                   <p className="pr-2">Sort by:</p>
@@ -117,20 +130,25 @@ const BookList = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center content-start grow">
-            {/* <div className="grid grid-cols-4 my-11 gap-6 mx-auto p-2 "> */}
-            <div className="flex flex-wrap content-start my-11 p-2 ">
-              {books.slice(first, first + rows).map((book) => (
-                <Card
-                  book={book}
-                  key={book.ISBN}
-                  favorites={favorites}
-                  idauth={idauth}
-                  showFavoriteButton={true}
-                />
-              ))}
+          {books.length ? (
+            <div className="flex flex-col content-start grow">
+              <div className="flex flex-wrap mv:justify-center lg:justify-start sm:content-start my-11 ">
+                {books.slice(first, first + rows).map((book) => (
+                  <Card
+                    book={book}
+                    key={book.ISBN}
+                    favorites={favorites}
+                    showFavoriteButton={true}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center">
+              <p className="text-2xl">No books found</p>
+              <HiOutlineEmojiSad className="ml-3" />
+            </div>
+          )}
         </div>
       </div>
 

@@ -29,7 +29,6 @@ const Banner = () => {
         <button className="h-10 z-30 hover:bg-[#D48620] bg-orange-0 transition-colors delay-50 rounded-lg font-medium">
           <Link
             to="/create_book"
-            target="_blank"
             className="text-white-0  hover:scale-105 transition-transform delay-50"
           >
             <div className="flex flex-row gap-1 p-1 align-middle mx-auto my-auto text-sm">

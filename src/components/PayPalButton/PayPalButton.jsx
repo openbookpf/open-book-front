@@ -8,9 +8,9 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
 const PayPalButton = () => {
-  const { user } = useAuth0();
   const cartProducts = useSelector((state) => state.items);
   const totalValue = useSelector((state) => state.cartTotalPrice);
+  const { user } = useAuth0();
 
   console.log(cartProducts);
   const body = {
@@ -23,6 +23,7 @@ const PayPalButton = () => {
   }, [totalValue]);
 
   const createOrder = (cartProducts, totalValue, actions) => {
+    console.log("THIS IS THE USER", user);
     // Order is created on the server and the order id is returned
     return fetch("https://open-book-back.onrender.com/orders/", {
       method: "POST",
@@ -76,8 +77,6 @@ const PayPalButton = () => {
   };
 
   const onApprove = (data, actions) => {
-    console.log(data);
-    // Alert success --------------------------
     Swal.fire({
       title: "The payment was made correctly!",
       text: "Thank you for trusting OpenBook, please check your email to see your invoice or check the profile section for more details about your purchase!",
@@ -109,6 +108,8 @@ const PayPalButton = () => {
           name: user.name,
           emailAddress: user.email,
           totalValue: totalValue,
+          idAuthZero: user.sub,
+          cart: cartProducts,
         }),
       }
     ).then((response) => response.json());

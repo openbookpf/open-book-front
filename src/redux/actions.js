@@ -245,7 +245,7 @@ export const getBooks = () => {
 
       dispatch({
         type: GET_BOOKS,
-        payload: data,
+        payload: filteredBooks,
       });
     } catch (error) {
       console.error(error);
@@ -300,11 +300,15 @@ export const getBooksFilter = (objFilters) => {
         objFilters
       );
 
-      localStorage.setItem("booksFilters", JSON.stringify(response.data));
+      const filteredBooks = response.data.filter(
+        (book) => book.book_status === true
+      );
+
+      localStorage.setItem("booksFilters", JSON.stringify(filteredBooks));
 
       dispatch({
         type: GET_BOOKS_FILTERS,
-        payload: response.data,
+        payload: filteredBooks,
       });
     } catch (error) {
       console.error(error);

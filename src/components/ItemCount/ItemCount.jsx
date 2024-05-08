@@ -17,12 +17,12 @@ function ItemCount({ counter, onAdd, onSubtract, onChange }) {
     };
 
     return (
-        <div className="container ">
+        <div>
             <div className="row">
                 <div className="col-xs-3 col-xs-offset-3">
                     <div className="flex items-center justify-center">
                         <button
-                            className="bg-[#fef3ed] hover:bg-gray-200 text-gray-700 font-bold h-12 py-2 px-4 rounded-l"
+                            className="bg-[#fef3ed] hover:bg-gray-200 text-gray-700 font-bold mv:h-10 md:h-12 py-2 px-4 rounded-l"
                             onClick={handleSubtract}
                         >
                             -
@@ -31,11 +31,11 @@ function ItemCount({ counter, onAdd, onSubtract, onChange }) {
                         <input
                             type="text"
                             onChange={handleChange}
-                            className="form-control text-center w-24 h-12"
+                            className="form-control text-center mv:w-10 mv:h-10 md:w-24 md:h-12"
                             value={counter}
                         />
                         <button
-                            className="bg-[#fef3ed] hover:bg-gray-200 text-gray-700 font-bold h-12 py-2 px-4 rounded-r"
+                            className="bg-[#fef3ed] hover:bg-gray-200 text-gray-700 font-bold mv:h-10 md:h-12 py-2 px-4 rounded-r"
                             onClick={handleAdd}
                         >
                             +
