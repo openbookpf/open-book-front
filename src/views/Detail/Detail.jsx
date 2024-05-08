@@ -141,7 +141,7 @@ function Detail() {
                   ))}
                 </div>
                 <hr className="my-4 border-gray-300 w-full" />
-                <p className="text-gray-700 mt-2 mb-4 font-bold text-xl">
+                {/* <p className="text-gray-700 mt-2 mb-4 font-bold text-xl">
                   Share:
                 </p>
                 <div className="mt-1 mb-3 flex space-x-4">
@@ -149,7 +149,7 @@ function Detail() {
                   <BsTwitterX className="hover:scale-125 transition-transform delay-50 ease-linear cursor-pointer" />
                   <BsWhatsapp className="hover:scale-125 transition-transform delay-50 ease-linear cursor-pointer" />
                 </div>
-                <hr className="my-4 border-gray-300 w-full" />
+                <hr className="my-4 border-gray-300 w-full" /> */}
                 <div className="flex flex-col">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center mb-2">
