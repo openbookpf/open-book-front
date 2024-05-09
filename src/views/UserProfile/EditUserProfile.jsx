@@ -2,23 +2,29 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const EditUserProfile = () => {
-  const { user, isAuthenticated } = useAuth0();
-  const [profilePictureUrl, setProfilePictureUrl] = React.useState(
-    user.picture
-  );
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const [profilePictureUrl, setProfilePictureUrl] = React.useState(null);
+  const navigate = useNavigate();
 
-  console.log(user);
-  const initialState = {
-    user_name: user.name,
-    email_address: user.email,
-    phone_number: user.user_phone_number,
-    address_street: user.address_street,
-    picture: user.picture,
-  };
-  const [editedProfileForm, setEditedProfileForm] =
-    React.useState(initialState);
+  React.useEffect(() => {
+    if (!isLoading) {
+      setEditedProfileForm({
+        user_name: user.name,
+        email_address: user.email,
+        phone_number: user.user_phone_number,
+        address_street: user.address_street,
+        picture: user.picture,
+      });
+      setProfilePictureUrl(user.picture);
+    } else {
+      return undefined;
+    }
+  }, [isLoading]);
+
+  const [editedProfileForm, setEditedProfileForm] = React.useState(null);
 
   function handleChange(event) {
     const value = event.target.value;
@@ -70,11 +76,17 @@ const EditUserProfile = () => {
         console.log("Registro creado con éxito:", nuevoRegistro);
         return Swal.fire({
           title: "User data has been udpated correctly!",
-          text: "The changes you just made will be displayed on your next session.",
+          text: "The changes has been made successfully.",
           icon: "success",
           confirmButtonText: "Ok",
           confirmButtonColor: "#81B29A",
           background: "#fef3ed",
+        }).then((willDelete) => {
+          if (willDelete) {
+            location.reload();
+          } else {
+            return null;
+          }
         });
       } else {
         console.error("Error al crear el registro:", response.statusText);
@@ -112,8 +124,8 @@ const EditUserProfile = () => {
   };
 
   return (
-    editedProfileForm &&
-    isAuthenticated && (
+    !isLoading &&
+    editedProfileForm && (
       <div>
         <div className="flex justify-center mt-24">
           <form
@@ -130,7 +142,7 @@ const EditUserProfile = () => {
             <img
               className="w-40 mx-auto rounded-full"
               src={profilePictureUrl}
-              alt={user.name}
+              alt={editedProfileForm.name}
             />
 
             <div className="flex flex-col items-center">
