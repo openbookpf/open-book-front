@@ -29,6 +29,7 @@ import UsersList from "./views/UsersList/UsersList";
 import CreateUserForm from "./components/Admin/Users/CreateUserForm";
 import Footer from "./components/Footer/Footer";
 import EditUserProfile from "./views/UserProfile/EditUserProfile";
+import NotFoundPage from "./views/NotFoundPage/NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-user-profile" element={<EditUserProfile />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>{" "}
       <Footer />
     </div>

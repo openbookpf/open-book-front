@@ -11,12 +11,12 @@ const CreateBookForm = () => {
     ISBN: "",
     book_title: "",
     author: "",
-    genres: [],
+    genre: [],
     book_description: "",
     price: 0,
     editorial: "",
     year_of_edition: "",
-    lenguage: "",
+    language: "",
     age_segment: "",
   };
   const [selectedFile, setSelectedFile] = useState(null);
@@ -27,13 +27,13 @@ const CreateBookForm = () => {
     ISBN: "",
     book_title: "",
     author: "",
-    genres: "",
+    genre: "",
     book_description: "",
     price: "",
     img: "",
     editorial: "",
     year_of_edition: "",
-    lenguage: "",
+    language: "",
     age_segment: "",
   });
 
@@ -59,16 +59,17 @@ const CreateBookForm = () => {
 
   const handleUpload = async (event) => {
     event.preventDefault();
+    console.log(bookData);
 
     if (
       !bookData.ISBN ||
       !bookData.book_title ||
       !bookData.author ||
-      !bookData.genres ||
+      !bookData.genre ||
       !bookData.book_description ||
       !bookData.editorial ||
       !bookData.year_of_edition ||
-      !bookData.lenguage ||
+      !bookData.language ||
       !bookData.age_segment ||
       !bookData.price ||
       !selectedFile
@@ -97,11 +98,11 @@ const CreateBookForm = () => {
       errorForm.ISBN ||
       errorForm.book_title ||
       errorForm.author ||
-      errorForm.genres ||
+      errorForm.genre ||
       errorForm.book_description ||
       errorForm.editorial ||
       errorForm.year_of_edition ||
-      errorForm.lenguage ||
+      errorForm.language ||
       errorForm.age_segment ||
       errorForm.price ||
       errorForm.img
@@ -139,10 +140,10 @@ const CreateBookForm = () => {
       formData.append("book_title", bookData.book_title);
       formData.append("author", bookData.author);
       formData.append("book_description", bookData.book_description);
-      formData.append("genres", bookData.genres);
+      formData.append("genre", bookData.genre);
       formData.append("editorial", bookData.editorial);
       formData.append("year_of_edition", Number(bookData.year_of_edition));
-      formData.append("lenguage", bookData.lenguage);
+      formData.append("language", bookData.language);
       formData.append("age_segment", Number(bookData.age_segment));
       formData.append("price", Number(bookData.price));
 
@@ -160,9 +161,9 @@ const CreateBookForm = () => {
 
       // Send the image data to your backend
       const response = await axios.post(
-        "https://open-book-back.onrender.com/book",
+        // "https://open-book-back.onrender.com/books",
 
-        // "http://localhost:3001/book",
+        "http://localhost:3001/books",
         formData,
         config,
         {
@@ -210,7 +211,7 @@ const CreateBookForm = () => {
 
     // Manejar el cambio para los checkboxes de género
     if (name === "genres") {
-      let updatedGenres = [...bookData.genres];
+      let updatedGenres = [...bookData.genre];
       if (checked) {
         if (updatedGenres.length < 3) {
           updatedGenres.push(value);
@@ -223,7 +224,7 @@ const CreateBookForm = () => {
       }
       setBookData((prevData) => ({
         ...prevData,
-        genres: updatedGenres,
+        genre: updatedGenres,
       }));
     } else {
       validationsForm(name, value, errorForm, setErrorForm);
@@ -235,7 +236,7 @@ const CreateBookForm = () => {
     const key = event.target.name;
     const value = event.target.value;
 
-    validationsForm(key, value, errorForm, setErrorForm);
+    // validationsForm(key, value, errorForm, setErrorForm);
 
     updateData(key, value);
   };
@@ -398,10 +399,10 @@ const CreateBookForm = () => {
             </label>
             <Tooltip className="text-xs " id="age-description" />
             <input
-              name="age"
-              type="number"
+              name="age_segment"
+              type="text"
               autoComplete="off"
-              value={bookData.ageSegment}
+              value={bookData.age_segment}
               onChange={handleDataChange}
               className={
                 errorForm.age_segment
@@ -425,24 +426,24 @@ const CreateBookForm = () => {
 
           {/* LENGUAGE INPUT FIELD */}
           <div className="w-5/6 flex mt-3">
-            <label className=" mr-3 font-semibold" htmlFor="lenguage">
-              Lenguage:
+            <label className=" mr-3 font-semibold" htmlFor="language">
+              Language:
             </label>
             <input
-              name="lenguage"
+              name="language"
               type="text"
               autoComplete="off"
-              value={bookData.lenguage}
+              value={bookData.language}
               onChange={handleDataChange}
               className={
-                errorForm.lenguage
+                errorForm.language
                   ? "rounded-xl border-2 border-orange-0 grow"
                   : "rounded-xl border-2 grow"
               }
             />
             <div
               data-tooltip-id="Lenguage-tooltip"
-              data-tooltip-content={errorForm.lenguage}
+              data-tooltip-content={errorForm.language}
               className="flex justify-center items-center"
             >
               <MdError
@@ -458,7 +459,7 @@ const CreateBookForm = () => {
           <div className="w-5/6 flex mt-3">
             <label
               className="mr-3 font-semibold"
-              htmlFor="year"
+              htmlFor="year_of_edition"
               data-tooltip-id="year-description"
               data-tooltip-content={yearEdition}
             >
@@ -466,7 +467,7 @@ const CreateBookForm = () => {
             </label>
             <Tooltip className="text-xs" id="year-description" />
             <input
-              name="year"
+              name="year_of_edition"
               type="number"
               autoComplete="off"
               value={bookData.yearEdition}
@@ -500,7 +501,7 @@ const CreateBookForm = () => {
                   type="checkbox"
                   name="genres"
                   value={genre}
-                  checked={bookData.genres.includes(genre)}
+                  checked={bookData.genre.includes(genre)}
                   onChange={handleGenre}
                 />
                 <label className="ml-1">{genre}</label>

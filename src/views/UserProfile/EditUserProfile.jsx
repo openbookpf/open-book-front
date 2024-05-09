@@ -151,6 +151,7 @@ const EditUserProfile = () => {
                   type="file"
                   name="picture"
                   onChange={handleProfilePictureUpload}
+                  accept="image/png, image/jpeg"
                 />
               </div>
               <div className="w-5/6 flex mt-3">
