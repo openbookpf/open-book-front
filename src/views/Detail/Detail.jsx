@@ -9,18 +9,17 @@ import { addToCart } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ShowReviews from "../../components/ReviewCard/ShowReviews";
-import { Rating } from "@mui/material";
+import { Rating, nativeSelectClasses } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Detail() {
+  const navigate = useNavigate();
   const { isbn } = useParams();
   const [bookData, setBookData] = useState(null);
   const [sameGenreBooks, setSameGenreBooks] = useState([]);
   const [showReviews, setShowReviews] = useState(false);
 
-  const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn.replace(
-    /\D/g,
-    ""
-  )}`;
+  const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn}`;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +29,7 @@ function Detail() {
         setBookData(response.data);
       } catch (error) {
         console.error("Error al obtener el libro:", error);
+        navigate("/404-Page-Not-Found");
       }
     }
 

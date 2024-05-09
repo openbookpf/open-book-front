@@ -73,6 +73,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-user-profile" element={<EditUserProfile />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/404-Page-Not-Found" element={<NotFoundPage />} />
       </Routes>{" "}
       <Footer />
     </div>
