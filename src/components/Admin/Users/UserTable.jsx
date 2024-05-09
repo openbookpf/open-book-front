@@ -7,10 +7,12 @@ import {
   LuUserCircle2,
   LuLock,
   LuUnlock,
+  LuShoppingCart,
 } from "react-icons/lu";
 import axios from "axios";
 import DeleteUserModal from "./DeleteUserModal";
 import EditUsersModal from "./EditUsersModal";
+import { Link } from "react-router-dom";
 
 const UserTable = () => {
   const dispatch = useDispatch();
@@ -97,19 +99,20 @@ const UserTable = () => {
       <div className="flex gap-2"></div>
       <table className="table-auto p-5 border-collapse ">
         <thead>
-          <tr className="bg-blue-0 text-white-0 grid grid-cols-6 gap-2 mb-1 text-lg rounded-md">
+          <tr className="bg-blue-0 text-white-0 grid grid-cols-7 gap-2 mb-1 text-lg rounded-md">
             <th className="font-medium p-2">ID</th>
             <th className="font-medium p-2">Name </th>
             <th className="font-medium p-2">Email address</th>
             <th className="font-medium p-2">User Type</th>
             <th className="font-medium p-2">Actions</th>
             <th className="font-medium p-2">Status</th>
+            <th className="font-medium p-2">Orders</th>
           </tr>
         </thead>
         <tbody className="text-center text-sm">
           {users.map((user) => (
             <tr
-              className="bg-white-1 hover:bg-white-2 text-blue-1 transition-colors delay-50 grid grid-cols-6 mb-2 text-sm rounded-md"
+              className="bg-white-1 hover:bg-white-2 text-blue-1 transition-colors delay-50 grid grid-cols-7 mb-2 text-sm rounded-md"
               key={user.idAuth0}
             >
               <td className="font-light my-auto p-2">{user.idAuth0}</td>
@@ -127,8 +130,12 @@ const UserTable = () => {
                 </>
               ) : (
                 <>
-                  <td className="p-2 my-auto">{user.user_name}</td>
-                  <td className="p-2 my-auto">{user.email_address}</td>
+                  <td className="p-2 mx-1 truncate my-auto">
+                    {user.user_name}
+                  </td>
+                  <td className="p-2 mx-1 truncate my-auto">
+                    {user.email_address}
+                  </td>
                   <td className="p-2 my-auto">{user.user_type}</td>
                 </>
               )}
@@ -166,6 +173,16 @@ const UserTable = () => {
                   <p className="text-red-600">Unavailable</p>
                 )}
               </td>{" "}
+              <td className="my-auto p-2">
+                <Link
+                  to={`/shoplist/${user.idAuth0}`}
+                  rel="noopener noreferrer"
+                  className="flex flex-row gap-2 bg-cyan-0 p-1  hover:cursor-pointer  delay-50 hover:bg-cyan-1 transition-colors text-white-0 justify-center my-auto rounded-lg"
+                >
+                  <p className="font-normal text-base">See orders</p>
+                  <LuShoppingCart className="my-auto" />
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

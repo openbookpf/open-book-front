@@ -29,6 +29,8 @@ import UsersList from "./views/UsersList/UsersList";
 import CreateUserForm from "./components/Admin/Users/CreateUserForm";
 import Footer from "./components/Footer/Footer";
 import EditUserProfile from "./views/UserProfile/EditUserProfile";
+import Shoplist from "./views/Shoplist/Shoplist";
+import UserShoplist from "./components/Admin/Shoplist/UserShoplist";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,7 +61,9 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/users" element={<UsersList />} />
         <Route path="/books" element={<BookList />} />
+        <Route path="/shoplist/:idAuth0" element={<UserShoplist />} />
         <Route path="/detail/:isbn" element={<Detail />} />
+        <Route path="/shoplist" element={<Shoplist />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
         <Route path="/create_user" element={<CreateUserForm />} />
