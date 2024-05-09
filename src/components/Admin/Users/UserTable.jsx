@@ -97,10 +97,11 @@ const UserTable = () => {
       <div className="flex gap-2"></div>
       <table className="table-auto p-5 border-collapse ">
         <thead>
-          <tr className="bg-blue-0 text-white-0 grid grid-cols-5 gap-2 mb-1 text-lg rounded-md">
+          <tr className="bg-blue-0 text-white-0 grid grid-cols-6 gap-2 mb-1 text-lg rounded-md">
             <th className="font-medium p-2">ID</th>
             <th className="font-medium p-2">Name </th>
             <th className="font-medium p-2">Email address</th>
+            <th className="font-medium p-2">User Type</th>
             <th className="font-medium p-2">Actions</th>
             <th className="font-medium p-2">Status</th>
           </tr>
@@ -108,12 +109,29 @@ const UserTable = () => {
         <tbody className="text-center text-sm">
           {users.map((user) => (
             <tr
-              className="bg-white-1 hover:bg-white-2 text-blue-1 transition-colors delay-50 grid grid-cols-5 mb-2 text-sm rounded-md"
+              className="bg-white-1 hover:bg-white-2 text-blue-1 transition-colors delay-50 grid grid-cols-6 mb-2 text-sm rounded-md"
               key={user.idAuth0}
             >
               <td className="font-light my-auto p-2">{user.idAuth0}</td>
-              <td className=" p-2  my-auto">{user.user_name}</td>
-              <td className="p-2  my-auto">{user.email_address}</td>
+              {user.user_type === "admin" ? (
+                <>
+                  <td className="p-2 font-semibold my-auto">
+                    {user.user_name}
+                  </td>
+                  <td className="p-2 font-semibold my-auto">
+                    {user.email_address}
+                  </td>
+                  <td className="p-2 font-semibold my-auto">
+                    {user.user_type}
+                  </td>
+                </>
+              ) : (
+                <>
+                  <td className="p-2 my-auto">{user.user_name}</td>
+                  <td className="p-2 my-auto">{user.email_address}</td>
+                  <td className="p-2 my-auto">{user.user_type}</td>
+                </>
+              )}
               <td className="flex flex-row  gap-2 justify-center  p-1">
                 <button
                   className="bg-cyan-0 p-2 my-auto rounded-md"
