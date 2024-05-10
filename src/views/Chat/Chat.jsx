@@ -13,8 +13,8 @@ function Chat() {
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState(() => {
     //? Cargar mensajes del localStorage o iniciar con un arreglo vacío
-    // const savedMessages = localStorage.getItem("chatMessages");
-    const savedMessages = null;
+    const savedMessages = localStorage.getItem("chatMessages");
+    // const savedMessages = null;
     return savedMessages ? JSON.parse(savedMessages) : [];
   });
   const messagesEndRef = useRef(null);
@@ -22,6 +22,15 @@ function Chat() {
   //! -user conected
   const { user, isAuthenticated, isLoading } = useAuth0();
   //! --------------
+
+  window.addEventListener("beforeunload", () => {
+    if (isAuthenticated) {
+      socket.emit("user_disconnected", {
+        user: user.name,
+        email: user.email,
+      });
+    }
+  });
 
   useEffect(() => {
     console.log(users);
@@ -31,7 +40,7 @@ function Chat() {
     if (isAuthenticated) {
       socket.on("user_connected", (data) => {
         const usersEmil = data.map((user) => user.email);
-        setUsers([...new Set(usersEmil)]);
+        setUsers([...new Set(usersEmil)].filter((u) => u !== undefined));
         // setUsers([...new Set(data)]);
       });
     }
@@ -44,6 +53,13 @@ function Chat() {
     }
 
     if (isAuthenticated) {
+      socket.on("user_disconnected", (data) => {
+        const usersEmil = data.map((user) => user.email);
+        setUsers([...new Set(usersEmil)].filter((u) => u !== undefined));
+      });
+    }
+
+    if (isAuthenticated) {
       socket.emit("newConnected", {
         message: `${user.name} has connected`,
       });
@@ -51,13 +67,11 @@ function Chat() {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    socket.on("connect", () => setIsConnected(true));
-
     socket.on("send_message", (data) => {
       setMessages((messages) => {
         const updatedMessages = [...messages, data];
         //? Guardar los mensajes actualizados en localStorage.
-        // localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+        localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
         return updatedMessages;
       });
     });
@@ -126,7 +140,7 @@ function Chat() {
       <h1 className=" mt-20 mb-3 text-2xl bg-cyan-0 text-white-0 px-4 py-1 rounded-xl h-10">
         OpenBook community
       </h1>
-      <div className="grow bg-[#fef3ed]  w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
+      <div className="grow bg-[#fef3ed] mv:w-screen sm:w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">
         <div className="flex ml-4 mb-2">
           <FaUser
             onClick={handleShowUsers}
@@ -141,17 +155,17 @@ function Chat() {
           {messages.map((msg, index = 0) =>
             user.email === msg.email ? (
               <div className="flex justify-end" key={index++}>
-                <p className="w-3/6 bg-cyan-0 bg-opacity-55 p-2 rounded-xl mt-4 text-pretty text-ellipsis overflow-hidden flex items-end">
+                <div className="w-3/6 mv:w-4/5 sm:-w-4/5 md:w-4/5 lg:w-3/6 bg-cyan-0 bg-opacity-55 p-2 rounded-xl mt-4 text-pretty text-ellipsis overflow-hidden flex items-end">
                   <div className="grow text-lg">{msg.message}</div>
                   <div className="text-sm w-9 text-white-0">{msg.hour}</div>
-                </p>
+                </div>
               </div>
             ) : (
               <div className={msg.user ? null : "flex justify-center"}>
                 <div
                   className={
                     msg.user
-                      ? "w-3/6 flex flex-col bg-orange-0 bg-opacity-30 my-4 p-2 rounded-xl"
+                      ? "w-3/6 mv:w-4/5 sm:-w-4/5 md:w-4/5 lg:w-3/6 flex flex-col bg-orange-0 bg-opacity-30 my-4 p-2 rounded-xl"
                       : "w-3/6 bg-cyan-0 bg-opacity-30 my-2 p-2 rounded-xl"
                   }
                   key={index++}
@@ -181,7 +195,7 @@ function Chat() {
             onChange={handleChange}
             value={newMessage}
             placeholder="say hello to the OpenBook community!"
-            className="mr-2 w-3/6 border-2 rounded-xl p-2"
+            className="mr-2 w-3/6 mv:w-4/5 sm:-w-4/5 md:w-4/5 lg:w-3/6 border-2 rounded-xl p-2"
             onKeyPress={handleKeyPress}
           />
           <button
@@ -197,8 +211,8 @@ function Chat() {
       ) : null}
     </div>
   ) : (
-    <div className="flex flex-col items-center h-screen">
-      <h1 className=" mt-20 mb-3 text-2xl bg-cyan-0 text-white-0 px-4 py-1 rounded-xl h-10">
+    <div className="flex bg-gradient-to-b from-blue-1 to-blue-0 flex-col items-center h-screen">
+      <h1 className=" mt-20 mb-5 text-3xl bg-cyan-0 text-white-0 px-4 py-3 rounded-full">
         OpenBook community
       </h1>
       <div className="grow bg-[#fef3ed] w-5/6 shadow-xl flex flex-col mb-5 text-xl overflow-auto rounded-xl pt-2">

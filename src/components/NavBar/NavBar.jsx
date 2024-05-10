@@ -6,22 +6,36 @@ import { FaSearch } from "react-icons/fa";
 import Searchbar from "../Searchbar/Searchbar";
 import { useSelector } from "react-redux";
 import logo from "../../assets/TrasparentLightMoodLogo.png";
+import logoResponsive from "../../assets/TrasparentLightMoodLogoResponsive.png";
 import LoginButton from "../Buttons/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import Select from "./Select";
 import SelectButton from "../Buttons/SelectButton";
 import AdminNavbar from "./AdminNavbar";
 import PriceConverter from "../PriceConverter/PriceConverter";
+import { IoChatbubblesSharp } from "react-icons/io5";
+import { FiMenu } from "react-icons/fi";
+import { set } from "react-hook-form";
+
 
 const NavBar = () => {
   const [trigger, setTrigger] = React.useState(false);
+
+  const [showLinks, setShowLinks] = useState(false);
 
   const [selectMenuOpen, setSelectMenuOpen] = useState(false); // Define selectMenuOpen y setSelectMenuOpen
 
   const cartCounter = useSelector((state) => state.totalItems || 0);
   const location = useLocation();
   const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
-  const adminEmail = "openbooklibrary.dev@gmail.com";
+  const adminEmail = "admin";
+
+  const handleShowLinks = () => {
+    if (showLinks) {
+      setShowLinks(false);
+    } else setShowLinks(true);
+  };
+
   return (
     <div>
       <nav
@@ -30,7 +44,7 @@ const NavBar = () => {
           alignItems: "center",
         }}
       >
-        {!isAuthenticated || user.email !== adminEmail ? (
+        {!isAuthenticated || user.user_type !== adminEmail ? (
           <div className="flex flex-row justify-start gap-10">
             <div
               className="justify-start ml-5 my-1"
@@ -41,12 +55,63 @@ const NavBar = () => {
                   src={logo}
                   alt="Logo"
                   style={{ width: "175px" }}
-                  className="bg-[#fef3ed] "
+                  className="bg-[#fef3ed] md:flex mv:hidden"
+                />
+              </Link>
+              <Link to="/">
+                <img
+                  src={logoResponsive}
+                  alt="Logo"
+                  style={{ width: "76px" }}
+                  className="bg-[#fef3ed] md:hidden mv:flex "
                 />
               </Link>
             </div>
             {/* ----------------- USER LINKS ------------------- */}
-            <div className="flex flex-row font-medium gap-3 my-auto">
+
+            <div className="mv:flex sm:hidden mt-5 flex-col">
+              <FiMenu onClick={handleShowLinks} className="text-2xl" />
+              {showLinks ? (
+                <div className="absolute top-20 left-20">
+                  <div className="flex flex-col bg-white-1 p-3 rounded-xl shadow-xl">
+                    <Link
+                      to="/books"
+                      className="py-1 px-2 rounded-lg "
+                      onClick={handleShowLinks}
+                    >
+                      Books
+                    </Link>
+                    <Link
+                      to="/aboutus"
+                      className="py-1 px-2 rounded-lg "
+                      onClick={handleShowLinks}
+                    >
+                      About Us
+                    </Link>
+
+                    {location.pathname !== "/chat" ? (
+                      <Link
+                        to="/chat"
+                        onClick={handleShowLinks}
+                        className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-full "
+                      >
+                        OpenBook Community
+                      </Link>
+                    ) : null}
+
+                    <button
+                      onClick={() => setTrigger(true)}
+                      className="mv:flex items-center sm:hidden mv:mt-2 mv:ml-1 mr-3 text-xl cursor-pointer"
+                    >
+                      <FaSearch className="mr-2" />
+                      Search
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="mv:hidden sm:flex flex-row font-medium gap-3 my-auto">
               <Link
                 to="/books"
                 className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
@@ -63,9 +128,17 @@ const NavBar = () => {
               {location.pathname !== "/chat" ? (
                 <Link
                   to="/chat"
-                  className="text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-full hover:scale-105 duration-200"
+                  className="mv:hidden lg:flex text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-1 rounded-full hover:scale-105 duration-200"
                 >
                   OpenBook Community
+                </Link>
+              ) : null}
+              {location.pathname !== "/chat" ? (
+                <Link
+                  to="/chat"
+                  className="mv:flex lg:hidden text-white-0 text-base font-medium bg-cyan-0 px-2 align-middle my-auto py-2 rounded-full hover:scale-105 duration-200"
+                >
+                  <IoChatbubblesSharp />
                 </Link>
               ) : null}
             </div>
@@ -74,7 +147,7 @@ const NavBar = () => {
           <AdminNavbar />
         )}
         {location.pathname !== "/" ? (
-          <div className="flex items-center grow justify-end mr-10">
+          <div className="mv:hidden sm:flex items-center grow justify-end mv:mr-5 sm:mr-10">
             <FaSearch
               onClick={() => setTrigger(true)}
               className="mr-3 text-xl cursor-pointer duration-200 hover:scale-105"
@@ -90,7 +163,7 @@ const NavBar = () => {
               <Link to="/cart">
                 <AiOutlineShoppingCart className="text-3xl align-middle my-auto hover:scale-110 transition-transform delay-50" />
                 {cartCounter > 0 && (
-                  <div className="bg-red-500 text-xs rounded-full px-2 my-auto">
+                  <div className="absolute bottom-2 bg-red-500 text-xs rounded-full w-5 h-5 flex justify-center items-center my-auto">
                     {cartCounter}
                   </div>
                 )}
@@ -108,7 +181,7 @@ const NavBar = () => {
               />{" "}
             </div>
           ) : (
-            <div className="flex flex-row mr-8 gap-5">
+            <div className="flex flex-row mv:mr-0 sm:mr-8 gap-5">
               <Link
                 to="/cart"
                 className="text-black relative align-middle my-auto "
@@ -132,7 +205,10 @@ const NavBar = () => {
       </nav>
       {trigger ? <Searchbar setTrigger={setTrigger} /> : null}
       <div className="fixed z-20 end-2 mt-2">
-        <Select selectMenuOpen={selectMenuOpen} />{" "}
+        <Select
+          setSelectMenuOpen={setSelectMenuOpen}
+          selectMenuOpen={selectMenuOpen}
+        />{" "}
       </div>
     </div>
   );

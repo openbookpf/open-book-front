@@ -6,6 +6,7 @@ import arrayGenres from "../../data/arrayGenres";
 import { Paginator } from "primereact/paginator";
 import { IoMdClose } from "react-icons/io";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import { FiMenu } from "react-icons/fi";
 
 import {
   getBooks,
@@ -19,84 +20,118 @@ import {
 } from "../../redux/actions";
 
 const BookList = () => {
-  const books = useSelector((state) => state.filteredBooks);
-  const favorites = useSelector((state) => state.favorites);
-  const selectedCurrency = useSelector((state) => state.selectedCurrency);
+
+    const books = useSelector((state) => state.filteredBooks);
+    const favorites = useSelector((state) => state.favorites);
+    const selectedCurrency = useSelector((state) => state.selectedCurrency);
   const exchangeRates = useSelector((state) => state.exchangeRates);
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const [selectedTitle, setSelectedTitle] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState("");
+    const [selectedTitle, setSelectedTitle] = useState("");
+    const [selectedPrice, setSelectedPrice] = useState("");
 
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(9);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(9);
 
-  const onPageChange = (event) => {
-    setFirst(event.first);
-    setRows(event.rows);
-  };
+    const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    dispatch(getBooks());
-  }, []);
+    const handleShowFilters = () => {
+        if (showFilters) {
+            setShowFilters(false);
+        } else {
+            setShowFilters(true);
+        }
+    };
 
-  useEffect(() => {
-    if (selectedTitle !== "") {
-      dispatch(sortByTitle(selectedTitle));
-    }
-  }, [dispatch, selectedTitle]);
+    const onPageChange = (event) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
 
-  useEffect(() => {
-    if (selectedPrice !== "") {
-      dispatch(sortByPrice(selectedPrice));
-    }
-  }, [dispatch, selectedPrice]);
+    useEffect(() => {
+        dispatch(getBooks());
+    }, []);
 
-  const handleSortChange = (event) => {
-    const [sortType, sortDirection] = event.target.value.split("-");
+    useEffect(() => {
+        if (selectedTitle !== "") {
+            dispatch(sortByTitle(selectedTitle));
+        }
+    }, [dispatch, selectedTitle]);
 
-    if (sortType === "title") {
-      setSelectedTitle(sortDirection);
-    } else if (sortType === "price") {
-      setSelectedPrice(sortDirection);
-    } else {
-      setSelectedTitle("");
-      setSelectedPrice("");
-    }
-    if (sortType === "none") {
-      dispatch;
-    }
-  };
+    useEffect(() => {
+        if (selectedPrice !== "") {
+            dispatch(sortByPrice(selectedPrice));
+        }
+    }, [dispatch, selectedPrice]);
 
-  const handleCloseFilter = (filter) => {
-    const filterToRemove = Object.keys(appliedFilters).find(
-      (key) => appliedFilters[key] === filter
-    );
-    dispatch(appliedFilter({ ...appliedFilters, [filterToRemove]: "" }));
-    dispatch(getBooksFilter({ ...appliedFilters, [filterToRemove]: "" }));
-  };
+    const handleSortChange = (event) => {
+        const [sortType, sortDirection] = event.target.value.split("-");
 
-  return (
-    <div className="mt-20 flex flex-col w-sreen px-10">
-      <div className="flex flex-row">
-        <div className="flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
-          <Filter />
-        </div>
+        if (sortType === "title") {
+            setSelectedTitle(sortDirection);
+        } else if (sortType === "price") {
+            setSelectedPrice(sortDirection);
+        } else {
+            setSelectedTitle("");
+            setSelectedPrice("");
+        }
+        if (sortType === "none") {
+            dispatch;
+        }
+    };
 
-        <div className="flex flex-col basis-11/12 w-full ml-10">
-          <div className="flex flex-col h-10 items-center justify-items-end">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
-                <div className="text-lg flex justify-end ">
-                  <p className="pr-2">Sort by:</p>
-                  <select onChange={handleSortChange} className="rounded-xl">
-                    <option value="">None</option>
-                    <option value="title-asc">Title (A - Z)</option>
-                    <option value="title-desc">Title (Z - A)</option>
-                    <option value="price-min">Price (Low - High)</option>
-                    <option value="price-max">Price (High - Low)</option>
-                  </select>
+    return (
+        <div className="mt-20 flex flex-col w-sreen px-10">
+            <div className="flex flex-row">
+                <div className="mv:hidden lg:flex basis-1/4 bg-[#fef3ed] shadow-lg rounded-xl h-min pb-10">
+                    <Filter />
+                </div>
+
+                <div className="flex flex-col basis-11/12 w-full mv:ml-0 sm:ml-10">
+                    <div className="flex flex-col h-10 items-center justify-items-end">
+                        <div className="flex flex-row justify-between mv:w-screen mv:px-4 sm:w-full">
+                            <div className="lg:hidden">
+                                <FiMenu
+                                    onClick={handleShowFilters}
+                                    className="bg-orange-0 bg-opacity-15 shadow-full rounded-full h-min text-4xl duration-200 hover:bg-orange-0 hover:bg-opacity-30 cursor-pointer p-2"
+                                />
+                                {showFilters ? (
+                                    <div className="absolute bg-[#fef3ed] shadow-2xl rounded-xl h-min w-80">
+                                        <Filter menu={true} setShowFilters={setShowFilters} />
+                                    </div>
+                                ) : null}
+                            </div>
+                            <div className="flex items-center justify-end bg-orange-0 bg-opacity-30 px-2 py-1 rounded-xl ml-auto">
+                                <div className="text-lg flex justify-end ">
+                                    <p className="pr-2">Sort by:</p>
+                                    <select onChange={handleSortChange} className="rounded-xl">
+                                        <option value="">None</option>
+                                        <option value="title-asc">Title (A - Z)</option>
+                                        <option value="title-desc">Title (Z - A)</option>
+                                        <option value="price-min">Price (Low - High)</option>
+                                        <option value="price-max">Price (High - Low)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {books.length ? (
+                        <div className="flex flex-col content-start grow">
+                            <div className="flex flex-wrap mv:justify-center lg:justify-start sm:content-start my-11 ">
+                                {books.slice(first, first + rows).map((book) => (
+                                    <Card book={book} key={book.ISBN} favorites={favorites} showFavoriteButton={true} />
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex items-center">
+                            <p className="text-2xl">No books found</p>
+                            <HiOutlineEmojiSad className="ml-3" />
+                        </div>
+                    )}
+
                 </div>
               </div>
             </div>

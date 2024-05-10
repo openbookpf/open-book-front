@@ -241,7 +241,7 @@ const CreateBookForm = () => {
   };
 
   return (
-    <div className="mt-20 flex justify-center">
+    <div className="mt-20 py-20 bg-gradient-to-t from-orange-0 to-blue-0 flex justify-center">
       <form
         className="w-4/6 py-5 text-base bg-[#fef3ed] shadow-md rounded-xl p-3"
         action="submit"

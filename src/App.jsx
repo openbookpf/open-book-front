@@ -27,11 +27,15 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Products from "./views/Products/Products";
 import UsersList from "./views/UsersList/UsersList";
 import CreateUserForm from "./components/Admin/Users/CreateUserForm";
+import Footer from "./components/Footer/Footer";
+import EditUserProfile from "./views/UserProfile/EditUserProfile";
+import Shoplist from "./views/Shoplist/Shoplist";
+import UserShoplist from "./components/Admin/Shoplist/UserShoplist";
 
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth0(); // Obtiene el estado de autenticación del usuario
-  const adminEmail = "openbooklibrary.dev@gmail.com";
+  // const adminEmail = "openbooklibrary.dev@gmail.com";
 
   useEffect(() => {
     const cartItems = localStorage.getItem("cart");
@@ -47,7 +51,7 @@ function App() {
     <div className="App flex flex-col text-xl text-blue-1 font-poppins">
       <NavBar />
       <Routes>
-        {isAuthenticated && user.email === adminEmail ? (
+        {isAuthenticated && user.user_type === "admin" ? (
           <Route path="/" element={<Dashboard />} />
         ) : (
           <Route path="/" element={<Home books={arrayBestSellers} />} />
@@ -57,7 +61,9 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/users" element={<UsersList />} />
         <Route path="/books" element={<BookList />} />
+        <Route path="/shoplist/:idAuth0" element={<UserShoplist />} />
         <Route path="/detail/:isbn" element={<Detail />} />
+        <Route path="/shoplist" element={<Shoplist />} />
         <Route path="/admin_stock" element={<AdminStockForm />} />
         <Route path="/create_book" element={<CreateBookForm />} />
         <Route path="/create_user" element={<CreateUserForm />} />
@@ -68,7 +74,9 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/profile" element={<Profile />} />
-      </Routes>
+        <Route path="/edit-user-profile" element={<EditUserProfile />} />
+      </Routes>{" "}
+      <Footer />
     </div>
   );
 }

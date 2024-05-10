@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "../../components/Admin/DashboardComponents/TopCards/TopCard";
-// import LastSales from "../../components/Admin/DashboardComponents/LastSales/LastSales";
-// // import GraphicChart from "../../components/GraphicChart/GraphicChart";
+
 import axios from "axios";
 import BarChart from "../../components/GraphicChart/BarChart";
 import PieChart from "../../components/GraphicChart/PieChart";
@@ -85,8 +84,8 @@ const Dashboard = () => {
   const adminEmail = "openbooklibrary.dev@gmail.com";
   const chartData = useSelector((state) => state.chartData);
   return (
-    <div className="mt-16 py-5 bg-blue-1 w-full h-full flex flex-col justify-center  px-10 items-center">
-      <h1 className="text-3xl font-semibold text-white-0 text-center">
+    <div className="mt-10 py-10 bg-gradient-to-b from-blue-1 to-cyan-0 w-full h-screen flex flex-col justify-center px-10 items-center">
+      <h1 className="text-3xl bg-cyan-0 my-2 px-14 py-3 rounded-full font-semibold text-white-0 text-center">
         Admin Dashboard
       </h1>
 
@@ -107,10 +106,6 @@ const Dashboard = () => {
         <div className="bg-white-0 shadow-md p-2 w-2/5 rounded-md mb-2">
           <PieChart data={chartData} className="self-end w-full h-full" />
         </div>
-      </div>
-
-      <div className="flex flex-row w-full justify-between h-96 bg-white-0 shadow-md p-2 rounded-md mt-4">
-        {/* <LastSales /> */}
       </div>
     </div>
   );

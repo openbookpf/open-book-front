@@ -85,11 +85,14 @@ const CreateUserForm = () => {
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const response = await axios.post("http://localhost:3001/users", {
-        email_address: email,
-        password: password,
-        user_type: userRole,
-      });
+      const response = await axios.post(
+        "https://open-book-back.onrender.com/users",
+        {
+          email_address: email,
+          password: password,
+          user_type: userRole,
+        }
+      );
       setUserData(formInitialState);
       return Swal.fire({
         title: "User registered correctly!",
@@ -136,11 +139,11 @@ const CreateUserForm = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-screen pt-10 pb-5 bg-gradient-to-t align-middle from-orange-0 to-blue-0 ">
       <div className="flex justify-center mt-24">
         <form
           action="submit"
-          className="w-4/6 py-5 text-base bg-[#fef3ed] shadow-md rounded-xl p-3"
+          className="w-4/6 text-base bg-[#fef3ed] shadow-md rounded-xl p-8"
         >
           <div className="flex justify-center">
             <h5 className="text-center bg-blue-0 text-white-0 font-semibold text-xl w-4/6 py-3 mb-5 rounded-xl">

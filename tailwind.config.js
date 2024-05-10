@@ -22,6 +22,7 @@ export default {
         },
         cyan: {
           0: "#81B29A",
+          1: "#628876",
         },
         white: {
           0: "#F4F1DE",
@@ -33,6 +34,14 @@ export default {
           1: "#262738",
         },
       },
+    },
+    screens: {
+      mv: "100px",
+      sm: "670px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
     },
   },
   plugins: [],
