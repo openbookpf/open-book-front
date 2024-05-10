@@ -25,6 +25,30 @@ export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
 export const GET_BOOK_COLECTION_USER = "GET_BOOK_COLECTION_USER";
 export const SET_CHART_DATA = "SET_CHART_DATA";
+export const SET_FROM_CURRENCY = "SET_FROM_CURRENCY";
+export const SET_TO_CURRENCY = "SET_TO_CURRENCY";
+export const SET_EXCHANGE_RATE = "SET_EXCHANGE_RATE";
+
+export const setFromCurrency = (fromCurrency) => {
+  return {
+    type: SET_FROM_CURRENCY,
+    payload: fromCurrency,
+  };
+};
+
+export const setToCurrency = (toCurrency) => {
+  return {
+    type: SET_TO_CURRENCY,
+    payload: toCurrency,
+  };
+};
+
+export const setExchangeRate = (exchangeRate) => {
+  return {
+    type: SET_EXCHANGE_RATE,
+    payload: exchangeRate,
+  };
+};
 export const REMOVE_FROM_CART_AFTER_CHECKOUT =
   "REMOVE_FROM_CART_AFTER_CHECKOUT";
 
@@ -32,10 +56,7 @@ export const fetchChartData = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        /* "https://open-book-back.onrender.com/orders/payments-and-orders" */
         "https://open-book-back.onrender.com/charts?name=sales"
-        /* "https://open-book-back.onrender.com/charts?name=last_sales"
-        "https://open-book-back.onrender.com/charts?name=active_users" */
       );
       const data = response.data;
 
@@ -45,11 +66,6 @@ export const fetchChartData = () => {
     }
   };
 };
-
-/* export const updateChart = (chartData) => ({
-  type: UPDATE_CHART,
-  payload: chartData,
-} ); */
 
 export const filterBooksByLanguage = (language) => ({
   type: FILTER_BOOKS_BY_LANGUAGE,

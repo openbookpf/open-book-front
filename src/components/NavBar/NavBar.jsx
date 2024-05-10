@@ -12,9 +12,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Select from "./Select";
 import SelectButton from "../Buttons/SelectButton";
 import AdminNavbar from "./AdminNavbar";
+import PriceConverter from "../PriceConverter/PriceConverter";
 import { IoChatbubblesSharp } from "react-icons/io5";
 import { FiMenu } from "react-icons/fi";
 import { set } from "react-hook-form";
+
 
 const NavBar = () => {
   const [trigger, setTrigger] = React.useState(false);
@@ -152,6 +154,8 @@ const NavBar = () => {
             />
           </div>
         ) : null}
+
+        <PriceConverter />
 
         <div className="flex flex-row mr-4 gap-6">
           {isAuthenticated && user?.email !== adminEmail && (
