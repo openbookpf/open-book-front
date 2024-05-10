@@ -196,7 +196,11 @@ const Filter = ({ menu, setShowFilters }) => {
                                   onClick={handleFilter}
                                   value={"genre"}
                                   key={gen}
-                                  className={filtersApplied.genreArray.includes(gen) ? "text-orange-0 font-bold" : null}
+                                  className={
+                                      filtersApplied.genreArray.includes(gen)
+                                          ? "text-orange-0 font-bold truncate"
+                                          : "truncate"
+                                  }
                               >
                                   {gen}
                               </button>
@@ -207,7 +211,11 @@ const Filter = ({ menu, setShowFilters }) => {
                                   onClick={handleFilter}
                                   value={"genre"}
                                   key={gen}
-                                  className={filtersApplied.genreArray.includes(gen) ? "text-orange-0 font-bold" : null}
+                                  className={
+                                      filtersApplied.genreArray.includes(gen)
+                                          ? "text-orange-0 font-bold truncate"
+                                          : "truncate"
+                                  }
                               >
                                   {gen}
                               </button>
@@ -234,7 +242,9 @@ const Filter = ({ menu, setShowFilters }) => {
                                   value={"author"}
                                   key={auth}
                                   className={
-                                      filtersApplied.authorArray.includes(auth) ? "text-orange-0 font-bold" : null
+                                      filtersApplied.authorArray.includes(auth)
+                                          ? "text-orange-0 font-bold truncate"
+                                          : "truncate"
                                   }
                               >
                                   {auth}
@@ -247,7 +257,9 @@ const Filter = ({ menu, setShowFilters }) => {
                                   value={"author"}
                                   key={auth}
                                   className={
-                                      filtersApplied.authorArray.includes(auth) ? "text-orange-0 font-bold" : null
+                                      filtersApplied.authorArray.includes(auth)
+                                          ? "text-orange-0 font-bold truncate"
+                                          : "truncate"
                                   }
                               >
                                   {auth}
