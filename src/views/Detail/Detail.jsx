@@ -1,5 +1,4 @@
 import { MdFavoriteBorder } from "react-icons/md";
-import { BsFacebook, BsWhatsapp, BsTwitterX } from "react-icons/bs";
 import axios from "axios";
 import { Carousel } from "primereact/carousel";
 import { Link, useParams } from "react-router-dom";
@@ -11,6 +10,7 @@ import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ShowReviews from "../../components/ReviewCard/ShowReviews";
 import { Rating, nativeSelectClasses } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Detail() {
   const navigate = useNavigate();
@@ -18,6 +18,8 @@ function Detail() {
   const [bookData, setBookData] = useState(null);
   const [sameGenreBooks, setSameGenreBooks] = useState([]);
   const [showReviews, setShowReviews] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const adminEmail = "shopper";
 
   const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn}`;
   const dispatch = useDispatch();
@@ -117,15 +119,19 @@ function Detail() {
     },
   ];
 
+  if (!isAuthenticated || user.user_type !== "shopper") {
+    return (
+      <div className="text-center flex flex-col mt-20">
+        <p>Please sign in with an user account. This is a private page.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col ">
       <div className="bg-[#fef3ed] rounded-3xl mv:mx-4 md:mx-20 mt-24 mb-10 shadow-md">
         <div className=" py-10 px-15">
           <div className="flex flex-col mx-auto">
-            <div className="text-right mv:mb-0 md:mb-3 text-sm flex flex-row mv:justify-center md:justify-end mv:px-2 md:pr-44 gap-2">
-              {/* <p className="text-gray-400">Home/books/allBooks/</p>
-              <p className="font-semibold truncate">{book_title}</p> */}
-            </div>
             <div className="flex mv:flex-col mv:items-center lg:items-start lg:flex-row justify-center p-5">
               <div className="overflow-auto">
                 <img
