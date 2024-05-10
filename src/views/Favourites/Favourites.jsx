@@ -22,7 +22,7 @@ const Favorites = () => {
           backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
         }}
       ></div>
-      <div className="flex flex-col justify-between items-center">
+      <div className="flex h-full flex-col justify-between items-center">
         <div className="flex flex-wrap justify-center mt-20 mb-5 w-3/5">
           {favorites.slice(first, first + rows).map((favorite) => (
             <div key={favorite.ISBN} className="relative">
