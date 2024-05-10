@@ -94,7 +94,7 @@ const Profile = () => {
   return (
     <div className="flex bg-gradient-to-b from-blue-1 to-cyan-0 mv:flex-col mv:items-center md:items-start xl:flex-row">
       <div className="bg-[#fef3ed] h-3/5 mv:min-w-80 md:min-w-96 mv:mt-20 md:mt-32 rounded-xl shadow-lg xl:mr-0 2xl:mr-5 xl:ml-10 2xl:ml-32 flex flex-col">
-        <div className="grow flex flex-col text-center mx-auto py-14 ">
+        <div className="grow flex flex-col text-center mx-auto py-12 ">
           <img
             className="w-40 mx-auto rounded-full"
             src={user.picture}
@@ -102,9 +102,11 @@ const Profile = () => {
           />
           <h2 className="text-2xl font-semibold mt-2">{user.name}</h2>
           <p className="text-lg font-light mt-1">{user.email}</p>
+          <p className="text-sm font-light mt-1">{user.phone_number}</p>
+          <p className="text-sm font-light">{user.address_street}</p>
         </div>
 
-        <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
+        <div className="h-10 bg-cyan-0  cursor-pointer mb-6 mt-0 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
           <Link
             to={"/edit-user-profile"}
             className="flex justify-center items-center"
