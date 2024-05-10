@@ -16,15 +16,16 @@ const Select = ({ selectMenuOpen, setSelectMenuOpen }) => {
       {selectMenuOpen && (
         <div className="z-50 text-lg">
           <div className="bg-[#fef3ed]  p-5 flex flex-col gap-2 rounded-xl mt-16 mx-auto w-60 h-auto shadow-md">
-            <Link
-              to="/profile"
-              onClick={() => setSelectMenuOpen(!selectMenuOpen)}
-              className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
-            >
-              Profile
-            </Link>
             {user.user_type === "shopper" && (
               <>
+                <Link
+                  to="/profile"
+                  onClick={() => setSelectMenuOpen(!selectMenuOpen)}
+                  className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
+                >
+                  Profile
+                </Link>
+
                 <Link
                   to="/Favourites"
                   className="hover:bg-white-2 py-1 px-2 rounded-lg transition-colors delay-50"
