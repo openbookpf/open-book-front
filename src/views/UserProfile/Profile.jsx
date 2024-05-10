@@ -101,9 +101,9 @@ const Profile = () => {
             alt={user.name}
           />
           <h2 className="text-2xl font-semibold mt-2">{user.name}</h2>
-          <p className="text-lg font-light mt-1">{user.email}</p>
-          <p className="text-sm font-light mt-1">{user.phone_number}</p>
-          <p className="text-sm font-light">{user.address_street}</p>
+          <p className="text-base font-normal mt-1">{user.email}</p>
+          <p className="text-sm font-normal">{user.address_street}</p>
+          <p className="text-sm font-light mt-1">{user.user_phone_number}</p>
         </div>
 
         <div className="h-10 bg-cyan-0  cursor-pointer mb-6 mt-0 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
