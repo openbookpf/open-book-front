@@ -146,7 +146,9 @@ const NavBar = () => {
         ) : (
           <AdminNavbar />
         )}
-        {location.pathname !== "/" ? (
+        {location.pathname !== "/" &&
+        isAuthenticated &&
+        user.user_type !== adminEmail ? (
           <div className="mv:hidden sm:flex items-center grow justify-end mv:mr-5 sm:mr-10">
             <FaSearch
               onClick={() => setTrigger(true)}
