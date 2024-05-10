@@ -31,10 +31,10 @@ const Profile = () => {
   const colection = useSelector((state) => state.bookColectionUser);
   console.log(colection);
 
-  if (!isAuthenticated || user.user_type !== "admin") {
+  if (!isAuthenticated || user.user_type === "admin") {
     return (
       <div className="text-center flex flex-col mt-20">
-        <p>Please, log in as a user to see your profile.</p>
+        <p>Please, log in as an user to see your profile.</p>
       </div>
     );
   }
