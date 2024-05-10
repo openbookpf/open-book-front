@@ -120,7 +120,7 @@ const UserTable = () => {
               </td>
               {user.user_type === "admin" ? (
                 <>
-                  <td className="p-2 font-semibold my-auto">
+                  <td className="p-2 truncate font-semibold my-auto">
                     {user.user_name}
                   </td>
                   <td className="p-2 font-semibold my-auto">

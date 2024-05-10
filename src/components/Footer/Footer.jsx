@@ -1,6 +1,13 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation(); // Obtiene la ubicación actual
+
+  // Si la ruta es "/chat", no renderiza nada
+  if (location.pathname === "/chat") {
+    return null;
+  }
   return (
     <>
       <footer className="z-20 flex flex-col py-2 text-sm bottom-0 bg-white-1 w-full justify-center items-center">

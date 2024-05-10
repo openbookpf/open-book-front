@@ -15,15 +15,15 @@ const Favorites = () => {
   };
 
   return favorites.length ? (
-    <div className="h-screen max-w-screen">
+    <div className="h-full w-full">
       <div
-        className="brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-screen fixed -z-10 opacity-90"
+        className="brightness-50 saturate-150 contrast-100 bg-cover bg-center w-screen h-full fixed -z-10 opacity-90"
         style={{
           backgroundImage: `url(https://img.freepik.com/foto-gratis/abundante-coleccion-libros-antiguos-estantes-madera-generados-ia_188544-29660.jpg)`,
         }}
       ></div>
-      <div className="flex h-full flex-col justify-between items-center">
-        <div className="flex h-full flex-wrap justify-center mt-20 mb-5 w-3/5">
+      <div className="flex flex-col h-full justify-between items-center">
+        <div className="flex flex-wrap justify-center mt-20 mb-5 w-4/5">
           {favorites.slice(first, first + rows).map((favorite) => (
             <div key={favorite.ISBN} className="relative">
               <Card
@@ -34,7 +34,7 @@ const Favorites = () => {
             </div>
           ))}
         </div>
-        <footer className="flex items-center justify-center">
+        <footer className="flex mt-10 mb-20 items-center justify-center">
           <div className="text-lg text-black font-semibold rounded-full h-12 flex items-center justify-center">
             {favorites.length < 8 ? null : (
               <Paginator

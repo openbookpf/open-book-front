@@ -4,7 +4,11 @@ import { Carousel } from "primereact/carousel";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import {
+  addToCart,
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import ShowReviews from "../../components/ReviewCard/ShowReviews";
@@ -15,6 +19,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 function Detail() {
   const navigate = useNavigate();
   const { isbn } = useParams();
+
+  const [isFav, setIsFav] = useState(false);
   const [bookData, setBookData] = useState(null);
   const [sameGenreBooks, setSameGenreBooks] = useState([]);
   const [showReviews, setShowReviews] = useState(false);
@@ -81,6 +87,7 @@ function Detail() {
   };
 
   const {
+    ISBN,
     book_cover_url,
     book_title,
     author,
@@ -90,7 +97,15 @@ function Detail() {
     reviews,
     average_rating,
   } = bookData;
-
+  const handleFavoriteButtonClick = () => {
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFromFavorites(bookData.ISBN));
+    } else {
+      setIsFav(true);
+      dispatch(addToFavorites(bookData));
+    }
+  };
   const responsiveOptions = [
     {
       breakpoint: "650px",
@@ -153,8 +168,49 @@ function Detail() {
                   >
                     Add to cart
                   </button>
-                  <button className="bg-cyan-0 hover:bg-cyan-700 text-2xl text-white-0 py-1 px-4 focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
+                  {/* <button className="bg-cyan-0 hover:bg-cyan-700 text-2xl text-white-0 py-1 px-4 focus:outline-none hover:scale-110 transition-transform delay-100 ease-linear focus:shadow-outline rounded-full">
                     <MdFavoriteBorder />
+                  </button> */}
+
+                  <button
+                    onClick={handleFavoriteButtonClick}
+                    className={`bg-cyan-0 h-auto rounded-2xl hover:scale-110 transition ease-in delay-100 ${
+                      isFav ? "text-red-500" : ""
+                    }`}
+                  >
+                    {isFav ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="stroke-red-800 m-2"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="stroke-slate-50 m-2"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                      </svg>
+                    )}
                   </button>
                 </div>
                 <hr className="my-6 border-gray-300 w-full" />
