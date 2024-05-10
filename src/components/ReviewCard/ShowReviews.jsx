@@ -7,7 +7,7 @@ const ShowReviews = ({ setShowReviews, book_title, reviews }) => {
     };
     return (
         <div className="z-30 w-screen h-screen fixed bg-black bg-opacity-40">
-            <div className="mv:max-w-full mv:mx-5 sm:w-4/5 lg:w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] mx-auto mt-20 shadow-2xl p-5">
+            <div className="mv:max-w-full mv:mx-5 sm:mx-auto sm:w-4/5 lg:w-1/2 h-max flex flex-col border-black rounded-lg bg-[#fef3ed] mx-auto mt-20 shadow-2xl p-5">
                 <div className="flex justify-between items-center">
                     <p className="text-xl truncate">
                         <strong className="text-2xl">{book_title}</strong> reviews
