@@ -22,6 +22,7 @@ import {
   LOAD_FAVORITES_FROM_STORAGE,
   GET_BOOK_COLECTION_USER,
   SET_CHART_DATA,
+  REMOVE_FROM_CART_AFTER_CHECKOUT,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -247,6 +248,14 @@ function booksReducer(state = initialState, action) {
       return {
         ...state,
         bookColectionUser: action.payload,
+      };
+
+    case REMOVE_FROM_CART_AFTER_CHECKOUT:
+      return {
+        ...state,
+        items: [],
+        totalItems: 0,
+        cartTotalPrice: 0,
       };
 
     default:

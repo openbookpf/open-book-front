@@ -81,12 +81,11 @@ const EditUserProfile = () => {
           confirmButtonText: "Ok",
           confirmButtonColor: "#81B29A",
           background: "#fef3ed",
-        }).then((willDelete) => {
-          if (willDelete) {
-            location.reload();
-          } else {
-            return null;
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/profile");
           }
+          location.reload();
         });
       } else {
         console.error("Error al crear el registro:", response.statusText);

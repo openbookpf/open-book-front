@@ -25,6 +25,8 @@ export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const LOAD_FAVORITES_FROM_STORAGE = "LOAD_FAVORITES_FROM_STORAGE";
 export const GET_BOOK_COLECTION_USER = "GET_BOOK_COLECTION_USER";
 export const SET_CHART_DATA = "SET_CHART_DATA";
+export const REMOVE_FROM_CART_AFTER_CHECKOUT =
+  "REMOVE_FROM_CART_AFTER_CHECKOUT";
 
 export const fetchChartData = () => {
   return async (dispatch) => {
@@ -53,6 +55,15 @@ export const filterBooksByLanguage = (language) => ({
   type: FILTER_BOOKS_BY_LANGUAGE,
   payload: language,
 });
+
+export const removeAllFromCartAfterCheckOut = () => {
+  localStorage.setItem("cart", JSON.stringify([]));
+
+  return {
+    type: REMOVE_FROM_CART_AFTER_CHECKOUT,
+    payload: [],
+  };
+};
 
 export const addToFavorites = (product) => ({
   type: "ADD_TO_FAVORITES",
