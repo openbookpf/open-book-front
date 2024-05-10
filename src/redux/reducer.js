@@ -22,6 +22,9 @@ import {
   LOAD_FAVORITES_FROM_STORAGE,
   GET_BOOK_COLECTION_USER,
   SET_CHART_DATA,
+  SET_FROM_CURRENCY,
+  SET_TO_CURRENCY,
+  SET_EXCHANGE_RATE,
 } from "./actions";
 
 const calculateTotalPrice = (cartItems) => {
@@ -61,20 +64,34 @@ const initialState = {
   totalItems: 0,
   cartTotalPrice: 0,
   chartData: {},
+  fromCurrency: "USD",
+  toCurrency: "ARS",
+  exchangeRate: null,
 };
 
 function booksReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_FROM_CURRENCY:
+      return {
+        ...state,
+        fromCurrency: action.payload,
+      };
+    case SET_TO_CURRENCY:
+      return {
+        ...state,
+        toCurrency: action.payload,
+      };
+    case SET_EXCHANGE_RATE:
+      return {
+        ...state,
+        exchangeRate: action.payload,
+      };
     case SET_CHART_DATA:
       return {
         ...state,
         chartData: action.payload,
       };
-    /* case UPDATE_CHART:
-      return {
-        ...state,
-        chartData: action.payload,
-      }; */
+
     case GET_USERS:
       return {
         ...state,

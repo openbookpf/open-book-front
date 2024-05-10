@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   addToFavorites,
@@ -7,11 +7,15 @@ import {
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import calculateConvertedPrice from "../../lib/currencyConverter";
 
 const Card = ({ book, favorites, showFavoriteButton }) => {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
   const { isAuthenticated } = useAuth0();
+  const [convertedPrice, setConvertedPrice] = useState("");
+  const selectedCurrency = useSelector((state) => state.fromCurrency);
+  const exchangeRate = useSelector((state) => state.exchangeRate);
 
   useEffect(() => {
     if (favorites && favorites.length > 0) {
@@ -46,6 +50,19 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
     handleAddToCart();
   };
 
+  const convertPrice = () => {
+    const newPrice = calculateConvertedPrice(
+      exchangeRate,
+      book.price,
+      selectedCurrency
+    );
+    setConvertedPrice(newPrice);
+  };
+
+  useEffect(() => {
+    convertPrice();
+  }, [book.price, selectedCurrency, exchangeRate]);
+
   return (
     <div
       className="flex flex-col shadow-lg gap-2 w-52 h-[400px] mb-5 pb-3 rounded-xl bg-[#fef3ed] mx-10"
@@ -66,9 +83,7 @@ const Card = ({ book, favorites, showFavoriteButton }) => {
             </p>
           </Link>
           <p className="font-light text-xs">{book.author}</p>
-          <p className="font-semibold text-lg">
-            ${`${book.price.toFixed(2)} (USD)`}
-          </p>
+          <p className="font-semibold text-lg">{convertedPrice}</p>
         </div>
       </div>
       <div className="flex flex-row mx-auto gap-1.5 ">

@@ -7,11 +7,14 @@ import { IoTrashOutline } from "react-icons/io5";
 import { addToCart } from "../../redux/actions";
 import { removeAll } from "../../redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
+import calculateConvertedPrice from "../../lib/currencyConverter";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.items);
   const cartCounter = useSelector((state) => state.totalItems);
   const cartTotalPrice = useSelector((state) => state.cartTotalPrice);
+  const selectedCurrency = useSelector((state) => state.fromCurrency);
+  const exchangeRate = useSelector((state) => state.exchangeRate);
   const dispatch = useDispatch();
   const { isAuthenticated } = useAuth0();
 
@@ -25,6 +28,16 @@ function Cart() {
 
   const handleRemoveAll = (isbn) => {
     dispatch(removeAll(isbn));
+  };
+
+  const calculateTotal = (quantity, price) => {
+    const total = Math.max(0, quantity * price).toFixed(2);
+    return calculateConvertedPrice(exchangeRate, total, selectedCurrency);
+  };
+
+  const calculateCartTotal = () => {
+    const total = Math.max(0, cartTotalPrice).toFixed(2);
+    return calculateConvertedPrice(exchangeRate, total, selectedCurrency);
   };
 
   return (
@@ -60,7 +73,7 @@ function Cart() {
                 </div>
                 <div className="basis-1/4 items-center mt-2 flex flex-row">
                   <div className="font-bold text-lg ml-auto">
-                    ${Math.max(0, p.quantity * p.price).toFixed(2)}
+                    {calculateTotal(p.quantity, p.price)}
                   </div>
                   <button
                     onClick={() => handleRemoveAll(p.ISBN)}
@@ -88,7 +101,7 @@ function Cart() {
           Total books: {Math.max(0, cartCounter)}
         </div>
         <div className="font-bold text-lg">
-          Total price: ${Math.max(0, cartTotalPrice).toFixed(2)}
+          Total price: {calculateCartTotal()}
         </div>
         {cartCounter > 0 ? (
           <Link
