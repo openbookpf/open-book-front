@@ -23,7 +23,7 @@ const Favorites = () => {
         }}
       ></div>
       <div className="flex h-full flex-col justify-between items-center">
-        <div className="flex flex-wrap justify-center mt-20 mb-5 w-3/5">
+        <div className="flex h-full flex-wrap justify-center mt-20 mb-5 w-3/5">
           {favorites.slice(first, first + rows).map((favorite) => (
             <div key={favorite.ISBN} className="relative">
               <Card
