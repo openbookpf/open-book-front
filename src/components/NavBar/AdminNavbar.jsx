@@ -27,6 +27,12 @@ const AdminNavbar = () => {
           >
             Users
           </Link>
+          <Link
+            to="/shoplist"
+            className="hover:bg-white-2 p-2 rounded-lg transition-colors delay-50"
+          >
+            Shoplist
+          </Link>
         </div>
         {location.pathname !== "/products" && (
           <Link

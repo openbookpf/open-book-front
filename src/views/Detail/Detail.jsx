@@ -123,8 +123,8 @@ function Detail() {
         <div className=" py-10 px-15">
           <div className="flex flex-col mx-auto">
             <div className="text-right mv:mb-0 md:mb-3 text-sm flex flex-row mv:justify-center md:justify-end mv:px-2 md:pr-44 gap-2">
-              <p className="text-gray-400">Home/books/allBooks/</p>
-              <p className="font-semibold truncate">{book_title}</p>
+              {/* <p className="text-gray-400">Home/books/allBooks/</p>
+              <p className="font-semibold truncate">{book_title}</p> */}
             </div>
             <div className="flex mv:flex-col mv:items-center lg:items-start lg:flex-row justify-center p-5">
               <div className="overflow-auto">

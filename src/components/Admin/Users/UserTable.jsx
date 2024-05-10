@@ -115,7 +115,9 @@ const UserTable = () => {
               className="bg-white-1 hover:bg-white-2 text-blue-1 transition-colors delay-50 grid grid-cols-7 mb-2 text-sm rounded-md"
               key={user.idAuth0}
             >
-              <td className="font-light my-auto p-2">{user.idAuth0}</td>
+              <td className="font-light my-auto truncate p-2">
+                {user.idAuth0}
+              </td>
               {user.user_type === "admin" ? (
                 <>
                   <td className="p-2 font-semibold my-auto">
