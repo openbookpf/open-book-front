@@ -177,9 +177,17 @@ const UserTable = () => {
               </td>{" "}
               <td className="my-auto p-2">
                 <Link
-                  to={`/shoplist/${user.idAuth0}`}
+                  to={
+                    user.user_type !== "admin"
+                      ? `/shoplist/${user.idAuth0}`
+                      : "#"
+                  }
                   rel="noopener noreferrer"
-                  className="flex flex-row gap-2 bg-cyan-0 p-1  hover:cursor-pointer  delay-50 hover:bg-cyan-1 transition-colors text-white-0 justify-center my-auto rounded-lg"
+                  className={
+                    user.user_type !== "admin"
+                      ? `flex flex-row gap-2 bg-cyan-0 p-1  hover:cursor-pointer  delay-50 hover:bg-cyan-1 transition-colors text-white-0 justify-center my-auto rounded-lg`
+                      : `flex flex-row gap-2 bg-blue-0 bg-opacity-25 p-1 justify-center my-auto rounded-lg text-white-0`
+                  }
                 >
                   <p className="font-normal text-base">See orders</p>
                   <LuShoppingCart className="my-auto" />
