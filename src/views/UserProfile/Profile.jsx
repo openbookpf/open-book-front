@@ -12,14 +12,7 @@ import ShowAllColection from "../../components/ShowAllColection/ShowAllColection
 import { Carousel } from "primereact/carousel";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
-  console.log(user);
-  const [firstIndexFav, setFirstIndexFav] = useState(0);
-  const [lastIndexFav, setLastIndexFav] = useState(4);
-  const [firstIndexCol, setFirstIndexCol] = useState(0);
-  const [lastIndexCol, setLastIndexCol] = useState(4);
-
+    const { user, isAuthenticated, isLoading } = useAuth0();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showAllColection, setShowAllColection] = useState(false);
 
