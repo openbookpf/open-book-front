@@ -6,8 +6,11 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { removeAllFromCartAfterCheckOut } from "../../redux/actions";
 
 const PayPalButton = () => {
+  const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.items);
   const totalValue = useSelector((state) => state.cartTotalPrice);
   const { user } = useAuth0();
@@ -90,8 +93,10 @@ const PayPalButton = () => {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(removeAllFromCartAfterCheckOut());
         navigate("/profile");
       } else {
+        dispatch(removeAllFromCartAfterCheckOut());
         navigate("/");
       }
     });

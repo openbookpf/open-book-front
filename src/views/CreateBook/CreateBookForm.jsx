@@ -41,7 +41,7 @@ const CreateBookForm = () => {
     ISBN: "",
     book_title: "",
     author: "",
-    genres: "",
+    genre: "",
     book_description: "",
     price: "",
     img: "",
@@ -71,6 +71,7 @@ const CreateBookForm = () => {
 
   const handleUpload = async (event) => {
     event.preventDefault();
+    console.log(bookData);
 
     if (
       !bookData.ISBN ||
@@ -113,7 +114,7 @@ const CreateBookForm = () => {
       errorForm.ISBN ||
       errorForm.book_title ||
       errorForm.author ||
-      errorForm.genres ||
+      errorForm.genre ||
       errorForm.book_description ||
       errorForm.editorial ||
       errorForm.year_of_edition ||
@@ -183,7 +184,7 @@ const CreateBookForm = () => {
       const response = await axios.post(
         "https://open-book-back.onrender.com/books",
 
-        // "http://localhost:3001/book",
+        "http://localhost:3001/books",
         formData,
         config,
         {
@@ -297,7 +298,7 @@ const CreateBookForm = () => {
     console.log(key);
     console.log(value);
 
-    validationsForm(key, value, errorForm, setErrorForm);
+    // validationsForm(key, value, errorForm, setErrorForm);
 
     updateData(key, value);
   };
