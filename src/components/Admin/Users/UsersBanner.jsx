@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const UsersBanner = () => {
   return (
     <div
-      className="h-52 w-full mt-16 bg-blue-1"
+      className="h-52 w-full mt-10 bg-blue-1"
       style={{
         backgroundImage:
           "linear-gradient(rgba(38, 39, 56, 0.8), rgba(61, 64, 91, 0.6)), url(https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",

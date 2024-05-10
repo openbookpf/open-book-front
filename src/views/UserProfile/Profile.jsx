@@ -12,177 +12,187 @@ import ShowAllColection from "../../components/ShowAllColection/ShowAllColection
 import { Carousel } from "primereact/carousel";
 
 const Profile = () => {
-    const { user, isAuthenticated, isLoading } = useAuth0();
-    const [showReviewForm, setShowReviewForm] = useState(false);
-    const [showAllColection, setShowAllColection] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showAllColection, setShowAllColection] = useState(false);
 
-    const [bookISBN, setBookISBN] = useState("");
-    const [bookTitle, setBookTitle] = useState("");
+  const [bookISBN, setBookISBN] = useState("");
+  const [bookTitle, setBookTitle] = useState("");
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if (user) {
-            console.log(user.sub);
-            dispatch(getBookColectionUser(user.sub));
-        }
-    }, [isAuthenticated]);
-
-    const favorites = useSelector((state) => state.favorites);
-    const colection = useSelector((state) => state.bookColectionUser);
-    console.log(colection);
-
-    if (!isAuthenticated) {
-        return (
-            <div className="text-center flex flex-col mt-20">
-                <p>Please, log in to see your profile.</p>
-            </div>
-        );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user) {
+      console.log(user.sub);
+      dispatch(getBookColectionUser(user.sub));
     }
+  }, [isAuthenticated]);
 
-    const handleShowAllColection = () => {
-        setShowAllColection(true);
-    };
+  const favorites = useSelector((state) => state.favorites);
+  const colection = useSelector((state) => state.bookColectionUser);
+  console.log(colection);
 
-    const handleEditProfileClick = () => {
-        console.log("Edit profile");
-    };
-
-    const bookTemplateColection = (book) => {
-        return (
-            <CardProfile
-                book={book}
-                setBookTitle={setBookTitle}
-                setBookISBN={setBookISBN}
-                setShowReviewForm={setShowReviewForm}
-                review={true}
-            />
-        );
-    };
-
-    const bookTemplateFavorites = (book) => {
-        return <CardProfile book={book} />;
-    };
-
-    const responsiveOptions = [
-        {
-            breakpoint: "650px",
-            numVisible: 1,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "980px",
-            numVisible: 2,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1340px",
-            numVisible: 3,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1350px",
-            numVisible: 3,
-            numScroll: 1,
-        },
-        {
-            breakpoint: "1360",
-            numVisible: 3,
-            numScroll: 1,
-        },
-    ];
-
+  if (!isAuthenticated || user.user_type !== "admin") {
     return (
-        <div className="flex bg-gradient-to-b from-blue-1 to-cyan-0 mv:flex-col mv:items-center md:items-start xl:flex-row">
-            <div className="bg-[#fef3ed] h-3/5 mv:min-w-80 md:min-w-96 mv:mt-20 md:mt-32 rounded-xl shadow-lg xl:mr-0 2xl:mr-5 xl:ml-10 2xl:ml-32 flex flex-col">
-                <div className="grow flex flex-col text-center mx-auto py-14 ">
-                    <img className="w-40 mx-auto rounded-full" src={user.picture} alt={user.name} />
-                    <h2 className="text-2xl font-semibold mt-2">{user.name}</h2>
-                    <p className="text-lg font-light mt-1">{user.email}</p>
-                </div>
-
-                <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
-                    <Link to={"/edit-user-profile"} className="flex justify-center items-center">
-                        <button className="text-white-0 text-xl">Edit Profile</button>
-                    </Link>
-                </div>
-            </div>
-
-            <div className=" mv:mt-10 xl:mt-32 mv:mr-0 2xl:mr-32 mv:ml-0 xl:ml-10 grow pb-3">
-                <div className="bg-[#fef3ed] mb-10 rounded-xl pt-3 px-5 flex flex-col h-[410px] shadow-lg mv:max-w-[370px] sm:min-w-[550px] md:min-w-[650px] lg:min-w-[860px]">
-                    <div className="flex">
-                        <div className="grow">
-                            <h2 className="text-xl font-bold">My Library</h2>
-                            <p className="text-lg mb-2">Books you bought</p>
-                        </div>
-                        <button
-                            onClick={handleShowAllColection}
-                            className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105"
-                        >
-                            See All
-                        </button>
-                    </div>
-                    <div className=" flex mv:w-[370px] sm:w-[500px] md:w-[600px] lg:w-[800px] max-h-[320px] overflow-hidden">
-                        <div>
-                            <Carousel
-                                className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
-                                value={colection.purchase_books}
-                                numVisible={3}
-                                numScroll={1}
-                                itemTemplate={bookTemplateColection}
-                                autoplayInterval={5000}
-                                responsiveOptions={responsiveOptions}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="bg-[#fef3ed] mb-10 rounded-xl py-3 px-5 flex flex-col h-[410px] shadow-lg mv:max-w-[370px] sm:min-w-[550px] md:min-w-[650px] lg:min-w-[860px]">
-                    <div className="flex">
-                        <div className="grow">
-                            <h2 className="text-xl font-bold">WishList</h2>
-                            <p className="text-lg mb-2">Favorites books</p>
-                        </div>
-                        <Link
-                            to="/Favourites"
-                            className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105 flex justify-center items-center"
-                        >
-                            See All
-                        </Link>
-                    </div>
-                    <div className=" flex mv:w-[370px] sm:w-[500px] md:w-[600px] lg:w-[800px] max-h-[320px] overflow-hidden">
-                        <div>
-                            <Carousel
-                                className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
-                                value={favorites.slice(0, 27)}
-                                numVisible={3}
-                                numScroll={1}
-                                itemTemplate={bookTemplateFavorites}
-                                autoplayInterval={5000}
-                                responsiveOptions={responsiveOptions}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {showReviewForm ? (
-                <ReviewForm
-                    bookTitle={bookTitle}
-                    userId={user.sub}
-                    setShowReviewForm={setShowReviewForm}
-                    bookISBN={bookISBN}
-                />
-            ) : null}
-            {showAllColection ? (
-                <ShowAllColection setShowAllColection={setShowAllColection} colection={colection.purchase_books} />
-            ) : null}
-        </div>
+      <div className="text-center flex flex-col mt-20">
+        <p>Please, log in as a user to see your profile.</p>
+      </div>
     );
+  }
+
+  const handleShowAllColection = () => {
+    setShowAllColection(true);
+  };
+
+  const handleEditProfileClick = () => {
+    console.log("Edit profile");
+  };
+
+  const bookTemplateColection = (book) => {
+    return (
+      <CardProfile
+        book={book}
+        setBookTitle={setBookTitle}
+        setBookISBN={setBookISBN}
+        setShowReviewForm={setShowReviewForm}
+        review={true}
+      />
+    );
+  };
+
+  const bookTemplateFavorites = (book) => {
+    return <CardProfile book={book} />;
+  };
+
+  const responsiveOptions = [
+    {
+      breakpoint: "650px",
+      numVisible: 1,
+      numScroll: 1,
+    },
+    {
+      breakpoint: "980px",
+      numVisible: 2,
+      numScroll: 1,
+    },
+    {
+      breakpoint: "1340px",
+      numVisible: 3,
+      numScroll: 1,
+    },
+    {
+      breakpoint: "1350px",
+      numVisible: 3,
+      numScroll: 1,
+    },
+    {
+      breakpoint: "1360",
+      numVisible: 3,
+      numScroll: 1,
+    },
+  ];
+
+  return (
+    <div className="flex bg-gradient-to-b from-blue-1 to-cyan-0 mv:flex-col mv:items-center md:items-start xl:flex-row">
+      <div className="bg-[#fef3ed] h-3/5 mv:min-w-80 md:min-w-96 mv:mt-20 md:mt-32 rounded-xl shadow-lg xl:mr-0 2xl:mr-5 xl:ml-10 2xl:ml-32 flex flex-col">
+        <div className="grow flex flex-col text-center mx-auto py-14 ">
+          <img
+            className="w-40 mx-auto rounded-full"
+            src={user.picture}
+            alt={user.name}
+          />
+          <h2 className="text-2xl font-semibold mt-2">{user.name}</h2>
+          <p className="text-lg font-light mt-1">{user.email}</p>
+        </div>
+
+        <div className="h-10 bg-cyan-0 my-8 mx-8 rounded-full flex justify-center duration-200 hover:scale-105">
+          <Link
+            to={"/edit-user-profile"}
+            className="flex justify-center items-center"
+          >
+            <button className="text-white-0 text-xl">Edit Profile</button>
+          </Link>
+        </div>
+      </div>
+
+      <div className=" mv:mt-10 xl:mt-32 mv:mr-0 2xl:mr-32 mv:ml-0 xl:ml-10 grow pb-3">
+        <div className="bg-[#fef3ed] mb-10 rounded-xl pt-3 px-5 flex flex-col h-[410px] shadow-lg mv:max-w-[370px] sm:min-w-[550px] md:min-w-[650px] lg:min-w-[860px]">
+          <div className="flex">
+            <div className="grow">
+              <h2 className="text-xl font-bold">My Library</h2>
+              <p className="text-lg mb-2">Books you bought</p>
+            </div>
+            <button
+              onClick={handleShowAllColection}
+              className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105"
+            >
+              See All
+            </button>
+          </div>
+          <div className=" flex mv:w-[370px] sm:w-[500px] md:w-[600px] lg:w-[800px] max-h-[320px] overflow-hidden">
+            <div>
+              <Carousel
+                className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
+                value={colection.purchase_books}
+                numVisible={3}
+                numScroll={1}
+                itemTemplate={bookTemplateColection}
+                autoplayInterval={5000}
+                responsiveOptions={responsiveOptions}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#fef3ed] mb-10 rounded-xl py-3 px-5 flex flex-col h-[410px] shadow-lg mv:max-w-[370px] sm:min-w-[550px] md:min-w-[650px] lg:min-w-[860px]">
+          <div className="flex">
+            <div className="grow">
+              <h2 className="text-xl font-bold">WishList</h2>
+              <p className="text-lg mb-2">Favorites books</p>
+            </div>
+            <Link
+              to="/Favourites"
+              className="bg-orange-0 text-white-0 px-4 rounded-full text-xl mt-1 h-8 w-28 duration-200 hover:scale-105 flex justify-center items-center"
+            >
+              See All
+            </Link>
+          </div>
+          <div className=" flex mv:w-[370px] sm:w-[500px] md:w-[600px] lg:w-[800px] max-h-[320px] overflow-hidden">
+            <div>
+              <Carousel
+                className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
+                value={favorites.slice(0, 27)}
+                numVisible={3}
+                numScroll={1}
+                itemTemplate={bookTemplateFavorites}
+                autoplayInterval={5000}
+                responsiveOptions={responsiveOptions}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {showReviewForm ? (
+        <ReviewForm
+          bookTitle={bookTitle}
+          userId={user.sub}
+          setShowReviewForm={setShowReviewForm}
+          bookISBN={bookISBN}
+        />
+      ) : null}
+      {showAllColection ? (
+        <ShowAllColection
+          setShowAllColection={setShowAllColection}
+          colection={colection.purchase_books}
+        />
+      ) : null}
+    </div>
+  );
 };
 
 export default Profile;
 
 {
-    /* <CardProfile book={fav} /> */
+  /* <CardProfile book={fav} /> */
 }
 //     return (
 //         <div className="flex ">

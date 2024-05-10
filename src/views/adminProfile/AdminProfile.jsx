@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 
 const AdminProfile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const adminEmail = "openbooklibrary.dev@gmail.com";
+  const adminEmail = "admin";
 
-  if (!isAuthenticated || user.email !== adminEmail) {
+  if (!isAuthenticated || user.user_type !== "admin") {
     return (
       <div className="text-center flex flex-col mt-20">
         <p>Please sign in with an Admin account. This is a private page.</p>

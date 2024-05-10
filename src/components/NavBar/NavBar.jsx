@@ -17,7 +17,6 @@ import { IoChatbubblesSharp } from "react-icons/io5";
 import { FiMenu } from "react-icons/fi";
 import { set } from "react-hook-form";
 
-
 const NavBar = () => {
   const [trigger, setTrigger] = React.useState(false);
 
@@ -142,6 +141,7 @@ const NavBar = () => {
                 </Link>
               ) : null}
             </div>
+            <PriceConverter />
           </div>
         ) : (
           <AdminNavbar />
@@ -155,10 +155,8 @@ const NavBar = () => {
           </div>
         ) : null}
 
-        <PriceConverter />
-
         <div className="flex flex-row mr-4 gap-6">
-          {isAuthenticated && user?.email !== adminEmail && (
+          {isAuthenticated && user?.user_type !== adminEmail && (
             <div className="my-auto">
               <Link to="/cart">
                 <AiOutlineShoppingCart className="text-3xl align-middle my-auto hover:scale-110 transition-transform delay-50" />
