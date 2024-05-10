@@ -130,15 +130,18 @@ const Profile = () => {
           </div>
           <div className=" flex mv:w-[370px] sm:w-[500px] md:w-[600px] lg:w-[800px] max-h-[320px] overflow-hidden">
             <div>
-              <Carousel
-                className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
-                value={colection.purchase_books}
-                numVisible={3}
-                numScroll={1}
-                itemTemplate={bookTemplateColection}
-                autoplayInterval={5000}
-                responsiveOptions={responsiveOptions}
-              />
+              {colection.purchase_books &&
+                colection.purchase_books.length > 0 && (
+                  <Carousel
+                    className="mv:w-80 sm:w-[500px] md:w-[600px] lg:w-[800px]"
+                    value={colection.purchase_books}
+                    numVisible={3}
+                    numScroll={1}
+                    itemTemplate={bookTemplateColection}
+                    autoplayInterval={5000}
+                    responsiveOptions={responsiveOptions}
+                  />
+                )}
             </div>
           </div>
         </div>
