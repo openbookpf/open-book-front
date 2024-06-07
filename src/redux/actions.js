@@ -163,7 +163,7 @@ export const removeAll = (ISBN) => {
 
 export const search_book_by_name = (name) => {
   return async function (dispatch) {
-    await fetch(`https://open-book-back.onrender.com/books?name=${name}`)
+    await fetch(`https://open-book-l9pv.onrender.com/books?name=${name}`)
       .then((res) => res.json())
       .then((data) =>
         dispatch({
@@ -219,7 +219,7 @@ export const getUsers = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/users"
+        "https://open-book-l9pv.onrender.com/users"
       );
 
       const data = response.data;
@@ -237,7 +237,7 @@ export const getBooks = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/books"
+        "https://open-book-l9pv.onrender.com/books"
       );
 
       // Filtramos los libros cuyo estado es true
@@ -262,7 +262,7 @@ export const getAllBooks = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/books"
+        "https://open-book-l9pv.onrender.com/books"
       );
 
       // const lastFilt = localStorage.getItem("booksFilters");
@@ -282,10 +282,10 @@ export const getGenresAndAuthors = () => {
   return async (dispatch) => {
     try {
       const authors = await axios.get(
-        "https://open-book-back.onrender.com/authors"
+        "https://open-book-l9pv.onrender.com/authors"
       );
       const genres = await axios.get(
-        "https://open-book-back.onrender.com/genres"
+        "https://open-book-l9pv.onrender.com/genres"
       );
       dispatch({
         type: GET_GENRES_AND_AUTHORS,
@@ -301,7 +301,7 @@ export const getBooksFilter = (objFilters) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://open-book-back.onrender.com/books/filtrar",
+        "https://open-book-l9pv.onrender.com/books/filtrar",
         objFilters
       );
 
@@ -337,7 +337,7 @@ export const getBooksByGenre = (genre) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://open-book-back.onrender.com/books/filtrar",
+        "https://open-book-l9pv.onrender.com/books/filtrar",
 
         {
           authorArray: [],
@@ -360,7 +360,7 @@ export const getBookColectionUser = (idUser) => {
   return async (dispatch) => {
     try {
       const response = await axios(
-        `https://open-book-back.onrender.com/users/book-collection?idAuth0=${idUser}`
+        `https://open-book-l9pv.onrender.com/users/book-collection?idAuth0=${idUser}`
       );
       dispatch({
         type: GET_BOOK_COLECTION_USER,

@@ -28,7 +28,7 @@ const PayPalButton = () => {
   const createOrder = (cartProducts, totalValue, actions) => {
     console.log("THIS IS THE USER", user);
     // Order is created on the server and the order id is returned
-    return fetch("https://open-book-back.onrender.com/orders/", {
+    return fetch("https://open-book-l9pv.onrender.com/orders/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const PayPalButton = () => {
     });
     // Order is captured on the server and the response is returned to the browser
     return fetch(
-      `https://open-book-back.onrender.com/orders/${data.orderID}/capture`,
+      `https://open-book-l9pv.onrender.com/orders/${data.orderID}/capture`,
       {
         method: "POST",
         headers: {

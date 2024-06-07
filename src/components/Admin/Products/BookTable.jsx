@@ -31,7 +31,7 @@ const BookTable = () => {
   const handleSubmitEdit = (editedBook) => {
     axios
       .put(
-        `https://open-book-back.onrender.com/books/book-id/${editedBook.ISBN}`,
+        `https://open-book-l9pv.onrender.com/books/book-id/${editedBook.ISBN}`,
         editedBook
       )
       .then((response) => {
@@ -47,7 +47,7 @@ const BookTable = () => {
   const handleDeleteBook = () => {
     axios
       .put(
-        `https://open-book-back.onrender.com/books/book-id/${isbnToDelete}`,
+        `https://open-book-l9pv.onrender.com/books/book-id/${isbnToDelete}`,
         {
           book_status: false,
         }
@@ -65,7 +65,7 @@ const BookTable = () => {
   const handleActivateBook = (isbnToActivate) => {
     axios
       .put(
-        `https://open-book-back.onrender.com/books/book-id/${isbnToActivate}`,
+        `https://open-book-l9pv.onrender.com/books/book-id/${isbnToActivate}`,
         {
           book_status: true,
         }

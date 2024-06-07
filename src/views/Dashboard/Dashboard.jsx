@@ -28,7 +28,7 @@ const Dashboard = () => {
   async function countUserTypes() {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/users"
+        "https://open-book-l9pv.onrender.com/users"
       );
       let adminCount = 0;
       let shopperCount = 0;
@@ -50,7 +50,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://open-book-back.onrender.com/orders/payments-and-orders"
+          "https://open-book-l9pv.onrender.com/orders/payments-and-orders"
         );
         const { shopperCount } = await countUserTypes();
 

@@ -10,7 +10,7 @@ const UserShoplist = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://open-book-back.onrender.com/orders/payments-and-orders?idAuth0=${idAuth0}`
+          `https://open-book-l9pv.onrender.com/orders/payments-and-orders?idAuth0=${idAuth0}`
         );
         setOrders(response.data);
       } catch (error) {

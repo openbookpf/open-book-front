@@ -62,7 +62,7 @@ const EditUserProfile = () => {
       //   formData.append("picture", editedProfileForm.picture);
 
       const response = await fetch(
-        `https://open-book-back.onrender.com/users/modify?user_id=${user.sub}`,
+        `https://open-book-l9pv.onrender.com/users/modify?user_id=${user.sub}`,
         {
           method: "PUT",
           headers: {
@@ -102,7 +102,7 @@ const EditUserProfile = () => {
 
     try {
       const response = await axios.post(
-        "https://open-book-back.onrender.com/users/upload-profile-picture",
+        "https://open-book-l9pv.onrender.com/users/upload-profile-picture",
         formData,
         {
           headers: {

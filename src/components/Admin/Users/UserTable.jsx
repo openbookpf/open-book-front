@@ -42,7 +42,7 @@ const UserTable = () => {
   const handleUnlockUser = (user) => {
     axios
       .put(
-        `https://open-book-back.onrender.com/users/modify?user_id=${user.idAuth0}`,
+        `https://open-book-l9pv.onrender.com/users/modify?user_id=${user.idAuth0}`,
         {
           is_active: true,
         }
@@ -61,7 +61,7 @@ const UserTable = () => {
   const handleSubmitEdit = (editedUser) => {
     axios
       .put(
-        `https://open-book-back.onrender.com/users/modify?user_id=${editedUser.idAuth0}`,
+        `https://open-book-l9pv.onrender.com/users/modify?user_id=${editedUser.idAuth0}`,
         editedUser
       )
       .then((response) => {
@@ -78,7 +78,7 @@ const UserTable = () => {
   const deleteUsers = () => {
     axios
       .put(
-        `https://open-book-back.onrender.com/users/modify?user_id=${userIdToDelete}`,
+        `https://open-book-l9pv.onrender.com/users/modify?user_id=${userIdToDelete}`,
         {
           is_active: false,
         }

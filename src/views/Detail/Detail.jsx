@@ -27,7 +27,7 @@ function Detail() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const adminEmail = "shopper";
 
-  const apiUrl = `https://open-book-back.onrender.com/books/book-id/${isbn}`;
+  const apiUrl = `https://open-book-l9pv.onrender.com/books/book-id/${isbn}`;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function Detail() {
 
       try {
         const genres = bookData.genres;
-        const apiUrl = "https://open-book-back.onrender.com/books/filtrar";
+        const apiUrl = "https://open-book-l9pv.onrender.com/books/filtrar";
         const requestBody = {
           authorArray: [],
           genreArray: genres,

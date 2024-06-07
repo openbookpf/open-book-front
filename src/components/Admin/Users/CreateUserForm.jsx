@@ -89,7 +89,7 @@ const CreateUserForm = () => {
       const password = formData.get("password");
 
       const response = await axios.post(
-        "https://open-book-back.onrender.com/users",
+        "https://open-book-l9pv.onrender.com/users",
         {
           email_address: email,
           password: password,

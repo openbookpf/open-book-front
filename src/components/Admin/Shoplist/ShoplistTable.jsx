@@ -9,7 +9,7 @@ const ShoplistTable = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://open-book-back.onrender.com/orders/all-users-and-orders"
+          "https://open-book-l9pv.onrender.com/orders/all-users-and-orders"
         );
         const mappedData = response.data.map((data) => ({
           user_name: data.user_name,
