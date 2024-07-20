@@ -3,7 +3,7 @@ import axios from "axios";
 async function getTotalSalesAmount() {
   try {
     const response = await axios.get(
-      "https://open-book-back.onrender.com/orders/payments-and-orders"
+      "https://open-book-l9pv.onrender.com/orders/payments-and-orders"
     );
     return response.data.total_sales_amount;
   } catch (error) {
