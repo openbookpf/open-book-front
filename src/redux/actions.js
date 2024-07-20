@@ -56,7 +56,7 @@ export const fetchChartData = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "https://open-book-back.onrender.com/charts?name=sales"
+        "https://open-book-l9pv.onrender.com/charts?name=sales"
       );
       const data = response.data;
 
